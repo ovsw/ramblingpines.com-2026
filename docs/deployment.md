@@ -29,6 +29,10 @@ The first deployment creates a Sanity app. Add its printed app ID to
 `studio/.env.production` and commit the file. Later deployments then update the
 same hosted Studio from every checkout.
 
+The root command uses `pnpm --dir studio run deploy` to select the Studio's
+deployment script. Keep `run` in this command because `pnpm deploy` is pnpm's
+package deployment command, not the Studio script.
+
 ## Content goes live on publish
 
 The Website keeps the Sanity content of each page in its cache, and each
