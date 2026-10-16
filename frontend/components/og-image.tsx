@@ -55,50 +55,56 @@ export function OgImage({
             left: 0,
             width: "100%",
             height: "100%",
+            // Darken only the corners that hold text: the top for the logo,
+            // the bottom left for the heading. The photo stays clear elsewhere.
             backgroundImage:
-              "linear-gradient(90deg, rgba(0,0,0,0.85), rgba(0,0,0,0.15)), linear-gradient(0deg, rgba(0,0,0,0.5), transparent)",
+              "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 32%), linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0) 62%)",
           }}
         />
       ) : null}
-      <div
-        style={{
-          display: "flex",
-          position: "relative",
-          flexDirection: "column",
-          padding: "60px 80px",
-          width: "100%",
-        }}
-      >
-        <img
-          src={logo}
-          alt=""
-          width={300}
-          height={90}
-          style={{ objectFit: "contain", objectPosition: "left" }}
-        />
+      <img
+        src={logo}
+        alt=""
+        width={190}
+        height={147}
+        style={{ position: "absolute", top: 44, left: 64, objectFit: "contain" }}
+      />
+      {eyebrow ? (
+        // A solid brand tag keeps the name legible on any photo colour.
         <div
           style={{
             display: "flex",
-            marginTop: 55,
-            width: 760,
+            position: "absolute",
+            top: 56,
+            right: 64,
+            padding: "12px 24px",
+            borderRadius: 999,
+            border: "2px solid rgba(255,255,255,0.85)",
+            backgroundColor: brand.color,
             fontFamily: "Brand",
-            fontSize: fittedTitle.fontSize,
+            fontSize: 24,
             fontWeight: 600,
-            lineHeight: 1.1,
-          }}
-        >
-          {fittedTitle.text}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            marginTop: "auto",
-            fontFamily: "Brand",
-            fontSize: 20,
+            letterSpacing: "0.06em",
           }}
         >
           {eyebrow}
         </div>
+      ) : null}
+      <div
+        style={{
+          display: "flex",
+          position: "absolute",
+          left: 80,
+          bottom: 64,
+          width: 760,
+          fontFamily: "Brand",
+          fontSize: fittedTitle.fontSize,
+          fontWeight: 600,
+          lineHeight: 1.1,
+          textShadow: "0 2px 16px rgba(0,0,0,0.55)",
+        }}
+      >
+        {fittedTitle.text}
       </div>
     </div>
   );
