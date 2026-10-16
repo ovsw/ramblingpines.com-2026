@@ -39,8 +39,9 @@ const componentMap: Partial<{
 // Code owns irregular top edges. A section listed here overlaps the section
 // above it at a different-background join; the renderer must pass
 // `topTreatment` to `sectionSceneClassName`. The Starter registers none.
-const sectionEdgeTreatments: Partial<Record<Block["_type"], SectionEdgeTreatment>> =
-  {};
+const sectionEdgeTreatments: Partial<
+  Record<Block["_type"], SectionEdgeTreatment>
+> = {};
 
 export default function Blocks({
   blocks,
@@ -50,7 +51,7 @@ export default function Blocks({
 }: {
   blocks: Block[];
   documentId: string;
-  documentType?: "blogIndex" | "homePage" | "page";
+  documentType?: "homePage" | "page";
   perspective: LivePerspective;
   stega: boolean;
 }) {
@@ -144,8 +145,8 @@ function isRenderableBlock(block: Block) {
   if (block._type === "richTextBlock") {
     return Boolean(
       stegaClean(block.eyebrow)?.trim() ||
-        stegaClean(block.title)?.trim() ||
-        block.richText?.length,
+      stegaClean(block.title)?.trim() ||
+      block.richText?.length,
     );
   }
   if (block._type === "scaffold") return hasScaffoldContent(block);

@@ -1,18 +1,13 @@
 import {
   Files,
-  BookMarked,
-  FileText,
-  User,
   ListCollapse,
   Quote,
   Menu,
   Settings,
   Settings2,
   PanelBottom,
-  Tag,
   House,
   TrendingUpDown,
-  PanelRight,
 } from "lucide-react";
 import type { StructureResolver } from "sanity/structure";
 
@@ -27,7 +22,7 @@ export const structure: StructureResolver = (S) =>
           S.editor()
             .id("homePage")
             .schemaType("homePage")
-            .documentId("homePage")
+            .documentId("homePage"),
         ),
       S.divider(),
       S.listItem()
@@ -37,64 +32,7 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.documentTypeList("page")
             .title("Pages")
-            .defaultOrdering([{ field: "title", direction: "asc" }])
-        ),
-      S.listItem()
-        .title("Blog")
-        .icon(BookMarked)
-        .child(
-          S.list()
-            .title("Blog")
-            .items([
-              S.listItem()
-                .title("Blog Index")
-                .icon(BookMarked)
-                .child(
-                  S.editor()
-                    .id("blogIndex")
-                    .schemaType("blogIndex")
-                    .documentId("blogIndex")
-                ),
-              S.listItem()
-                .title("Blog Post Settings")
-                .icon(PanelRight)
-                .child(
-                  S.editor()
-                    .id("blogPostSettings")
-                    .schemaType("blogPostSettings")
-                    .documentId("blogPostSettings")
-                ),
-              S.divider(),
-              S.listItem()
-                .title("Blog Posts")
-                .icon(FileText)
-                .schemaType("post")
-                .child(
-                  S.documentTypeList("post")
-                    .title("Blog Posts")
-                    .defaultOrdering([
-                      { field: "_createdAt", direction: "desc" },
-                    ])
-                ),
-              S.listItem()
-                .title("Categories")
-                .icon(Tag)
-                .schemaType("category")
-                .child(
-                  S.documentTypeList("category")
-                    .title("Categories")
-                    .defaultOrdering([{ field: "title", direction: "asc" }])
-                ),
-              S.listItem()
-                .title("Authors")
-                .icon(User)
-                .schemaType("author")
-                .child(
-                  S.documentTypeList("author")
-                    .title("Authors")
-                    .defaultOrdering([{ field: "name", direction: "asc" }])
-                ),
-            ])
+            .defaultOrdering([{ field: "title", direction: "asc" }]),
         ),
       S.listItem()
         .title("FAQs")
@@ -103,7 +41,7 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.documentTypeList("faq")
             .title("FAQs")
-            .defaultOrdering([{ field: "title", direction: "asc" }])
+            .defaultOrdering([{ field: "title", direction: "asc" }]),
         ),
       S.listItem()
         .title("Testimonials")
@@ -112,7 +50,7 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.documentTypeList("testimonial")
             .title("Testimonials")
-            .defaultOrdering([{ field: "name", direction: "asc" }])
+            .defaultOrdering([{ field: "name", direction: "asc" }]),
         ),
       S.listItem()
         .title("Redirects")
@@ -121,7 +59,7 @@ export const structure: StructureResolver = (S) =>
         .child(
           S.documentTypeList("redirect")
             .title("Redirects")
-            .defaultOrdering([{ field: "source.current", direction: "asc" }])
+            .defaultOrdering([{ field: "source.current", direction: "asc" }]),
         ),
       S.divider(),
       S.listItem()
@@ -138,7 +76,7 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id("navigation")
                     .schemaType("navigation")
-                    .documentId("navigation")
+                    .documentId("navigation"),
                 ),
               S.listItem()
                 .title("Footer")
@@ -147,7 +85,7 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id("footer")
                     .schemaType("footer")
-                    .documentId("footer")
+                    .documentId("footer"),
                 ),
               S.listItem()
                 .title("Global Settings")
@@ -156,8 +94,8 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id("settings")
                     .schemaType("settings")
-                    .documentId("settings")
+                    .documentId("settings"),
                 ),
-            ])
+            ]),
         ),
     ]);

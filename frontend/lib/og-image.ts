@@ -1,13 +1,12 @@
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
 export const OG_IMAGE_VERSION = "1";
-export const POST_OG_IMAGE_VERSION = OG_IMAGE_VERSION;
 
 const MAX_SLUG_LENGTH = 200;
 const SIGNATURE_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 const SLUG_PATTERN = /^[A-Za-z0-9](?:[A-Za-z0-9/_-]*[A-Za-z0-9])?$/;
 
-type PostOgImageIdentity = {
+type SignaturePayload = {
   slug: string;
   revision: string;
   version?: string;
@@ -23,18 +22,8 @@ function signaturePayload({
   slug,
   revision,
   version = OG_IMAGE_VERSION,
-}: PostOgImageIdentity) {
+}: SignaturePayload) {
   return `${version}\n${slug}\n${revision}`;
-}
-
-export function createPostOgImageRevision({
-  publishedAt,
-  title,
-}: {
-  publishedAt: string;
-  title: string;
-}) {
-  return createOgImageRevision([title.trim(), publishedAt]);
 }
 
 export function createOgImageRevision(parts: string[]) {
@@ -53,22 +42,6 @@ export function isValidOgSlug(slug: string) {
   );
 }
 
-export const isValidPostOgSlug = isValidOgSlug;
-
-export function signPostOgImage(
-  identity: PostOgImageIdentity,
-  secret: string,
-) {
-  return signOgImage(
-    {
-      key: identity.slug,
-      revision: identity.revision,
-      version: identity.version,
-    },
-    secret,
-  );
-}
-
 export function signOgImage(identity: OgImageIdentity, secret: string) {
   return createHmac("sha256", secret)
     .update(
@@ -79,26 +52,6 @@ export function signOgImage(identity: OgImageIdentity, secret: string) {
       }),
     )
     .digest("base64url");
-}
-
-export function verifyPostOgImageSignature({
-  identity,
-  secret,
-  signature,
-}: {
-  identity: PostOgImageIdentity;
-  secret: string;
-  signature: string;
-}) {
-  return verifyOgImageSignature({
-    identity: {
-      key: identity.slug,
-      revision: identity.revision,
-      version: identity.version,
-    },
-    secret,
-    signature,
-  });
 }
 
 export function verifyOgImageSignature({
@@ -126,52 +79,7 @@ export function getOgImageSecret() {
   return secret;
 }
 
-export const getPostOgImageSecret = getOgImageSecret;
-
-export function buildPostOgImageUrl({
-  origin,
-  publishedAt,
-  slug,
-  title,
-  secret = getPostOgImageSecret(),
-}: {
-  origin: string;
-  publishedAt: string;
-  secret?: string;
-  slug: string;
-  title: string;
-}) {
-  if (!isValidPostOgSlug(slug)) {
-    throw new Error("Cannot build an OG image URL for an invalid post slug");
-  }
-
-  const encodedSlug = slug.split("/").map(encodeURIComponent).join("/");
-  const revision = createPostOgImageRevision({ publishedAt, title });
-  const url = new URL(`/api/og/post/${encodedSlug}`, origin);
-  url.searchParams.set("v", POST_OG_IMAGE_VERSION);
-  url.searchParams.set("rev", revision);
-  url.searchParams.set(
-    "sig",
-    signPostOgImage({ slug, revision }, secret),
-  );
-  return url.toString();
-}
-
-export function formatPostOgDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return null;
-
-  return new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "UTC",
-  })
-    .format(date)
-    .toUpperCase();
-}
-
-export function fitPostOgTitle(value: string) {
+export function fitOgTitle(value: string) {
   const title = value.trim();
   if (title.length <= 96) {
     return { text: title, fontSize: title.length > 76 ? 46 : 54 };

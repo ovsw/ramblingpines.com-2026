@@ -107,12 +107,7 @@ export const STARTER_DOCUMENT_TYPES = new Map([
   ["navigation", "navigation"],
   ["footer", "footer"],
   ["homePage", "homePage"],
-  ["blogIndex", "blogIndex"],
-  ["blogPostSettings", "blogPostSettings"],
   ["starter-page-about", "page"],
-  ["starter-author-editor", "author"],
-  ["starter-category-notes", "category"],
-  ["starter-post-field-guide", "post"],
   ["starter-faq-getting-started", "faq"],
   ["starter-team-member-editor", "teamMember"],
   ["starter-testimonial-reader", "testimonial"],
@@ -142,27 +137,6 @@ export const starterDocuments = [
         url: "https://example.com",
       },
     ],
-  },
-  {
-    _id: "starter-author-editor",
-    _type: "author",
-    ...marker,
-    name: "Example Editor",
-    slug: slug("example-editor"),
-    image: placeholder("avatar"),
-  },
-  {
-    _id: "starter-category-notes",
-    _type: "category",
-    ...marker,
-    title: "Field Notes",
-    slug: slug("field-notes"),
-    description:
-      "Short articles that test category archives and article metadata.",
-    meta: meta(
-      "Field Notes | Starter Example",
-      "Example category metadata for the Starter seed.",
-    ),
   },
   {
     _id: "starter-faq-getting-started",
@@ -266,69 +240,6 @@ export const starterDocuments = [
     ),
   },
   {
-    _id: "starter-post-field-guide",
-    _type: "post",
-    ...marker,
-    title: "Starter Field Guide",
-    slug: slug("starter-field-guide"),
-    excerpt: simpleText(
-      "starter-post-excerpt",
-      "A short neutral post that tests article lists, sidebars, and structured data.",
-    ),
-    author: ref("starter-author-editor"),
-    publishedAt: "2026-01-15T12:00:00.000Z",
-    image: { ...imageRef, caption: "Neutral placeholder image." },
-    category: ref("starter-category-notes"),
-    body: [
-      block(
-        "starter-post-intro",
-        "This article proves blog post rendering, author metadata, category links, and the sidebar.",
-      ),
-      block("starter-post-heading", "What it covers", "h2"),
-      block(
-        "starter-post-body",
-        "It is intentionally short so it can be deleted once real project content exists.",
-      ),
-    ],
-    meta: meta(
-      "Starter Field Guide | Starter Example",
-      "Example metadata for a seeded blog post.",
-    ),
-  },
-  {
-    _id: "blogPostSettings",
-    _type: "blogPostSettings",
-    ...marker,
-    title: "Need a next step?",
-    description:
-      "Use this shared panel to point readers toward a relevant action.",
-    actions: [
-      {
-        _key: "starter-sidebar-action",
-        _type: "blogPostSidebarAction",
-        title: "Explore the sample page",
-        description: "Confirms internal links from the blog sidebar.",
-        button: {
-          _type: "button",
-          text: "Open About",
-          url: internalUrl("starter-page-about"),
-        },
-      },
-    ],
-  },
-  {
-    _id: "blogIndex",
-    _type: "blogIndex",
-    ...marker,
-    title: "Blog",
-    description: "Example articles for testing the Starter blog.",
-    blocks: [],
-    meta: meta(
-      "Blog | Starter Example",
-      "Example metadata for the seeded Blog index.",
-    ),
-  },
-  {
     _id: "homePage",
     _type: "homePage",
     ...marker,
@@ -410,47 +321,16 @@ export const starterDocuments = [
           openInNewTab: false,
         },
       },
-      {
-        _key: "starter-nav-resources",
-        _type: "navigationGroup",
-        label: "Resources",
-        links: [
-          {
-            _key: "starter-nav-blog",
-            _type: "navigationChildLink",
-            label: "Blog",
-            description: "Article index",
-            destination: {
-              _type: "navigationDestination",
-              kind: "internal",
-              internal: ref("blogIndex"),
-              openInNewTab: false,
-            },
-          },
-          {
-            _key: "starter-nav-category",
-            _type: "navigationChildLink",
-            label: "Field Notes",
-            description: "Category archive",
-            destination: {
-              _type: "navigationDestination",
-              kind: "internal",
-              internal: ref("starter-category-notes"),
-              openInNewTab: false,
-            },
-          },
-        ],
-      },
     ],
     actions: [
       {
         _key: "starter-nav-action",
         _type: "navigationAction",
-        label: "Read guide",
+        label: "About",
         destination: {
           _type: "navigationDestination",
           kind: "internal",
-          internal: ref("starter-post-field-guide"),
+          internal: ref("starter-page-about"),
           openInNewTab: false,
         },
       },
@@ -475,17 +355,6 @@ export const starterDocuments = [
               _type: "footerDestination",
               kind: "internal",
               internal: ref("homePage"),
-              openInNewTab: false,
-            },
-          },
-          {
-            _key: "starter-footer-blog",
-            _type: "footerLink",
-            label: "Blog",
-            destination: {
-              _type: "footerDestination",
-              kind: "internal",
-              internal: ref("blogIndex"),
               openInNewTab: false,
             },
           },

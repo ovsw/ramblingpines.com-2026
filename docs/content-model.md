@@ -6,17 +6,14 @@ The Website reads structured content from one Sanity project and dataset.
 
 - `homePage` owns `/`.
 - `page` owns normal page slugs such as `/about/`.
-- `blogIndex` owns `/blog/`.
-- `post` owns `/blog/<slug>/`.
-- `category` owns `/blog/category/<slug>/`.
 - `redirect` maps an old path to routed content or an external URL.
 
 ## Shared content
 
-- `settings`, `navigation`, `footer`, and `blogPostSettings` are global documents.
-- `author`, `faq`, `teamMember`, and `testimonial` are reusable records.
+- `settings`, `navigation`, and `footer` are global documents.
+- `faq`, `teamMember`, and `testimonial` are reusable records.
 - Pages compose top-level sections through their `blocks` array.
-- `homePage`, `page`, and `blogIndex` also carry a `blocksArchive` array that
+- `homePage` and `page` also carry a `blocksArchive` array that
   accepts the same section types. Replaced Scaffolds move there. The Website
   reads only `blocks`.
 

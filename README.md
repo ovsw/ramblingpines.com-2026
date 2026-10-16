@@ -1,6 +1,15 @@
-# Next.js + Sanity Starter
+# Rambling Pines Day Camp
 
-A reusable marketing website with a Next.js frontend and a separate Sanity Studio.
+The Rambling Pines Day Camp Website uses Next.js and a separate Sanity Studio.
+
+Preview Website: https://ramblingpines-com-2026.vercel.app
+
+Hosted Studio: https://ramblingpines.sanity.studio
+
+Both apps use Sanity project `xl6qmxch`, dataset `production`. Vercel builds the
+`frontend` workspace and creates previews for GitHub pull requests. The
+`production` Sanity blueprint stack runs `auto-redirect` and `invalidate-tags`.
+The Website stays unindexed during the rebuild. The live camp domain is unchanged.
 
 ## Own your copy
 
@@ -97,7 +106,7 @@ The seed is manual. It never runs during install, setup, development, build, or 
 
 Seeding needs a Sanity write token in `SANITY_AUTH_TOKEN`, either in the shell or in `studio/.env.local`.
 
-The sample content creates global settings, navigation, footer, the homepage, a normal `/about/` page, Blog settings, authors, categories, a Blog Post, FAQ, Team Member, Testimonial, relevant SEO values, and every retained Page Builder section. The homepage shows one live Scaffold and the About page archives one, so a seeded dataset fails the launch check on purpose. Use it to confirm Website rendering and Studio editing, then remove it before adding real project content:
+The sample content creates global settings, navigation, footer, the homepage, a normal `/about/` page, FAQ, Team Member, Testimonial, relevant SEO values, and every retained Page Builder section. The homepage shows one live Scaffold and the About page archives one, so a seeded dataset fails the launch check on purpose. Use it to confirm Website rendering and Studio editing, then remove it before adding real project content:
 
 ```bash
 pnpm unseed
@@ -110,7 +119,7 @@ placeholder. Each project copy adds its own sections with
 `pnpm page-builder:new <name>`; see `docs/agents/page-builder.md` for
 generation, previews, registration, and the Scaffold workflow.
 
-Pages accept nested slugs such as `about/our-team`. Blog routes stay reserved.
+Pages accept nested slugs such as `about/our-team`.
 SEO sharing uses an editor-selected image when present, then a generated card.
 
 ## Workspace commands

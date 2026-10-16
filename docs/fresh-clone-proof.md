@@ -7,7 +7,7 @@ Run this once before publishing a new Starter revision. Use a new repository cre
 3. Run `pnpm run setup` with the new Sanity project, dataset, tokens, Studio hostname, site name, and URL.
 4. Run `pnpm seed`.
 5. Run `pnpm dev`. Open the Website and Studio.
-6. Confirm `/`, `/about/`, `/blog/`, and `/blog/starter-field-guide/` render the neutral seed.
+6. Confirm `/` and `/about/` render the neutral seed.
 7. In Presentation, edit a draft and confirm the Website preview updates without publishing it.
 8. Stop both development servers, then run `pnpm verify`.
 9. Run `pnpm unseed` and confirm only the marked Starter documents and asset were removed.

@@ -19,21 +19,23 @@ export async function uniqueRoutedSlug(
   const documentId = context.document?._id;
   const documentType = context.document?._type;
   if (!current || !documentId) return true;
-  if (documentType !== "page" && documentType !== "post") return true;
+  if (documentType !== "page") return true;
 
   const route = routedDocumentPath(documentType, current);
-  const hasValidSlug = documentType === "page"
-    ? pagePath(current) === `/${current}`
-    : isRouteSlug(current);
+  const hasValidSlug =
+    documentType === "page"
+      ? pagePath(current) === `/${current}`
+      : isRouteSlug(current);
   if (!hasValidSlug) {
     return documentType === "page"
       ? "Use slash-separated lowercase words, numbers, and single hyphens, with no leading or trailing slash"
       : "Use lowercase letters, numbers, and single hyphens only";
   }
 
-  const isReservedRoute = documentType === "page"
-    ? isReservedPagePath(route)
-    : isApplicationPath(route);
+  const isReservedRoute =
+    documentType === "page"
+      ? isReservedPagePath(route)
+      : isApplicationPath(route);
   if (isReservedRoute) {
     return `This slug is reserved by the Website route ${route}`;
   }

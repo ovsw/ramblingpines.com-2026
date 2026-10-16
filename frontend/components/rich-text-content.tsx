@@ -1,5 +1,4 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-// Shadcnblocks blogpost1: Typography prose, alert, and native table.
 import {
   PortableText,
   type PortableTextBlockComponent,

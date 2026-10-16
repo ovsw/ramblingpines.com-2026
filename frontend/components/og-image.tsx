@@ -1,6 +1,6 @@
-import { fitPostOgTitle } from "@/lib/post-og-image";
+import { fitOgTitle } from "@/lib/og-image";
 
-export function PostOgImage({
+export function OgImage({
   eyebrow,
   siteName,
   title,
@@ -9,7 +9,7 @@ export function PostOgImage({
   siteName: string;
   title: string;
 }) {
-  const fittedTitle = fitPostOgTitle(title);
+  const fittedTitle = fitOgTitle(title);
 
   return (
     <div

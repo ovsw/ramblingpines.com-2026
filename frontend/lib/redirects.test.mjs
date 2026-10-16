@@ -31,7 +31,12 @@ test("allows shared destinations, ignores inactive records, and deduplicates ret
     compileNextRedirects([
       { source: "/one", destination: "/target", permanent: true },
       { source: "/two", destination: "/target", permanent: true },
-      { source: "/off", destination: "/target", permanent: true, status: "inactive" },
+      {
+        source: "/off",
+        destination: "/target",
+        permanent: true,
+        status: "inactive",
+      },
       { source: "/one/", destination: "/target/", permanent: "true" },
     ]),
     [
@@ -78,7 +83,6 @@ test("rejects unsafe paths and application-owned sources", () => {
     "/bad\\source",
     "/old?preview=true",
     "/api/draft-mode/enable",
-    "/blog/2",
     "/contact/thanks",
   ]) {
     assert.throws(
@@ -88,7 +92,8 @@ test("rejects unsafe paths and application-owned sources", () => {
     );
   }
   assert.throws(
-    () => compileNextRedirects([{ source: "/source", destination: "/bad#target" }]),
+    () =>
+      compileNextRedirects([{ source: "/source", destination: "/bad#target" }]),
     /missing a valid internal/,
   );
 });

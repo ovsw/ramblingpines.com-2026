@@ -11,7 +11,6 @@ test("root content queries accept every surrounding-slash variant", () => {
 
   for (const sourceUrl of [
     new URL("./page.ts", import.meta.url),
-    new URL("./post.ts", import.meta.url),
     new URL("./og-image.ts", import.meta.url),
     new URL("../../../studio/presentation/resolve.ts", import.meta.url),
   ]) {

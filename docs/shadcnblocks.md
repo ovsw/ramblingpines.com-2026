@@ -6,7 +6,6 @@ The Page Builder section library is not listed here. The Starter ships only Rich
 
 | Website part                   | Shadcnblocks source                                       |
 | ------------------------------ | --------------------------------------------------------- |
-| Article cards                  | [blog1](https://www.shadcnblocks.com/block/blog1)         |
 | Page headings and article body | [blogpost1](https://www.shadcnblocks.com/block/blogpost1) |
 | Article actions                | [cta3](https://www.shadcnblocks.com/block/cta3)           |
 | Website navigation             | [navbar1](https://www.shadcnblocks.com/block/navbar1)     |

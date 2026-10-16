@@ -45,13 +45,7 @@ export default defineType({
       title: "Destination",
       type: "reference",
       description: "Select the published page visitors should reach.",
-      to: [
-        { type: "homePage" },
-        { type: "page" },
-        { type: "post" },
-        { type: "category" },
-        { type: "blogIndex" },
-      ],
+      to: [{ type: "homePage" }, { type: "page" }],
       validation: (Rule) =>
         Rule.required().custom(validateRedirectDestinationReference),
     }),
@@ -105,10 +99,7 @@ export default defineType({
       const destination =
         getPresentationPath(
           destinationType,
-          destinationSlug ??
-            (destinationId === "homePage" || destinationId === "blogIndex"
-              ? null
-              : undefined),
+          destinationSlug ?? (destinationId === "homePage" ? null : undefined),
         ) ?? legacyDestination;
 
       return {

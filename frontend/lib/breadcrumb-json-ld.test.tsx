@@ -12,8 +12,8 @@ describe("BreadcrumbJsonLd", () => {
       createBreadcrumbJsonLd(
         [
           { name: " Home ", path: "/" },
-          { name: " Blog ", path: "/blog/" },
-          { name: " Article ", path: "blog/article/" },
+          { name: " Programs ", path: "/programs/" },
+          { name: " Day Camp ", path: "programs/day-camp/" },
         ],
         "https://example.com/",
       ),
@@ -30,14 +30,14 @@ describe("BreadcrumbJsonLd", () => {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Blog",
-          item: "https://example.com/blog",
+          name: "Programs",
+          item: "https://example.com/programs",
         },
         {
           "@type": "ListItem",
           position: 3,
-          name: "Article",
-          item: "https://example.com/blog/article",
+          name: "Day Camp",
+          item: "https://example.com/programs/day-camp",
         },
       ],
     });
@@ -45,7 +45,10 @@ describe("BreadcrumbJsonLd", () => {
 
   it("returns null when the trail is too short", () => {
     expect(
-      createBreadcrumbJsonLd([{ name: "Home", path: "/" }], "https://example.com"),
+      createBreadcrumbJsonLd(
+        [{ name: "Home", path: "/" }],
+        "https://example.com",
+      ),
     ).toBeNull();
   });
 

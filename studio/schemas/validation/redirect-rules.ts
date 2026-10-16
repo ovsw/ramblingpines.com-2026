@@ -27,7 +27,7 @@ type RedirectValidationData = {
   redirects: RedirectRecord[];
 };
 
-const LIVE_SYSTEM_PATHS = new Set(["/", "/blog"]);
+const LIVE_SYSTEM_PATHS = new Set(["/"]);
 const MISSING_DESTINATION_ERROR =
   "Can't redirect to a non-existent or non-published page. " +
   "No published page with this slug exists. Please create one.";
@@ -45,9 +45,7 @@ export function readRedirectPath(value: RedirectRecord["source"]) {
 }
 
 function publishedDocumentId(documentId?: string) {
-  return documentId
-    ?.replace(/^drafts\./, "")
-    .replace(/^versions\.[^.]+\./, "");
+  return documentId?.replace(/^drafts\./, "").replace(/^versions\.[^.]+\./, "");
 }
 
 function resolveDestinationPath(
@@ -126,10 +124,7 @@ export function getRedirectValidationIssues({
     errors.destination = "Source and destination cannot be the same route";
   }
 
-  if (
-    source &&
-    isApplicationPath(source)
-  ) {
+  if (source && isApplicationPath(source)) {
     errors.source = "This source is reserved by an existing site route";
   }
 
@@ -152,7 +147,8 @@ export function getRedirectValidationIssues({
 
     const sourcesPointingHere = activeRedirects.filter(
       (redirect) =>
-        normalizeRedirectPath(readRedirectPath(redirect.destination)) === source,
+        normalizeRedirectPath(readRedirectPath(redirect.destination)) ===
+        source,
     );
     if (source && sourcesPointingHere.length > 0) {
       const incomingSources = Array.from(
@@ -179,10 +175,12 @@ export function getRedirectValidationIssues({
 
     const destinationIsSource = activeRedirects.find(
       (redirect) =>
-        normalizeRedirectPath(readRedirectPath(redirect.source)) === destination,
+        normalizeRedirectPath(readRedirectPath(redirect.source)) ===
+        destination,
     );
     if (destination && destinationIsSource) {
-      errors.destination = "This destination redirects again and would create a chain";
+      errors.destination =
+        "This destination redirects again and would create a chain";
     }
   }
 
@@ -208,8 +206,7 @@ function documentIds(documentId?: string) {
 // needs the same dataset-wide snapshot. Share one in-flight request between
 // them, keyed by the document revision so an edit still refetches.
 let validationDataCache:
-  | { key: string; promise: Promise<RedirectValidationData> }
-  | undefined;
+  { key: string; promise: Promise<RedirectValidationData> } | undefined;
 
 function fetchValidationData(context: ValidationContext) {
   const key = `${context.document?._id ?? ""}:${context.document?._rev ?? ""}`;
@@ -242,10 +239,10 @@ async function requestValidationData(context: ValidationContext) {
         permanent
       },
       "liveRoutes": *[
-        _type in ["page", "post", "category", "homePage", "blogIndex"] &&
+        _type in ["page", "homePage"] &&
         !(_id in path("drafts.**")) &&
         !(_id in path("versions.**")) &&
-        (_type in ["homePage", "blogIndex"] || defined(slug.current))
+        (_type in ["homePage"] || defined(slug.current))
       ]{
         _id,
         _type,

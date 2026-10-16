@@ -9,7 +9,9 @@ import { InlineObjectField } from "../../inputs/inline-object-field";
  *
  * Stored shape: { kind: "internal" | "external", internal?, external?, openInNewTab }.
  */
-export function defineDestinationType(name: "navigationDestination" | "footerDestination") {
+export function defineDestinationType(
+  name: "navigationDestination" | "footerDestination",
+) {
   return defineType({
     name,
     title: "Destination",
@@ -37,13 +39,7 @@ export function defineDestinationType(name: "navigationDestination" | "footerDes
         name: "internal",
         title: "Page",
         type: "reference",
-        to: [
-          { type: "homePage" },
-          { type: "page" },
-          { type: "post" },
-          { type: "category" },
-          { type: "blogIndex" },
-        ],
+        to: [{ type: "homePage" }, { type: "page" }],
         hidden: ({ parent }) => parent?.kind !== "internal",
         validation: (rule) =>
           rule.custom((value, context) =>

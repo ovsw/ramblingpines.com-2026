@@ -1,4 +1,3 @@
-import { getBlogPageTitle } from "@/lib/blog-index";
 import { siteName } from "@/lib/site-name";
 import {
   createOgImageResponse,
@@ -14,11 +13,9 @@ import {
   OG_IMAGE_VERSION,
   getOgImageSecret,
   verifyOgImageSignature,
-} from "@/lib/post-og-image";
+} from "@/lib/og-image";
 import { sanityFetchMetadata } from "@/sanity/lib/live";
 import {
-  BLOG_INDEX_OG_IMAGE_QUERY,
-  CATEGORY_OG_IMAGE_QUERY,
   HOME_PAGE_OG_IMAGE_QUERY,
   PAGE_OG_IMAGE_QUERY,
 } from "@/sanity/queries/og-image";
@@ -52,7 +49,9 @@ async function fetchTitle(
     const { data } = (await sanityFetchMetadata({
       query: HOME_PAGE_OG_IMAGE_QUERY,
       perspective: "published",
-    })) as { data: { overrideTitle?: string | null; title?: string | null } | null };
+    })) as {
+      data: { overrideTitle?: string | null; title?: string | null } | null;
+    };
     if (!data) return null;
 
     // The card headline follows the visible content title. The SEO override
@@ -66,12 +65,7 @@ async function fetchTitle(
     );
   }
 
-  const query =
-    target.kind === "blog"
-      ? BLOG_INDEX_OG_IMAGE_QUERY
-      : target.kind === "category"
-        ? CATEGORY_OG_IMAGE_QUERY
-        : PAGE_OG_IMAGE_QUERY;
+  const query = PAGE_OG_IMAGE_QUERY;
   const params = "slug" in target ? { slug: target.slug } : undefined;
   const { data } = (await sanityFetchMetadata({
     query,
@@ -81,9 +75,7 @@ async function fetchTitle(
 
   const title = data?.title && getPageOgImageTitle(data.title);
   if (!title) return null;
-  return target.kind === "blog" || target.kind === "category"
-    ? getBlogPageTitle(title, target.page || 1)
-    : title;
+  return title;
 }
 
 export async function GET(
@@ -111,7 +103,8 @@ export async function GET(
   }
 
   const title = await fetchTitle(target);
-  if (!title || createPageOgImageRevision(title) !== revision) return notFound();
+  if (!title || createPageOgImageRevision(title) !== revision)
+    return notFound();
 
   try {
     return await createOgImageResponse({

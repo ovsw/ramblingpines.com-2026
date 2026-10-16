@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-// Shadcnblocks blogpost1: centered heading and description group.
 export function PageHeading({
   title,
   description,
