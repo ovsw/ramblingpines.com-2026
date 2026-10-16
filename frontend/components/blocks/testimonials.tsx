@@ -1,3 +1,4 @@
+import QuoteScroller from "./quote-scroller";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
 import {
@@ -16,53 +17,50 @@ type TestimonialsProps = TestimonialsBlock & {
   dataAttribute?: (path: string) => string | undefined;
 } & SectionSceneProps;
 
-// The Page Builder excludes sections without content from visible adjacency.
-// Keep this rule aligned with the renderer's empty result below.
 export function hasTestimonialsContent(
   block: Pick<TestimonialsBlock, "quotes">,
 ) {
   return Boolean(block.quotes?.length);
 }
-
 export default function Testimonials({
   _key,
+  title,
+  description,
   quotes,
+  theme,
+  top = "outer",
   bottom = "outer",
   dataAttribute,
-  description,
-  theme,
-  title,
-  top = "outer",
 }: TestimonialsProps) {
   if (!hasTestimonialsContent({ quotes })) return null;
-
   const headingId = `testimonials-${stegaClean(_key)}-title`;
-
   return (
     <section
-      aria-labelledby={headingId}
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)} home-testimonials`}
+      aria-labelledby={title ? headingId : undefined}
       data-sanity={dataAttribute?.("theme")}
-      id={`testimonials-${stegaClean(_key)}`}
     >
       <div className="container">
-        <div className="mx-auto max-w-3xl">
-          <h2
-            className="text-3xl font-extrabold tracking-tight"
-            data-sanity={dataAttribute?.("title")}
-            id={headingId}
-          >
+        {title && (
+          <h2 id={headingId} data-sanity={dataAttribute?.("title")}>
             {title}
           </h2>
-          {stegaClean(description)?.trim() ? (
-            <p
-              className="mt-4 text-muted-foreground"
-              data-sanity={dataAttribute?.("description")}
+        )}
+        {description && (
+          <p data-sanity={dataAttribute?.("description")}>{description}</p>
+        )}
+        <QuoteScroller>
+          {quotes?.map((quote) => (
+            <figure
+              className="home-quote"
+              key={quote._key}
+              data-sanity={dataAttribute?.(`quotes[_key=="${quote._key}"]`)}
             >
-              {description}
-            </p>
-          ) : null}
-        </div>
+              <blockquote>{quote.quote}</blockquote>
+              <figcaption>~{quote.name}</figcaption>
+            </figure>
+          ))}
+        </QuoteScroller>
       </div>
     </section>
   );

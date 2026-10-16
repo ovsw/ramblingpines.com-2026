@@ -1,3 +1,5 @@
+import { HomeImage } from "./home-content";
+import { getSafeLinkHref } from "@/lib/safe-href";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
 import {
@@ -16,50 +18,72 @@ type ProgramsProps = ProgramsBlock & {
   dataAttribute?: (path: string) => string | undefined;
 } & SectionSceneProps;
 
-// The Page Builder excludes sections without content from visible adjacency.
-// Keep this rule aligned with the renderer's empty result below.
 export function hasProgramsContent(block: Pick<ProgramsBlock, "cards">) {
   return Boolean(block.cards?.length);
 }
-
 export default function Programs({
   _key,
+  title,
+  description,
   cards,
+  theme,
+  top = "outer",
   bottom = "outer",
   dataAttribute,
-  description,
-  theme,
-  title,
-  top = "outer",
 }: ProgramsProps) {
   if (!hasProgramsContent({ cards })) return null;
-
   const headingId = `programs-${stegaClean(_key)}-title`;
-
   return (
     <section
-      aria-labelledby={headingId}
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)} home-programs`}
+      aria-labelledby={title ? headingId : undefined}
       data-sanity={dataAttribute?.("theme")}
-      id={`programs-${stegaClean(_key)}`}
     >
-      <div className="container">
-        <div className="mx-auto max-w-3xl">
-          <h2
-            className="text-3xl font-extrabold tracking-tight"
-            data-sanity={dataAttribute?.("title")}
-            id={headingId}
-          >
-            {title}
-          </h2>
-          {stegaClean(description)?.trim() ? (
+      <div className="container home-split">
+        <div className="home-copy">
+          {title && (
+            <h2 id={headingId} data-sanity={dataAttribute?.("title")}>
+              {title}
+            </h2>
+          )}
+          {description && (
             <p
-              className="mt-4 text-muted-foreground"
+              className="whitespace-pre-line"
               data-sanity={dataAttribute?.("description")}
             >
               {description}
             </p>
-          ) : null}
+          )}
+        </div>
+        <div className="home-program-grid">
+          {cards?.map((card) => {
+            const href = getSafeLinkHref(card.href);
+            const content = (
+              <>
+                <span className="home-program-icon-circle">
+                  <HomeImage image={card.icon} icon />
+                </span>
+                <h3>{card.title}</h3>
+                <p>{card.ageRange}</p>
+              </>
+            );
+            return href ? (
+              <a
+                className="home-program-card"
+                key={card._key}
+                href={href}
+                target={card.openInNewTab ? "_blank" : undefined}
+                rel={card.openInNewTab ? "noopener noreferrer" : undefined}
+                data-sanity={dataAttribute?.(`cards[_key=="${card._key}"]`)}
+              >
+                {content}
+              </a>
+            ) : (
+              <div className="home-program-card" key={card._key}>
+                {content}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

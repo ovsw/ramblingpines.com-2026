@@ -70,3 +70,21 @@ specific content sections.
 For Ovi's later visual check use 1440 px desktop and 390 px phone widths.
 Inspect the header, open a menu group, close the alert and reload, open the
 phone drawer, expand a section menu, and inspect the footer and a missing URL.
+
+## Home page
+
+The home page renders its six imported Sanity sections. The hero uses the
+original art logo, Mux background playback and Mux poster. A local copy of the
+old poster covers a missing playback ID or failed poster load. Phones and
+reduced-motion sessions show the poster. A button pauses desktop playback.
+Transportation and lunch use the imported illustrations. Transportation's
+imported area paragraphs form county columns. Programs use the four imported
+SVG icons and card links. The imported card description lives in `ageRange`.
+The Programs schema has no section-level button, so its old Request Info
+button is not present. Lunch retains its Request Info body link.
+The location section shows the map and imported address. Testimonials use a
+scrollable row, with previous and next buttons and keyboard scrolling.
+The original yellow paper, white paper and testimonial background are local
+assets. Check the complete home page at 1440 px and 390 px. Ovi has not yet
+given a visual verdict. Mux playback and third-party map content are not
+part of the automated release tests.

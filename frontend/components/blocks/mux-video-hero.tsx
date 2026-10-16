@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { HomeButton } from "./home-content";
+import HeroVideo from "./hero-video";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
 import {
@@ -16,52 +19,57 @@ type MuxVideoHeroProps = MuxVideoHeroBlock & {
   dataAttribute?: (path: string) => string | undefined;
 } & SectionSceneProps;
 
-// The Page Builder excludes sections without content from visible adjacency.
-// Keep this rule aligned with the renderer's empty result below.
 export function hasMuxVideoHeroContent(
-  block: Pick<MuxVideoHeroBlock, "playbackId">,
+  block: Pick<MuxVideoHeroBlock, "heading" | "playbackId">,
 ) {
-  return Boolean(stegaClean(block.playbackId)?.trim());
+  return Boolean(
+    stegaClean(block.heading)?.trim() || stegaClean(block.playbackId)?.trim(),
+  );
 }
-
 export default function MuxVideoHero({
   _key,
+  heading,
+  intro,
   playbackId,
+  buttons,
+  theme,
+  top = "outer",
   bottom = "outer",
   dataAttribute,
-  description,
-  theme,
-  title,
-  top = "outer",
 }: MuxVideoHeroProps) {
-  if (!hasMuxVideoHeroContent({ playbackId })) return null;
-
-  const headingId = `mux-video-hero-${stegaClean(_key)}-title`;
-
+  if (!hasMuxVideoHeroContent({ heading, playbackId })) return null;
+  const headingId = `hero-${stegaClean(_key)}-title`;
   return (
     <section
-      aria-labelledby={headingId}
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)} home-hero`}
+      aria-labelledby={heading ? headingId : undefined}
       data-sanity={dataAttribute?.("theme")}
-      id={`mux-video-hero-${stegaClean(_key)}`}
     >
-      <div className="container">
-        <div className="mx-auto max-w-3xl">
-          <h2
-            className="text-3xl font-extrabold tracking-tight"
-            data-sanity={dataAttribute?.("title")}
-            id={headingId}
-          >
-            {title}
-          </h2>
-          {stegaClean(description)?.trim() ? (
-            <p
-              className="mt-4 text-muted-foreground"
-              data-sanity={dataAttribute?.("description")}
+      <HeroVideo playbackId={stegaClean(playbackId) || ""} />
+      <div className="container home-hero-content">
+        <Image
+          src="/images/home/rambling-pines-art-logo.png"
+          alt="Rambling Pines Day Camp"
+          width={480}
+          height={440}
+          priority
+          className="home-hero-logo"
+        />
+        {heading && (
+          <h1 id={headingId} data-sanity={dataAttribute?.("heading")}>
+            {heading}
+          </h1>
+        )}
+        {intro && <p data-sanity={dataAttribute?.("intro")}>{intro}</p>}
+        <div className="home-hero-buttons">
+          {buttons?.map((button, index) => (
+            <span
+              key={button._key}
+              data-sanity={dataAttribute?.(`buttons[_key=="${button._key}"]`)}
             >
-              {description}
-            </p>
-          ) : null}
+              <HomeButton {...button} accent={index === 1} />
+            </span>
+          ))}
         </div>
       </div>
     </section>

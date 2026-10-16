@@ -384,3 +384,72 @@
 }
 @media (min-width: 1280px) { .generic-page-banner { aspect-ratio: 16 / 7; } }
 @media (min-width: 1440px) { .generic-page-banner { aspect-ratio: 16 / 6; } }
+
+/* Home sections reproduce the old camp illustrations and paper textures. */
+.home-hero { min-height: 670px; display: grid; place-items: center; text-align: center; isolation: isolate; background: #4cb0af; }
+.home-video { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: top right; }
+.home-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.home-hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: #0005; }
+.home-hero-content { max-width: 1024px; }
+.home-hero-logo { width: min(380px, 70vw); height: auto; margin: 0 auto 1rem; }
+.home-hero h1 { color: white; font: 400 clamp(1.5rem, 3vw, 2rem)/1.4 var(--font-lato); text-transform: lowercase; text-shadow: 2px 2px 2px #0008; }
+.home-hero p { color: white; font-family: var(--font-dosis); margin: 0 0 2rem; text-shadow: 1px 1px 2px #0008; }
+.home-hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+.home-button { display: inline-block; background: var(--color-primary); color: white; padding: .7rem 1rem; border-radius: 2px; border-bottom: 3px solid var(--color-primary-dark); font-weight: 700; text-decoration: none; }
+.home-button:hover { background: var(--color-primary-dark); }
+.home-button-accent { color: var(--color-primary-dark); background: var(--color-accent); border-color: #c1aa1d; }
+.home-button-accent:hover { background: #ffff86; }
+.home-video-toggle { position: absolute; bottom: 1rem; right: 1rem; z-index: 2; background: #005354; color: white; padding: .35rem .7rem; font-size: .75rem; border-radius: 2px; }
+.home-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); gap: 3rem; max-width: 1200px; }
+.home-copy h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.2rem; }
+.home-copy p { margin-bottom: 1rem; font-size: .95rem; line-height: 1.55; }
+.home-copy .home-button { margin-top: 1rem; }
+.home-illustration { width: 100%; height: auto; max-height: 570px; object-fit: contain; }
+.home-transportation, .home-lunch { background: white; }
+.home-transportation::before, .home-lunch::before { content: ''; position: absolute; inset: -27px 0 auto; height: 28px; background: url('/images/shell/torn-bg-white-t.png') repeat-x bottom; }
+.home-areas { max-width: 1200px; margin-top: 2rem; }
+.home-areas h3 { font-size: 2.5rem; font-weight: 400; margin-bottom: 2rem; }
+.home-areas > div { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2rem; }
+.home-areas h4 { font-size: 1.35rem; font-weight: 400; }
+.home-areas ul { border-left: 2px solid var(--color-accent); padding-left: 1rem; margin-top: 1rem; font-size: .875rem; line-height: 2; }
+.home-programs { background: #fbf8ef url('/images/home/yellow-paper-bg.jpg'); }
+.home-programs::before { content: ''; position: absolute; inset: -1px 0 auto; height: 28px; background: url('/images/shell/torn-bg-white-b.png') repeat-x top; }
+.home-program-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.home-program-card { text-align: center; padding: 1rem; background: white url('/images/home/white-paper-bg2.jpg'); border-radius: 7px; box-shadow: 0 4px 12px #0001; transition: transform .15s ease-out; }
+.home-program-card:hover { transform: scale(1.03); }
+.home-program-icon-circle { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: var(--color-primary); border: 1px dashed white; margin: 0 auto; }
+.home-program-icon { width: 48px; height: 48px; object-fit: contain; }
+.home-program-card h3 { font-size: 2rem; font-weight: 400; margin: .5rem 0 1rem; }
+.home-program-card p { font-size: .875rem; line-height: 1.5; }
+.home-lunch .home-split { grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); }
+.home-lunch .home-art { grid-column: 1; grid-row: 1; padding-inline: 3rem; }
+.home-lunch .home-copy { grid-column: 2; }
+.home-lunch .home-copy a:not(.home-button) { display: inline-block; padding: .7rem 1rem; background: var(--color-accent); color: var(--color-primary-dark); text-decoration: none; border-bottom: 3px solid #c1aa1d; }
+.home-location { padding-bottom: 0; }
+.home-location-copy { display: flex; align-items: start; justify-content: space-between; gap: 2rem; padding-bottom: 2rem; }
+.home-location address { white-space: pre-line; font-style: normal; }
+.home-location iframe { display: block; width: 100%; height: 550px; border: 0; }
+.home-testimonials { background: white url('/images/home/img-bg-2.png') center bottom / cover; }
+.home-testimonials h2 { text-align: center; font-size: 3rem; margin-bottom: 1rem; }
+.home-quotes { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 2rem) / 3); gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-color: var(--color-primary) transparent; }
+.home-quote { scroll-snap-align: start; padding: 2rem 1.5rem; border-radius: 7px; background: var(--color-primary); color: white; }
+.home-quote blockquote { font-style: italic; line-height: 1.6; }
+.home-quote figcaption { color: var(--color-accent); margin-top: 1rem; font-family: var(--font-dosis); }
+.home-quote-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+.home-quote-controls button { background: var(--color-primary); color: white; border-radius: 3px; padding: .4rem .7rem; }
+@media (max-width: 1023px) { .home-quotes { grid-auto-columns: calc((100% - 1rem) / 2); } }
+@media (max-width: 768px) {
+ .home-hero { min-height: 580px; }
+ .home-split, .home-lunch .home-split { grid-template-columns: 1fr; gap: 2rem; }
+ .home-art { grid-row: auto; }
+ .home-lunch .home-copy { grid-column: 1; }
+ .home-lunch .home-art { padding-inline: 0; grid-row: auto; }
+ .home-areas > div { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .home-location-copy { display: block; }
+ .home-location-copy address { margin-top: 1rem; }
+}
+@media (max-width: 639px) {
+ .home-program-grid, .home-areas > div { grid-template-columns: 1fr; }
+ .home-quotes { grid-auto-columns: 100%; }
+ .home-quote-controls { flex-wrap: wrap; }
+}
