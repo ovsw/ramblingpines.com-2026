@@ -80,8 +80,8 @@ reduced-motion sessions show the poster. A button pauses desktop playback.
 Transportation and lunch use the imported illustrations. Transportation's
 imported area paragraphs form county columns. Programs use the four imported
 SVG icons and card links. The imported card description lives in `ageRange`.
-The Programs schema has no section-level button, so its old Request Info
-button is not present. Lunch retains its Request Info body link.
+The Programs schema has no section-level button, so the renderer supplies
+the old Request Info button in code. Lunch retains its Request Info body link.
 The location section shows the map and imported address. Testimonials use a
 scrollable row, with previous and next buttons and keyboard scrolling.
 The original yellow paper, white paper and testimonial background are local

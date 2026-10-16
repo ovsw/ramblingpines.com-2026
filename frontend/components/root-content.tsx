@@ -1,4 +1,8 @@
-import { SideNavigation } from "@/components/header/side-navigation";
+import {
+  fetchSideNavigationGroup,
+  type SideNavigationGroup,
+} from "@/components/header/side-navigation";
+import { SideNavigationMenu } from "@/components/header/side-navigation-menu";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { createDataAttribute, stegaClean } from "next-sanity";
@@ -13,16 +17,19 @@ import type { PAGE_QUERY_RESULT } from "@/sanity.types";
 function PageContent({
   page,
   perspective,
+  sideNavigation,
   stega,
 }: {
   page: NonNullable<PAGE_QUERY_RESULT>;
   perspective: DynamicFetchOptions["perspective"];
+  sideNavigation: SideNavigationGroup | null;
   stega: boolean;
 }) {
   const blocks = page.blocks ?? [];
-  const hasSideNavigation = Boolean(
-    page.section && stegaClean(page.section) !== "none",
-  );
+  // The sidebar layout depends on a resolved menu group, not on the raw
+  // section value, so an unmatched group never leaves content in the
+  // 240px column.
+  const hasSideNavigation = Boolean(sideNavigation);
   const banner = page.headerImage;
   const needsTitleHeader = stegaClean(page.title)?.trim();
   const rootDataAttribute = stega
@@ -75,13 +82,7 @@ function PageContent({
               : "generic-page-content container"
           }
         >
-          {hasSideNavigation && (
-            <SideNavigation
-              section={page.section}
-              perspective={perspective}
-              stega={stega}
-            />
-          )}
+          {sideNavigation && <SideNavigationMenu group={sideNavigation} />}
           <div className="generic-page-main min-w-0">
             {needsTitleHeader ? (
               <header className="mb-8">
@@ -114,7 +115,7 @@ function PageContent({
   );
 }
 
-export function RootContentView({
+export async function RootContentView({
   content,
   perspective,
   stega,
@@ -123,5 +124,17 @@ export function RootContentView({
   perspective: DynamicFetchOptions["perspective"];
   stega: boolean;
 }) {
-  return <PageContent page={content} perspective={perspective} stega={stega} />;
+  const sideNavigation = await fetchSideNavigationGroup({
+    section: content.section,
+    perspective,
+    stega,
+  });
+  return (
+    <PageContent
+      page={content}
+      perspective={perspective}
+      sideNavigation={sideNavigation}
+      stega={stega}
+    />
+  );
 }

@@ -457,7 +457,7 @@
 /* HubSpot raw HTML forms inherit the camp's page styles. */
 .hubspot-embed {
   font-family: var(--font-body);
-  color: var(--foreground);
+  color: var(--color-foreground);
 }
 .hubspot-embed iframe {
   width: 100%;
@@ -476,27 +476,27 @@
   max-width: 100%;
   width: 100%;
   padding: 0.65rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-border);
   border-radius: 0.25rem;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-foreground);
   font: inherit;
 }
 .hubspot-embed input:focus-visible,
 .hubspot-embed textarea:focus-visible,
 .hubspot-embed select:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--color-ring);
   outline-offset: 2px;
 }
 .hubspot-embed input[type="submit"] {
   padding: 0.75rem 1.5rem;
   border-radius: 0.25rem;
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
   font: inherit;
   cursor: pointer;
 }
 .hubspot-embed .hs-error-msgs,
 .hubspot-embed .hs_error_rollup {
-  color: var(--destructive);
+  color: var(--color-destructive);
 }

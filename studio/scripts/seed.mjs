@@ -213,7 +213,7 @@ export const starterDocuments = [
         _type: "video",
         theme: "light",
         title: "Example video",
-        url: "https://www.youtube.com/watch?v=example",
+        url: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
       },
       {
         _key: "example-location",

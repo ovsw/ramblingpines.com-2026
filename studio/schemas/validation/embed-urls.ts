@@ -1,13 +1,25 @@
+const youTubeHosts = ["youtube.com", "www.youtube.com", "m.youtube.com"];
+const youTubeIdPattern = /^[a-zA-Z0-9_-]{11}$/;
+
+/** Mirrors the video ID extraction in the frontend YouTube renderers. */
+function youTubeVideoId(url: URL) {
+  if (url.hostname === "youtu.be") return url.pathname.split("/")[1];
+  if (!youTubeHosts.includes(url.hostname)) return null;
+  if (url.pathname === "/watch") return url.searchParams.get("v");
+  if (/^\/(embed|shorts|live)\//.test(url.pathname))
+    return url.pathname.split("/")[2];
+  return null;
+}
+
 export function validateYouTubeUrl(value: unknown) {
   if (!value) return true;
   try {
     const url = new URL(String(value));
-    return url.protocol === "https:" &&
-      ["youtube.com", "www.youtube.com", "youtu.be", "m.youtube.com"].includes(
-        url.hostname,
-      )
+    if (url.protocol !== "https:") return "Use a YouTube HTTPS URL";
+    const id = youTubeVideoId(url);
+    return id && youTubeIdPattern.test(id)
       ? true
-      : "Use a YouTube HTTPS URL";
+      : "Use a YouTube video link, such as https://www.youtube.com/watch?v=VIDEO_ID";
   } catch {
     return "Use a YouTube HTTPS URL";
   }

@@ -5,7 +5,9 @@ import { RootContentView } from "./root-content";
 
 // Async server sections are outside this title-header test.
 vi.mock("@/components/blocks", () => ({ default: () => null }));
-vi.mock("@/components/header/side-navigation", () => ({ SideNavigation: () => null }));
+vi.mock("@/components/header/side-navigation", () => ({
+  fetchSideNavigationGroup: async () => null,
+}));
 
 const page = {
   _id: "page-1",
@@ -17,9 +19,13 @@ const page = {
 } as unknown as NonNullable<PAGE_QUERY_RESULT>;
 
 describe("RootContentView", () => {
-  it("renders the page title when no Hero provides the main heading", () => {
+  it("renders the page title when no Hero provides the main heading", async () => {
     render(
-      <RootContentView content={page} perspective="published" stega={false} />,
+      await RootContentView({
+        content: page,
+        perspective: "published",
+        stega: false,
+      }),
     );
 
     expect(

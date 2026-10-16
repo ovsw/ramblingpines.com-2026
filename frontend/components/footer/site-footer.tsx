@@ -16,7 +16,7 @@ export function SiteFooter({ dataAttribute, model }: {
     <div className="container">
       <div className="shell-footer-main">
         <section className="shell-footer-contact" aria-label="Camp contact details">
-          <h2><Link href="/" aria-label={`${model.brand.label} home page`}>{model.brand.label}</Link></h2>
+          <h2><Link href="/" aria-label={`${model.copyrightOwner} home page`}>{model.copyrightOwner}</Link></h2>
           {model.contact.phone && <p>Call Now <FooterLink link={model.contact.phone} /></p>}
           {model.contact.email && <p><FooterLink link={model.contact.email} /></p>}
           {model.contact.addressLines.length > 0 && <address>{model.contact.addressLines.map((line) => <div key={line}>{line}</div>)}</address>}

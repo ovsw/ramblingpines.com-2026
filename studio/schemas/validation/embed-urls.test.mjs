@@ -4,15 +4,20 @@ import { validateGoogleMap, validateYouTubeUrl } from "./embed-urls.ts";
 
 test("video URLs accept YouTube links and reject other sites or code", () => {
   for (const url of [
-    "https://youtu.be/abc",
-    "https://www.youtube.com/watch?v=abc",
+    "https://youtu.be/jNQXAC9IVRw",
+    "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+    "https://m.youtube.com/shorts/jNQXAC9IVRw",
+    "https://youtube.com/embed/jNQXAC9IVRw",
   ])
     assert.equal(validateYouTubeUrl(url), true);
   for (const url of [
-    "https://youtube.com.evil.example/watch?v=abc",
+    "https://youtube.com.evil.example/watch?v=jNQXAC9IVRw",
     "javascript:alert(1)",
     '<iframe src="https://youtube.com"></iframe>',
-    "http://youtube.com/watch?v=abc",
+    "http://youtube.com/watch?v=jNQXAC9IVRw",
+    "https://www.youtube.com/user/funsummers",
+    "https://youtu.be/abc",
+    "https://www.youtube.com/watch?v=abc",
   ])
     assert.notEqual(validateYouTubeUrl(url), true);
 });
