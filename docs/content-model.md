@@ -43,6 +43,10 @@ Pages add `headerImage` with required alt text and `section`. The section is
 Navigation group `label` values match these section names. `none` means no
 side navigation. The Starter `homePage` singleton continues to own `/`.
 
+A page whose only section is the interactive map renders full-bleed: no side
+navigation, no page container, no visible title, and the map fills the first
+screen below the header. The imported `/interactive-map/` page uses this.
+
 `settings.siteName` is the site title. Settings also hold `description`,
 `alertBar.enabled`, `alertBar.text`, `contact`, `socialLinks`, `campLinks`,
 `hubspotPortalId`, and `gtmContainerId`. Camp links are `enroll`, `parentLogin`,

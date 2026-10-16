@@ -39,6 +39,7 @@ export default function InteractiveMap({
   if (!hasInteractiveMapContent({ campusImage })) return null;
 
   const headingId = `interactive-map-${stegaClean(_key)}-title`;
+  const hasIntro = Boolean(title) || Boolean(stegaClean(description)?.trim());
 
   return (
     <section
@@ -47,8 +48,8 @@ export default function InteractiveMap({
       data-sanity={dataAttribute?.("theme")}
       id={`interactive-map-${stegaClean(_key)}`}
     >
-      <div className="container">
-        <div className="mx-auto max-w-3xl">
+      {hasIntro ? (
+        <div className="container mx-auto mb-6 max-w-3xl">
           {title ? (
           <h2
             className="text-3xl font-extrabold tracking-tight"
@@ -67,9 +68,10 @@ export default function InteractiveMap({
             </p>
           ) : null}
         </div>
-        <div data-sanity={dataAttribute?.("campusImage")} className="mt-6">
-          <CampusMap campusImage={campusImage} markers={markers} />
-        </div>
+      ) : null}
+      {/* The map frame spans its parent; the page layout decides the width. */}
+      <div data-sanity={dataAttribute?.("campusImage")}>
+        <CampusMap campusImage={campusImage} markers={markers} />
       </div>
     </section>
   );

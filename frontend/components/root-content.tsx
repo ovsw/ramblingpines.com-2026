@@ -14,6 +14,19 @@ import { dataset, projectId } from "@/sanity/lib/env";
 import type { DynamicFetchOptions } from "@/sanity/lib/live";
 import type { PAGE_QUERY_RESULT } from "@/sanity.types";
 
+type PageBlocks = NonNullable<NonNullable<PAGE_QUERY_RESULT>["blocks"]>;
+
+/**
+ * A page whose only section is the interactive map renders full-bleed: no
+ * side navigation, no page container, and no visible title. The map then
+ * fills the first screen edge to edge, like the old site's map page. An
+ * editor opts in by giving the page that single section; no layout field
+ * is needed.
+ */
+export function isFullBleedPage(blocks: PageBlocks) {
+  return blocks.length === 1 && blocks[0]._type === "interactiveMap";
+}
+
 function PageContent({
   page,
   perspective,
@@ -29,8 +42,9 @@ function PageContent({
   // The sidebar layout depends on a resolved menu group, not on the raw
   // section value, so an unmatched group never leaves content in the
   // 240px column.
-  const hasSideNavigation = Boolean(sideNavigation);
-  const banner = page.headerImage;
+  const fullBleed = isFullBleedPage(blocks);
+  const hasSideNavigation = Boolean(sideNavigation) && !fullBleed;
+  const banner = fullBleed ? null : page.headerImage;
   const needsTitleHeader = stegaClean(page.title)?.trim();
   const rootDataAttribute = stega
     ? (path: "description" | "title" | "headerImage") =>
@@ -72,6 +86,21 @@ function PageContent({
           />
         </div>
       ) : null}
+      {fullBleed ? (
+        <div className="generic-page-body generic-page-full-bleed">
+          {needsTitleHeader ? (
+            <h1 className="sr-only" data-sanity={rootDataAttribute?.("title")}>
+              {page.title}
+            </h1>
+          ) : null}
+          <Blocks
+            blocks={blocks}
+            documentId={page._id}
+            perspective={perspective}
+            stega={stega}
+          />
+        </div>
+      ) : (
       <div
         className={`generic-page-body${banner?.asset?.url ? " paper-edge-top" : ""}`}
       >
@@ -82,7 +111,9 @@ function PageContent({
               : "generic-page-content container"
           }
         >
-          {sideNavigation && <SideNavigationMenu group={sideNavigation} />}
+          {hasSideNavigation && sideNavigation && (
+            <SideNavigationMenu group={sideNavigation} />
+          )}
           <div className="generic-page-main min-w-0">
             {needsTitleHeader ? (
               <header className="mb-8">
@@ -111,6 +142,7 @@ function PageContent({
           </div>
         </div>
       </div>
+      )}
     </>
   );
 }
