@@ -1,0 +1,7 @@
+.camp-map-frame { position: relative; height: min(75dvh, 850px); min-height: 400px; isolation: isolate; }
+.camp-map, .camp-map-fallback { width: 100%; height: 100%; }
+.camp-map-fallback { position: absolute; inset: 0; object-fit: contain; }
+.camp-map { background: #fbf8ef; }
+.camp-map-marker { border-radius: 50%; background: #008080; border: 2px solid white; }
+.camp-map .leaflet-tooltip { font-family: inherit; color: #005354; cursor: pointer; }
+.camp-map .leaflet-marker-icon:focus-visible { outline: 3px solid #005354; outline-offset: 3px; }

@@ -16,8 +16,7 @@ const socialLink = defineType({
     defineField({
       name: "url",
       type: "url",
-      validation: (rule) =>
-        rule.required().uri({ scheme: ["http", "https"] }),
+      validation: (rule) => rule.required().uri({ scheme: ["http", "https"] }),
     }),
   ],
   preview: { select: { title: "label", subtitle: "url" } },
@@ -55,6 +54,57 @@ const settings = defineType({
     { name: "contact", title: "Contact" },
   ],
   fields: [
+    defineField({ name: "description", type: "text" }),
+    defineField({
+      name: "alertBar",
+      type: "object",
+      fields: [
+        defineField({ name: "enabled", type: "boolean" }),
+        defineField({ name: "text", type: "simpleRichText" }),
+      ],
+    }),
+    defineField({
+      name: "campLinks",
+      type: "object",
+      fields: [
+        defineField({
+          name: "enroll",
+          type: "url",
+          validation: (rule) => rule.uri({ scheme: ["https", "http"] }),
+        }),
+        defineField({
+          name: "parentLogin",
+          type: "url",
+          validation: (rule) => rule.uri({ scheme: ["https", "http"] }),
+        }),
+        defineField({
+          name: "staffApplication",
+          type: "url",
+          validation: (rule) => rule.uri({ scheme: ["https", "http"] }),
+        }),
+        defineField({
+          name: "store",
+          type: "url",
+          validation: (rule) => rule.uri({ scheme: ["https", "http"] }),
+        }),
+        defineField({
+          name: "tour",
+          type: "url",
+          validation: (rule) => rule.uri({ scheme: ["https", "http"] }),
+        }),
+      ],
+    }),
+    defineField({
+      name: "hubspotPortalId",
+      type: "string",
+      validation: (rule) => rule.regex(/^\d+$/, { name: "numeric portal ID" }),
+    }),
+    defineField({
+      name: "gtmContainerId",
+      type: "string",
+      validation: (rule) =>
+        rule.regex(/^GTM-[A-Z0-9]+$/, { name: "GTM container ID" }),
+    }),
     defineField({
       name: "siteName",
       title: "Site name",

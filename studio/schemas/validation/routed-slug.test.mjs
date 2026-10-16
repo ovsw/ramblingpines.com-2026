@@ -38,39 +38,40 @@ test("checks legacy surrounding-slash variants for route collisions", async () =
   let observed;
   await uniqueRoutedSlug(
     { current: "about" },
-    context(
-      { _id: "drafts.page-id", _type: "page" },
-      null,
-      (query, params) => {
-        observed = { query, params };
-      },
-    ),
+    context({ _id: "drafts.page-id", _type: "page" }, null, (query, params) => {
+      observed = { query, params };
+    }),
   );
 
   assert.match(observed.query, /slug\.current in \[\$slug, "\/" \+ \$slug/);
   assert.equal(observed.params.slug, "about");
 });
 
-test("accepts nested page slugs but rejects nested post slugs", async () => {
+test("accepts nested page slugs", async () => {
   const pageContext = context({ _id: "page-id", _type: "page" });
-  const postContext = context({ _id: "post-id", _type: "post" });
 
   assert.equal(
-    await uniqueRoutedSlug({ current: "staff/available-positions" }, pageContext),
+    await uniqueRoutedSlug(
+      { current: "staff/available-positions" },
+      pageContext,
+    ),
     true,
   );
-  assert.match(await uniqueRoutedSlug({ current: "nested/page" }, postContext), /lowercase/);
 });
 
 test("rejects malformed and application-owned slugs", async () => {
   const pageContext = context({ _id: "page-id", _type: "page" });
-  const postContext = context({ _id: "post-id", _type: "post" });
 
-  assert.match(await uniqueRoutedSlug({ current: "Blog" }, pageContext), /lowercase/);
-  assert.match(await uniqueRoutedSlug({ current: "/nested/page/" }, pageContext), /no leading or trailing slash/);
-  assert.match(await uniqueRoutedSlug({ current: "blog" }, pageContext), /reserved/);
-  assert.match(await uniqueRoutedSlug({ current: "blog/post" }, pageContext), /reserved/);
-  assert.match(await uniqueRoutedSlug({ current: "api" }, pageContext), /reserved/);
-  assert.match(await uniqueRoutedSlug({ current: "category" }, postContext), /reserved/);
-  assert.match(await uniqueRoutedSlug({ current: "2" }, postContext), /reserved/);
+  assert.match(
+    await uniqueRoutedSlug({ current: "Blog" }, pageContext),
+    /lowercase/,
+  );
+  assert.match(
+    await uniqueRoutedSlug({ current: "/nested/page/" }, pageContext),
+    /no leading or trailing slash/,
+  );
+  assert.match(
+    await uniqueRoutedSlug({ current: "api" }, pageContext),
+    /reserved/,
+  );
 });

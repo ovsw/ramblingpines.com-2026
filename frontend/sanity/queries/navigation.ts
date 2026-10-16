@@ -5,7 +5,6 @@ const destinationProjection = `{
   openInNewTab,
   "href": select(
     kind == "internal" => select(
-      internal->_id == "blogIndex" => "/blog",
       ${internalReferenceHref}
     ),
     kind == "external" => external
@@ -15,6 +14,7 @@ const destinationProjection = `{
 export const NAVIGATION_QUERY = defineQuery(`
   *[_type == "navigation" && _id == "navigation"][0]{
     _id,
+    topLinkColumns[]{_key, label, links[]{_key, label, destination${destinationProjection}}},
     items[]{
       _key,
       _type == "navigationLink" => {

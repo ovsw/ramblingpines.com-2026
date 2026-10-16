@@ -4,7 +4,6 @@ import {
   getDocumentSlug,
   getPresentationPath,
   isPresentationDocumentType,
-  resolveCategoryPath,
   resolveContentPath,
 } from "./routes.ts";
 import { resolve } from "./resolve.ts";
@@ -25,22 +24,6 @@ test("resolves a normal page slug to a canonical path", () => {
   );
 });
 
-test("resolves a normal post slug to a canonical path", () => {
-  assert.equal(getPresentationPath("post", "first-post"), "/blog/first-post");
-});
-
-test("resolves a category slug under the blog category namespace", () => {
-  assert.equal(
-    getPresentationPath("category", "categories"),
-    "/blog/category/categories",
-  );
-  assert.equal(resolveCategoryPath("/categories/"), "/blog/category/categories");
-});
-
-test("resolves the Blog Index singleton without an authored slug", () => {
-  assert.equal(getPresentationPath("blogIndex"), "/blog");
-});
-
 test("missing and empty slugs disable Presentation navigation", () => {
   assert.equal(getPresentationPath("page", undefined), null);
   assert.equal(getPresentationPath("page", ""), null);
@@ -59,9 +42,6 @@ test("an existing draft is authoritative when resolving its slug", () => {
 
 test("unsupported document types do not expose the action", () => {
   assert.equal(isPresentationDocumentType("page"), true);
-  assert.equal(isPresentationDocumentType("post"), true);
-  assert.equal(isPresentationDocumentType("category"), true);
-  assert.equal(isPresentationDocumentType("blogIndex"), true);
   assert.equal(isPresentationDocumentType("author"), false);
 });
 

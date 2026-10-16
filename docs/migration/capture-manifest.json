@@ -1,0 +1,695 @@
+{
+  "capturedOn": "2026-10-16",
+  "browser": "headless Google Chrome through repository Playwright CLI",
+  "purpose": "Old-site build input only; no visual verdict",
+  "viewportHeight": 900,
+  "fullPage": true,
+  "waitAfterLoadMs": 4000,
+  "note": "Full-page images include any old-site horizontal overflow; image width can exceed viewport width.",
+  "captures": [
+    {
+      "url": "https://www.ramblingpines.com/history/",
+      "file": "docs/migration/screenshots/history--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2618,
+      "bytes": 1797217,
+      "sha256": "5ee5a8a746befd816f399638aec1e674460cf279e37c0bb79781e5f29bd1a293"
+    },
+    {
+      "url": "https://www.ramblingpines.com/history/",
+      "file": "docs/migration/screenshots/history--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3070,
+      "bytes": 585020,
+      "sha256": "1e44a96d6c087d9c25d05222c7bb5f64bd4c993dca3773b9fd42fab939a143dd"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/clubs-and-electives/",
+      "file": "docs/migration/screenshots/activities__clubs-and-electives--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 7816,
+      "bytes": 2127634,
+      "sha256": "bcd932bfbe4c1d6ccf510fd7f756240cb646188923076b1e4b08ce4a23199af0"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/clubs-and-electives/",
+      "file": "docs/migration/screenshots/activities__clubs-and-electives--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 11421,
+      "bytes": 1281603,
+      "sha256": "1f553cd914920de75925d287fadf78731c0dd8b8fba26392cc242335390c93a6"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/",
+      "file": "docs/migration/screenshots/programs--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2304,
+      "bytes": 1736203,
+      "sha256": "763746b7b1468a3319d7154bd5de014f063b0603eabb2ed4d13afc2b553ed311"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/",
+      "file": "docs/migration/screenshots/programs--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2691,
+      "bytes": 378324,
+      "sha256": "e0ee3525f71afad8220d33f455bfe94d20a484ae83d92de3c3299a1dda62f6b5"
+    },
+    {
+      "url": "https://www.ramblingpines.com/summer-camp-tuition-assistance/",
+      "file": "docs/migration/screenshots/summer-camp-tuition-assistance--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2333,
+      "bytes": 1184739,
+      "sha256": "ee568ebc2c2fce27db82d6eca092779a34722bc99fca67793f704a0fd0306abc"
+    },
+    {
+      "url": "https://www.ramblingpines.com/summer-camp-tuition-assistance/",
+      "file": "docs/migration/screenshots/summer-camp-tuition-assistance--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2849,
+      "bytes": 357836,
+      "sha256": "c9b37a8f84a83a214b3a8b3c3af8430e65fb79e7c98f360d6b3b353a67f0d775"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/leader-in-training/",
+      "file": "docs/migration/screenshots/programs__leader-in-training--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3416,
+      "bytes": 1846933,
+      "sha256": "252ec44d97ebf07ba1681c902207ae97c2071f94c580bc4ebb6e95a9ba8cf9d2"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/leader-in-training/",
+      "file": "docs/migration/screenshots/programs__leader-in-training--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 4433,
+      "bytes": 575760,
+      "sha256": "070bc3c608a7c6da1147d2965579aacf8358561d2454d795ee04f187de9af5c3"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/day-camp/",
+      "file": "docs/migration/screenshots/programs__day-camp--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2526,
+      "bytes": 1086735,
+      "sha256": "6692dee1fa7e106ead6e3bc090085d30ccb3c320dbffdeaf4bc2131a314bcdc9"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/day-camp/",
+      "file": "docs/migration/screenshots/programs__day-camp--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2936,
+      "bytes": 372056,
+      "sha256": "2d1738b7e68a4bec2ea687b542447ceba3067804a6bbe76e568f9f57810915ae"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/learn-to-swim/",
+      "file": "docs/migration/screenshots/activities__learn-to-swim--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 4369,
+      "bytes": 1751879,
+      "sha256": "618cee714b58f51bd703a71ed075388daaf295fdc49a6ce8341d37cb3b856bec"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/learn-to-swim/",
+      "file": "docs/migration/screenshots/activities__learn-to-swim--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 5983,
+      "bytes": 670611,
+      "sha256": "f95d0dc4545f0fb9d6e6f7b49e21a3ebb30b23658a218bb250e6b24cf349ec9e"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/teen-camp/",
+      "file": "docs/migration/screenshots/programs__teen-camp--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2636,
+      "bytes": 1421912,
+      "sha256": "4b6b49a5f92ee473b39866504322804b8f90e56de964ec8f8b839fdd1f1fe55f"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/teen-camp/",
+      "file": "docs/migration/screenshots/programs__teen-camp--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3381,
+      "bytes": 464375,
+      "sha256": "118b998bfc929f6e35a5ce4810e87cc31dd24792c765396abda776ea1e6d58db"
+    },
+    {
+      "url": "https://www.ramblingpines.com/refer-a-family/",
+      "file": "docs/migration/screenshots/refer-a-family--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2822,
+      "bytes": 2531240,
+      "sha256": "106f947bdb832171ba0979df23952e13d411cfdce8a738bbbb3cf097cbda0337"
+    },
+    {
+      "url": "https://www.ramblingpines.com/refer-a-family/",
+      "file": "docs/migration/screenshots/refer-a-family--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2651,
+      "bytes": 539359,
+      "sha256": "c0db14b4c19f2e9c2817546e63f46b99015755705c20b4bdbfa8b2ef5f22578a"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/summer-dates/",
+      "file": "docs/migration/screenshots/staff__summer-dates--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2223,
+      "bytes": 1461927,
+      "sha256": "fa068e8eb3458a5335a5470371ada590ea0d2d838471b29ebff69fb89cd4ec41"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/summer-dates/",
+      "file": "docs/migration/screenshots/staff__summer-dates--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 1838,
+      "bytes": 314261,
+      "sha256": "03931549201b3ac01c56be1943578c52ab5b9201eb50d8cdcfc004f6ead21d72"
+    },
+    {
+      "url": "https://www.ramblingpines.com/location/",
+      "file": "docs/migration/screenshots/location--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2272,
+      "bytes": 1478567,
+      "sha256": "c79b8bbff0e10cd56d9e9d996f85c63ce0c881b48bb096c56a74952823527dea"
+    },
+    {
+      "url": "https://www.ramblingpines.com/location/",
+      "file": "docs/migration/screenshots/location--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 468,
+      "imageHeight": 2564,
+      "bytes": 382496,
+      "sha256": "33fd0719e2a74a69357e670635a4026e26f9de3b04c78f222c1c333e4817855c"
+    },
+    {
+      "url": "https://www.ramblingpines.com/directions/",
+      "file": "docs/migration/screenshots/directions--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2173,
+      "bytes": 1303620,
+      "sha256": "fc8c442be0c1844a4b8a1a37c0943365b8e12e025ff17f4b72f00d446ed1281c"
+    },
+    {
+      "url": "https://www.ramblingpines.com/directions/",
+      "file": "docs/migration/screenshots/directions--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2115,
+      "bytes": 327813,
+      "sha256": "f148b290f4742cadfe0349705652ee3bde04e5b20c02f7dc2b85afbe10a0c9a5"
+    },
+    {
+      "url": "https://www.ramblingpines.com/our-directors/",
+      "file": "docs/migration/screenshots/our-directors--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2800,
+      "bytes": 1752911,
+      "sha256": "196cde9bdb7755af6e669831de7215611d923b13ea64dd64a1f5b2989a8e3d87"
+    },
+    {
+      "url": "https://www.ramblingpines.com/our-directors/",
+      "file": "docs/migration/screenshots/our-directors--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2616,
+      "bytes": 487483,
+      "sha256": "16209b0cd476f060b7a6b4124b9ab58d3563ec911f01cc228d2a22b8d8b0a5da"
+    },
+    {
+      "url": "https://www.ramblingpines.com/transportation/",
+      "file": "docs/migration/screenshots/transportation--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2724,
+      "bytes": 1221515,
+      "sha256": "0b60508b0fc463637ccdf29949757dcece3c444bfbf9c537e4d28491d62e1b93"
+    },
+    {
+      "url": "https://www.ramblingpines.com/transportation/",
+      "file": "docs/migration/screenshots/transportation--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 468,
+      "imageHeight": 3162,
+      "bytes": 382092,
+      "sha256": "6f4dd98b20c660958057b93f829925379e25bff38332c6bd5490b9a6efa8b2cf"
+    },
+    {
+      "url": "https://www.ramblingpines.com/reviews/",
+      "file": "docs/migration/screenshots/reviews--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 4378,
+      "bytes": 1337449,
+      "sha256": "ca5df943e7a3339d15ae1b114c1cd0532ad1f84846ca57f582ae637f34537504"
+    },
+    {
+      "url": "https://www.ramblingpines.com/reviews/",
+      "file": "docs/migration/screenshots/reviews--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 8457,
+      "bytes": 385414,
+      "sha256": "8cf52f580087cd520a6c3b321b78dae810f33883ee8d9306ed9a930dd2d081c2"
+    },
+    {
+      "url": "https://www.ramblingpines.com/lunch-menu/",
+      "file": "docs/migration/screenshots/lunch-menu--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3469,
+      "bytes": 2175122,
+      "sha256": "d18a6e2c218e98be32356154b2b4466a5e2724c462afe1fddfea87da0d58c911"
+    },
+    {
+      "url": "https://www.ramblingpines.com/lunch-menu/",
+      "file": "docs/migration/screenshots/lunch-menu--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2382,
+      "bytes": 482061,
+      "sha256": "63017dff57a23a59e6df5b2bb99921723c512ebac7175abafa22480f12ff3e73"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/working-at-rambling-pines/",
+      "file": "docs/migration/screenshots/staff__working-at-rambling-pines--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2874,
+      "bytes": 1359040,
+      "sha256": "05c20858188f4e798f9c23560566779bfff68db313ca61e6c9a366428df05fda"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/working-at-rambling-pines/",
+      "file": "docs/migration/screenshots/staff__working-at-rambling-pines--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3206,
+      "bytes": 361406,
+      "sha256": "d3aa7defb8fc902b3cc735a0a82339d5c7b8f6dacd6c9afdf28722dbc9bdcee0"
+    },
+    {
+      "url": "https://www.ramblingpines.com/lunch/",
+      "file": "docs/migration/screenshots/lunch--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3716,
+      "bytes": 2279829,
+      "sha256": "a7838bb2df7a4579d609ee32387a508da33f1d14dd5fba73ff601c561683fcba"
+    },
+    {
+      "url": "https://www.ramblingpines.com/lunch/",
+      "file": "docs/migration/screenshots/lunch--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2824,
+      "bytes": 549233,
+      "sha256": "2bc97eb074afc5613a449383a21725af6070e10706b9d25e633e3a87f895ea5d"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/current-openings/",
+      "file": "docs/migration/screenshots/staff__current-openings--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3146,
+      "bytes": 1110580,
+      "sha256": "ad3101a36be5e883cbb75cece35a0c3ab01e6890d7b3013f51abc1a405665810"
+    },
+    {
+      "url": "https://www.ramblingpines.com/staff/current-openings/",
+      "file": "docs/migration/screenshots/staff__current-openings--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3338,
+      "bytes": 335072,
+      "sha256": "84c8e3730269816313b1f0faf994c04c77c473c1cac3a4b47e95a587fbd85045"
+    },
+    {
+      "url": "https://www.ramblingpines.com/privacy-policy/",
+      "file": "docs/migration/screenshots/privacy-policy--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 11250,
+      "bytes": 2938988,
+      "sha256": "b1246c0344c0e7816ea35fb12c37d3b81533dda110e312c0d20baca37db324f2"
+    },
+    {
+      "url": "https://www.ramblingpines.com/privacy-policy/",
+      "file": "docs/migration/screenshots/privacy-policy--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 17501,
+      "bytes": 1727412,
+      "sha256": "e7a69d182c56a37e151729eb11948f52872972f592915ed06327d48c2b6d9587"
+    },
+    {
+      "url": "https://www.ramblingpines.com/terms-and-conditions/",
+      "file": "docs/migration/screenshots/terms-and-conditions--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3939,
+      "bytes": 1382070,
+      "sha256": "a08d8a0c7e6e5d0bc381225d6f870f36a23b4d885a1561cdeb9770fd58af23df"
+    },
+    {
+      "url": "https://www.ramblingpines.com/terms-and-conditions/",
+      "file": "docs/migration/screenshots/terms-and-conditions--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 5397,
+      "bytes": 638367,
+      "sha256": "fde770476be1a0ee32849c14b033e37f120fdc8cacdc7c4ee1a86a75f918aa8a"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/calendar/",
+      "file": "docs/migration/screenshots/activities__calendar--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3416,
+      "bytes": 2407086,
+      "sha256": "2d5be4f532610e4221349b4aa9e6b90a707eb742ff564b40e8bab7d73f105b21"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/calendar/",
+      "file": "docs/migration/screenshots/activities__calendar--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2297,
+      "bytes": 508024,
+      "sha256": "97bb341dca9d8f5df8c61562f1b340d90c0fd148cfd0769ab2743c67889b1b08"
+    },
+    {
+      "url": "https://www.ramblingpines.com/faqs/",
+      "file": "docs/migration/screenshots/faqs--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 6229,
+      "bytes": 1789896,
+      "sha256": "655f3b7172fde4fea03ca53d8848b9d5eb911a5bf878443ab25043966de512f6"
+    },
+    {
+      "url": "https://www.ramblingpines.com/faqs/",
+      "file": "docs/migration/screenshots/faqs--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 9791,
+      "bytes": 1170289,
+      "sha256": "63db23643c208b4e6d2388d5b38ea8a33cc87c9da34a0542b7cdb06b8f7a36ce"
+    },
+    {
+      "url": "https://www.ramblingpines.com/our-staff/",
+      "file": "docs/migration/screenshots/our-staff--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2346,
+      "bytes": 1391142,
+      "sha256": "61c8505f705fba734c908e640ce799def933c46d5fdc9bcf5e072cf0d145e4eb"
+    },
+    {
+      "url": "https://www.ramblingpines.com/our-staff/",
+      "file": "docs/migration/screenshots/our-staff--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2813,
+      "bytes": 411027,
+      "sha256": "b7833dc851f860fa519e439603b878967f7e6eb71e59b90109a1bede4e649e27"
+    },
+    {
+      "url": "https://www.ramblingpines.com/message-from-our-directors/",
+      "file": "docs/migration/screenshots/message-from-our-directors--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2171,
+      "bytes": 1435639,
+      "sha256": "cb317a794ec49ff27bae3f716f84bede3640cec9333bd15b5ab1a95a83af486d"
+    },
+    {
+      "url": "https://www.ramblingpines.com/message-from-our-directors/",
+      "file": "docs/migration/screenshots/message-from-our-directors--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2543,
+      "bytes": 353874,
+      "sha256": "dce3d219e24fd31db81552c2cd12ec3bca583f7c3bb9f49b63f386bb37bfdda3"
+    },
+    {
+      "url": "https://www.ramblingpines.com/ada-compliance/",
+      "file": "docs/migration/screenshots/ada-compliance--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2891,
+      "bytes": 1627786,
+      "sha256": "8e018ed20074f09abcdbc31bc1f264b13f4f51da778eef085f7a981a94b5d7db"
+    },
+    {
+      "url": "https://www.ramblingpines.com/ada-compliance/",
+      "file": "docs/migration/screenshots/ada-compliance--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3728,
+      "bytes": 510957,
+      "sha256": "bb67977e4dad51017795df6150d691bf113b6a1a59733ddde6c714fe93a51c64"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/",
+      "file": "docs/migration/screenshots/activities--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3458,
+      "bytes": 1317910,
+      "sha256": "5e01f9f5d5b6bbf7d133c567fe4bc76c7df8f9892beaa4594b4629b3846e068e"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/",
+      "file": "docs/migration/screenshots/activities--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3623,
+      "bytes": 382399,
+      "sha256": "8813828c7d26f57d85e9f23175d2debd570c4fb8d5b9008967c4640d0d69be46"
+    },
+    {
+      "url": "https://www.ramblingpines.com/beforecare-aftercare/",
+      "file": "docs/migration/screenshots/beforecare-aftercare--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2275,
+      "bytes": 1217189,
+      "sha256": "0bef7fbf5a3d3c9403815e16cb130fa0afbf2ea6ab1d4bcb1c8a2b01194230d0"
+    },
+    {
+      "url": "https://www.ramblingpines.com/beforecare-aftercare/",
+      "file": "docs/migration/screenshots/beforecare-aftercare--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2322,
+      "bytes": 336504,
+      "sha256": "52614edf90f90ceb5357419226ade09441f3406625014ae7d3b43673e529d397"
+    },
+    {
+      "url": "https://www.ramblingpines.com/camp-extension-form/",
+      "file": "docs/migration/screenshots/camp-extension-form--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 1442,
+      "bytes": 407595,
+      "sha256": "9c75de162682f6d8d3a1ef398ef47489a67947a09b3c2a0c58d6b39006a2670b"
+    },
+    {
+      "url": "https://www.ramblingpines.com/camp-extension-form/",
+      "file": "docs/migration/screenshots/camp-extension-form--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 1358,
+      "bytes": 138779,
+      "sha256": "96d2961f71fec4dd3e7a8c52e06261d9e22e92af339cfeb1d6d8036606a9d1b6"
+    },
+    {
+      "url": "https://www.ramblingpines.com/aca-accreditation/",
+      "file": "docs/migration/screenshots/aca-accreditation--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3571,
+      "bytes": 1450841,
+      "sha256": "5e8d155b22d6189b2e4606c1ff697f0e24e535a44a333208a699393b09dd1c2a"
+    },
+    {
+      "url": "https://www.ramblingpines.com/aca-accreditation/",
+      "file": "docs/migration/screenshots/aca-accreditation--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 4893,
+      "bytes": 612079,
+      "sha256": "7aeb3daedc929d40574be0ed819837ede6b48fdb0e53da80aa55ab95e227a8f2"
+    },
+    {
+      "url": "https://www.ramblingpines.com/family-night/",
+      "file": "docs/migration/screenshots/family-night--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 1442,
+      "bytes": 405525,
+      "sha256": "87a0ebe0152041420ee715e553d03f170eed946fff677f8dcb6b7967a69868f8"
+    },
+    {
+      "url": "https://www.ramblingpines.com/family-night/",
+      "file": "docs/migration/screenshots/family-night--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 1358,
+      "bytes": 136402,
+      "sha256": "9e3a543fe4623a39924baed5a7d5408afb1c9e189cc8237099848edb8053fb96"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/pine-cone-camp/",
+      "file": "docs/migration/screenshots/programs__pine-cone-camp--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 3019,
+      "bytes": 1474693,
+      "sha256": "d409e87cea5f6e5f0d55eb22fe110bafd8a618410bee249da40fc0285f0c60a6"
+    },
+    {
+      "url": "https://www.ramblingpines.com/programs/pine-cone-camp/",
+      "file": "docs/migration/screenshots/programs__pine-cone-camp--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 3793,
+      "bytes": 468715,
+      "sha256": "62b3218002bd2cf3f67ce03f569c85e7a9e3c4a81fe638fc571494ce15d6e1d0"
+    },
+    {
+      "url": "https://www.ramblingpines.com/request-info/",
+      "file": "docs/migration/screenshots/request-info--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2317,
+      "bytes": 1024753,
+      "sha256": "a2fc4141866956ff1bf2cea11e8d4a8ff8a460b94dac3010f902c84e1915c05a"
+    },
+    {
+      "url": "https://www.ramblingpines.com/request-info/",
+      "file": "docs/migration/screenshots/request-info--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2291,
+      "bytes": 273690,
+      "sha256": "df64cb041e0150d48dd70a93a0a4a8a3bb8863576f8d8883e083f4a70fb8d0f2"
+    },
+    {
+      "url": "https://www.ramblingpines.com/returning-staff-form/",
+      "file": "docs/migration/screenshots/returning-staff-form--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2688,
+      "bytes": 1060721,
+      "sha256": "6ae7f3983c9a2c0300e3ecea4001f6b36f84c8c998263363e3354b29908cc121"
+    },
+    {
+      "url": "https://www.ramblingpines.com/returning-staff-form/",
+      "file": "docs/migration/screenshots/returning-staff-form--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2580,
+      "bytes": 306712,
+      "sha256": "495f241f77324507569063a41f4875c553403fd4284841e32f4c94652f64b4bc"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/special-events/",
+      "file": "docs/migration/screenshots/activities__special-events--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2223,
+      "bytes": 1425066,
+      "sha256": "1d96673399bd1284862b3464549a14389f4ea17dce8a7004c6078a58ae8e4c9f"
+    },
+    {
+      "url": "https://www.ramblingpines.com/activities/special-events/",
+      "file": "docs/migration/screenshots/activities__special-events--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 2158,
+      "bytes": 327716,
+      "sha256": "0890b7502d434205d0bde63c8b6abff5fa4b47016a5cb172af591ed5ab89a6b1"
+    },
+    {
+      "url": "https://www.ramblingpines.com/dates-and-rates/",
+      "file": "docs/migration/screenshots/dates-and-rates--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 2781,
+      "bytes": 1199235,
+      "sha256": "aee5b2857abb1ee67b6c693ad29aa246e15290b656fa194872e88a8aa06b126b"
+    },
+    {
+      "url": "https://www.ramblingpines.com/dates-and-rates/",
+      "file": "docs/migration/screenshots/dates-and-rates--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 457,
+      "imageHeight": 3767,
+      "bytes": 430668,
+      "sha256": "de369f8f562d9636ef01a2c0edc0d4129fb1e4cb408db252fd6cf3c6d8326823"
+    },
+    {
+      "url": "https://www.ramblingpines.com/",
+      "file": "docs/migration/screenshots/home--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 5317,
+      "bytes": 2856352,
+      "sha256": "aa32a4fde0035c1b3a4b39f8a5477d274cf4bd65751d2bcb630d2435149ef3fb"
+    },
+    {
+      "url": "https://www.ramblingpines.com/",
+      "file": "docs/migration/screenshots/home--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 8897,
+      "bytes": 1506814,
+      "sha256": "4c3a03c3aeb6d0fe15ccaa0a3976a090b10dfef2180a1ba0cf65bf0d79085bd3"
+    },
+    {
+      "url": "https://www.ramblingpines.com/interactive-map/",
+      "file": "docs/migration/screenshots/interactive-map--1440.png",
+      "viewportWidth": 1440,
+      "imageWidth": 1440,
+      "imageHeight": 1501,
+      "bytes": 1607946,
+      "sha256": "d7b8140d0008dbe9de6782c2126b88cea37ad680f82504f9492864e034ade5ab"
+    },
+    {
+      "url": "https://www.ramblingpines.com/interactive-map/",
+      "file": "docs/migration/screenshots/interactive-map--390.png",
+      "viewportWidth": 390,
+      "imageWidth": 390,
+      "imageHeight": 1674,
+      "bytes": 566757,
+      "sha256": "d58dd28598941fdb0a38c177205ef659d2b12424017cee0c14439ceb01503018"
+    }
+  ]
+}

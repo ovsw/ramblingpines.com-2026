@@ -1,5 +1,4 @@
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-// Shadcnblocks blogpost1: Typography prose, alert, and native table.
 import {
   PortableText,
   type PortableTextBlockComponent,
@@ -84,7 +83,22 @@ export const richTextContentComponents: PortableTextProps["components"] = {
     ),
   },
   marks: {
-    customLink: CustomLinkMarkRenderer,
+    customLink: (props) => {
+      // The old rich-text renderer opened absolute links in a new tab.
+      const href = getSafeLinkHref(props.value?.href);
+      return (
+        <CustomLinkMarkRenderer
+          {...props}
+          value={{
+            ...props.value,
+            _type: "customLink",
+            openInNewTab: Boolean(
+              href && /^(https?:|mailto:|tel:)/i.test(href),
+            ),
+          }}
+        />
+      );
+    },
     buttonLink: ({ children, value }) => {
       const href = getSafeLinkHref(value?.href);
       return href ? (
@@ -105,6 +119,73 @@ export const richTextContentComponents: PortableTextProps["components"] = {
     },
   },
   types: {
+    fileDownload: ({ value }) => {
+      const href = getSafeLinkHref(value.asset?.url);
+      if (!href) return null;
+      const size = value.asset?.size;
+      return (
+        <p className="my-6">
+          <a
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "h-auto max-w-full whitespace-normal no-underline",
+            )}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {value.description ||
+              value.asset.originalFilename ||
+              "Download file"}
+            {typeof size === "number" && size > 0 ? (
+              <span className="ml-2">
+                (
+                {size >= 1048576
+                  ? `${(size / 1048576).toFixed(1)} MB`
+                  : `${Math.ceil(size / 1024)} KB`}
+                )
+              </span>
+            ) : null}
+          </a>
+        </p>
+      );
+    },
+    youtube: ({ value }) => {
+      let id: string | null = null;
+      try {
+        const url = new URL(stegaClean(value.url));
+        if (url.protocol !== "https:") return null;
+        if (url.hostname === "youtu.be") id = url.pathname.split("/")[1];
+        else if (
+          ["youtube.com", "www.youtube.com", "m.youtube.com"].includes(
+            url.hostname,
+          )
+        ) {
+          id =
+            url.pathname === "/watch"
+              ? url.searchParams.get("v")
+              : /^\/(embed|shorts|live)\//.test(url.pathname)
+                ? url.pathname.split("/")[2]
+                : null;
+        }
+      } catch {
+        return null;
+      }
+      if (!id || !/^[a-zA-Z0-9_-]{11}$/.test(id)) return null;
+      return (
+        <div className="my-6 aspect-video">
+          <iframe
+            className="h-full w-full"
+            src={`https://www.youtube-nocookie.com/embed/${id}`}
+            title="YouTube video"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+          />
+        </div>
+      );
+    },
     image: ({ value }) => {
       const asset = value.resolvedAsset;
       if (!asset?.url) return null;
@@ -220,7 +301,7 @@ export default function RichTextContent({
   return (
     <div
       className={cn(
-        "prose max-w-none prose-headings:tracking-tight prose-a:text-foreground prose-p:text-muted-foreground prose-img:rounded-lg",
+        "prose max-w-none break-words prose-headings:text-primary prose-headings:tracking-normal prose-a:text-primary prose-p:text-muted-foreground",
         className,
       )}
       data-sanity={dataSanity}

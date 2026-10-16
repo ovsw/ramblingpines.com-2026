@@ -52,6 +52,9 @@ export type HeaderBrandModel = {
 export type HeaderModel = {
   brand: HeaderBrandModel;
   navigation: HeaderNavigationModel;
+  topLinkColumns?: Array<{ key: string; label: string; links: HeaderLinkModel[] }>;
+  contact?: { phone?: string | null; email?: string | null } | null;
+  alertBar?: NonNullable<SETTINGS_QUERY_RESULT>["alertBar"];
 };
 
 type RawDestination = { href?: string | null; openInNewTab?: boolean | null };

@@ -23,6 +23,7 @@ export type FooterModel = {
       height: number;
     } | null;
   };
+  acaLogo?: { src: string; alt: string } | null;
   intro: string | null;
   columns: FooterColumnModel[];
   contact: {
@@ -45,6 +46,9 @@ type RawLink = {
 
 export type RawFooter = {
   _id?: string | null;
+  contact?: NonNullable<RawFooterSettings>["contact"];
+  socialLinks?: NonNullable<RawFooterSettings>["socialLinks"];
+  acaLogo?: { alt?: string | null; asset?: { url?: string | null } | null } | null;
   intro?: string | null;
   columns?: Array<{
     _key?: string | null;
@@ -172,7 +176,7 @@ export function createFooterModel(
       ? [{ key, heading, links: columnLinks }]
       : [];
   });
-  const socialLinks = (settings.socialLinks ?? []).flatMap((item) => {
+  const socialLinks = (raw.socialLinks ?? settings.socialLinks ?? []).flatMap((item) => {
     const key = text(item?._key);
     const socialLabel = text(item?.label);
     const href = normalizeHref(item?.url);
@@ -180,7 +184,7 @@ export function createFooterModel(
       ? [{ key, label: socialLabel, href, openInNewTab: true }]
       : [];
   });
-  const addressLines = (settings.contact?.addressLines ?? []).flatMap((line) => {
+  const addressLines = (raw.contact?.addressLines ?? settings.contact?.addressLines ?? []).flatMap((line) => {
     const value = text(line);
     return value ? [value] : [];
   });
@@ -189,11 +193,12 @@ export function createFooterModel(
 
   return {
     brand: { label, image: logo(settings) },
+    acaLogo: raw.acaLogo?.asset?.url ? { src: raw.acaLogo.asset.url, alt: raw.acaLogo.alt || "American Camp Association logo" } : null,
     intro: text(raw.intro),
     columns,
     contact: {
-      email: contactLink("email", settings.contact?.email),
-      phone: contactLink("phone", settings.contact?.phone),
+      email: contactLink("email", raw.contact?.email ?? settings.contact?.email),
+      phone: contactLink("phone", raw.contact?.phone ?? settings.contact?.phone),
       addressLines,
     },
     socialLinks,

@@ -1,4 +1,5 @@
 import Blocks from "@/components/blocks";
+import { hasMuxVideoHeroContent } from "@/components/blocks/mux-video-hero";
 import VideoJsonLd from "@/components/video-json-ld";
 import WebsiteJsonLd from "@/components/website-json-ld";
 import { siteUrl } from "@/lib/site-url";
@@ -52,7 +53,11 @@ async function CachedIndexPage({ perspective, stega }: DynamicFetchOptions) {
     <>
       <WebsiteJsonLd siteUrl={siteUrl} />
       <VideoJsonLd content={page.blocks ?? []} />
-      {stegaClean(page.title)?.trim() ? (
+      {stegaClean(page.title)?.trim() &&
+      !page.blocks?.some(
+        (block) =>
+          block._type === "muxVideoHero" && hasMuxVideoHeroContent(block),
+      ) ? (
         <header>
           <h1>{page.title}</h1>
           {stegaClean(page.description)?.trim() ? (

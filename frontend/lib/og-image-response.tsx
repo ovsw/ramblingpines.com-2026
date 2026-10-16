@@ -1,4 +1,4 @@
-import { PostOgImage } from "@/components/post-og-image";
+import { OgImage } from "@/components/og-image";
 import { siteName } from "@/lib/site-name";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -28,7 +28,7 @@ export async function createOgImageResponse({
   const font = await sourceSerifSemibold;
 
   return new ImageResponse(
-    <PostOgImage eyebrow={eyebrow} siteName={siteName} title={title} />,
+    <OgImage eyebrow={eyebrow} siteName={siteName} title={title} />,
     {
       width: 1200,
       height: 630,
@@ -45,7 +45,10 @@ export async function createOgImageResponse({
   );
 }
 
-export function ogImageFallbackResponse(error: unknown, context: "Page" | "Post") {
+export function ogImageFallbackResponse(
+  error: unknown,
+  context: "Page" | "Post",
+) {
   console.error(`${context} OG image generation failed`, error);
   return new Response(null, {
     status: 302,

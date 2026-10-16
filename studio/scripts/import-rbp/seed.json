@@ -1,0 +1,375 @@
+{
+  "navigation": [
+    {
+      "title": "Future Families",
+      "slug": "/future-families/",
+      "children": [
+        {
+          "title": "column 1",
+          "children": [
+            {
+              "title": "Programs",
+              "slug": "/programs/",
+              "children": [
+                {
+                  "title": "Pine Cone Camp",
+                  "slug": "/programs/pine-cone-camp/",
+                  "children": []
+                },
+                {
+                  "title": "Day Camp",
+                  "slug": "/programs/day-camp/",
+                  "children": []
+                },
+                {
+                  "title": "Teen Camp",
+                  "slug": "/programs/teen-camp/",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "column 2",
+          "children": [
+            {
+              "title": "Activities",
+              "slug": "/activities/",
+              "children": [
+                {
+                  "title": "Clubs & Electives",
+                  "slug": "/activities/clubs-and-electives/",
+                  "children": []
+                },
+                {
+                  "title": "Learn to Swim",
+                  "slug": "/activities/learn-to-swim/",
+                  "children": []
+                },
+                {
+                  "title": "Calendar",
+                  "slug": "/activities/calendar/",
+                  "children": []
+                },
+                {
+                  "title": "Special Events",
+                  "slug": "/activities/special-events/",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "column 3",
+          "children": [
+            {
+              "title": "Transportation",
+              "slug": "/transportation/",
+              "children": []
+            },
+            {
+              "title": "Interactive Map",
+              "slug": "/interactive-map/",
+              "children": []
+            },
+            {
+              "title": "Lunch",
+              "slug": "/lunch/",
+              "children": []
+            },
+            {
+              "title": "Beforecare & Aftercare",
+              "slug": "/beforecare-aftercare/",
+              "children": []
+            },
+            {
+              "title": "FAQs",
+              "slug": "/faqs/",
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "column 4",
+          "children": [
+            {
+              "title": "Dates & Rates",
+              "slug": "/dates-and-rates/",
+              "children": []
+            },
+            {
+              "title": "Tuition Assistance",
+              "slug": "/summer-camp-tuition-assistance/",
+              "children": []
+            },
+            {
+              "title": "Reviews",
+              "slug": "/reviews/",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "About us",
+      "slug": "/about/",
+      "children": [
+        {
+          "title": "column 1",
+          "children": [
+            {
+              "title": "Message from Our Directors",
+              "slug": "/message-from-our-directors/",
+              "children": []
+            },
+            {
+              "title": "Our Directors",
+              "slug": "/our-directors/",
+              "children": []
+            },
+            {
+              "title": "Our Staff",
+              "slug": "/our-staff/",
+              "children": []
+            },
+            {
+              "title": "ACA Accreditation",
+              "slug": "/aca-accreditation/",
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "column 2",
+          "children": [
+            {
+              "title": "Interactive Map",
+              "slug": "/interactive-map/",
+              "children": []
+            },
+            {
+              "title": "History",
+              "slug": "/history/",
+              "children": []
+            },
+            {
+              "title": "Location",
+              "slug": "/location/",
+              "children": []
+            },
+            {
+              "title": "Directions",
+              "slug": "/directions/",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Current Families",
+      "slug": "/current-families/",
+      "children": [
+        {
+          "title": "column 1",
+          "children": [
+            {
+              "title": "Lunch Menu",
+              "slug": "/lunch/",
+              "children": []
+            },
+            {
+              "title": "Activity Calendar",
+              "slug": "/activities/calendar/",
+              "children": []
+            },
+            {
+              "title": "Camp Store",
+              "slug": "https://www.bunkline.com/category-s/602.htm",
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "column 2",
+          "children": [
+            {
+              "title": "Refer A Family",
+              "slug": "/refer-a-family/",
+              "children": []
+            },
+            {
+              "title": "Parent Login",
+              "slug": "https://ramblingpines.campintouch.com/v2/login/login.aspx",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Staff",
+      "slug": "/staff/",
+      "children": [
+        {
+          "title": "column 1",
+          "children": [
+            {
+              "title": "Working at Rambling Pines",
+              "slug": "/staff/working-at-rambling-pines/",
+              "children": []
+            },
+            {
+              "title": "Current Openings",
+              "slug": "/staff/current-openings/",
+              "children": []
+            },
+            {
+              "title": "Summer Dates",
+              "slug": "/staff/summer-dates/",
+              "children": []
+            },
+            {
+              "title": "Apply",
+              "slug": "https://ramblingpines.campintouch.com/ui/forms/application/staff/App",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "programs": [
+    {
+      "name": "Pine Cone Camp",
+      "icon": "pineCone",
+      "description": "Even the youngest children from grades Pre-K through 1st Grade can enjoy a great camp experience at Rambling Pines!",
+      "link": "/programs/pine-cone-camp/"
+    },
+    {
+      "name": "Day Camp",
+      "icon": "dayCamp",
+      "description": "Children grades 2nd to 8th get a truly memorable camp experience with the varied programs Rambling Pines has to offer.",
+      "link": "/programs/day-camp/"
+    },
+    {
+      "name": "Teen Camp",
+      "icon": "teenagers",
+      "description": "It’s not easy being a young teenager—too old for day camp, not quite old enough for a summer job. For campers in 7th through 9th Grade, the Teen Camp is the way to go!",
+      "link": "/programs/teen-camp/"
+    },
+    {
+      "name": "Work at Camp",
+      "icon": "leader",
+      "description": "Not a program but a job. Young adults entering 10th, 11th, or 12th Grade can enjoy working at camp. There's no better way to spend summer than making a difference for children.",
+      "link": "/staff/working-at-rambling-pines/"
+    }
+  ],
+  "quotes": [
+    {
+      "name": "Alex Reznik",
+      "text": "This is a Great Camp!! Our children have been going to Rambling Pines since they were in Kindergarten and our oldest is now a counselor. The Camp has wonderful owners and very friendly and helpful staff. Everyone is very attentive to the children. Driving into the camp, you see the children participating in so many various activities. There is something amazing about growing up with summers at Ramblings Pines, making great friends, and then working at the camp. Our boys have so many memories at Rambling Pines and they look forward to going back every Summer."
+    },
+    {
+      "name": "Kenneth Kim",
+      "text": "This is a Great Camp!! Our children have been going to Rambling Pines since they were in Kindergarten and our oldest is now a counselor. The Camp has wonderful owners and very friendly and helpful staff. Everyone is very attentive to the"
+    },
+    {
+      "name": "David Shapiro",
+      "text": "My daughter went to multiple camps in the Princeton/Pennington, area, and year after year enjoyed them, but was never fully satisfied. Then she went to Rambling Pines. The environment they provided for her was incredible! She loved it. It was the only camp she actually asked us to extended her time there for the following season. The Jordan family are committed to providing their campers a really fun and engaging time, with a lot of activities, in a very well maintained camp setting. 5 Star Ratings. I highly recommend. Thanks."
+    },
+    {
+      "name": "Ellana Sulla",
+      "text": "My Daughter started going to this camp 3 years ago. She was 6 years old was very hesitant because she didn’t know anyone.  The staff starting from the bus driver at pick up to the bus  counselor and camp counselor where amazing.   She camp home her first day and loved it.  Everyone there is warm accommodating and friendly.  You can see and feel they all love what they do. All the way up  to the owners.   What else can a parent want."
+    },
+    {
+      "name": "Amy O'Donnell",
+      "text": "My first grade daughter will be spending her 4th summer at Rambling Pines, and we couldn't be happier!  There are so many reasons that we love his camp: the bus service that picks her up at our door,  the awesome facilities (including 2 pools, mini golf, large indoor gym, arts room, horses etc.),  the very high staff to child ratio, the kind and creative staff, the yummy kid-oriented lunches and snacks, and so much more.  My daughter comes back every day with a smile on her face, ready to tell me all her adventures, and in my opinion that is what summer should be!"
+    },
+    {
+      "name": "Suzan Milman",
+      "text": "I find Rambling Pines to be a very nurturing and supportive environment for our children. I have always felt that my children are in safe and loving hands when they are at this camp. My three kids always come off the bus with a smile on their faces and some exciting story to share.  Even my most introverted child can’t wait to get back the very next day!"
+    },
+    {
+      "name": "Nicole Klein",
+      "text": "I'm in my 30's and remember my own fun summers at Rambling Pines. Both my children go there (3 & 7) and they absolutely love it.  They come home with huge smiles on their faces [...] The bus service is a huge bonus for me as the pick and and drop off door to door.  This camp is family run and a has great professional staff that keep parents aware of what is going on. I never had anything but good experiences with the enthusiastic councelors. I know my kids are safe there and the nurse is very attentive."
+    }
+  ],
+  "redirects": [
+    ["/about/", "/history/"],
+    ["/about/message-from-our-directors/", "/message-from-our-directors/"],
+    ["/about/staff/", "/our-staff/"],
+    ["/about/aca-accreditation/", "/aca-accreditation/"],
+    ["/about/reviews/", "/reviews/"],
+    ["/about/location/", "/location/"],
+    ["/about/contact-us/", "/request-info/"],
+    ["/program/", "/programs/"],
+    ["/program/pine-cone-camp/", "/programs/pine-cone-camp/"],
+    ["/program/day-camp/", "/programs/day-camp/"],
+    ["/program/teen-camp/", "/programs/teen-camp/"],
+    ["/program/leader-in-training/", "/programs/leader-in-training/"],
+    [
+      "/activities/clubs-and-electives/club-and-elective-descriptions/",
+      "/activities/clubs-and-electives/"
+    ],
+    ["/for-parents/early-enrollment/", "/dates-and-rates/"],
+    ["/for-parents/refer-a-family/", "/refer-a-family/"],
+    ["/for-parents/beforecare-aftercare/", "/beforecare-aftercare/"],
+    ["/for-parents/tuition-assistance/", "/summer-camp-tuition-assistance/"],
+    ["/for-parents/menu/", "/lunch-menu/"],
+    ["/for-parents/faqs/", "/faqs/"],
+    ["/employment/", "/staff/working-at-rambling-pines/"],
+    ["/for-parents/", "/programs/"]
+  ],
+  "location": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.6722610352667!2d-74.81360121506592!3d40.38622970060386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe31c708be75c4a05!2sRambling%20Pines%20Day%20Camp!5e1!3m2!1sen!2snp!4v1573723658901!5m2!1sen!2snp",
+  "transportationAreas": [
+    {
+      "county": "Mercer County:",
+      "towns": [
+        "Ewing",
+        "Hamilton",
+        "Hopewell",
+        "Lawrenceville",
+        "Pennington",
+        "Princeton",
+        "Robbinsville",
+        "Titusville",
+        "West Windsor"
+      ]
+    },
+    {
+      "county": "Somerset County:",
+      "towns": [
+        "Belle Mead",
+        "Branchburg",
+        "Hillsborough",
+        "Neshanic",
+        "Rocky Hill",
+        "Skillman"
+      ]
+    },
+    {
+      "county": "Hunterdon County:",
+      "towns": [
+        "East Amwell",
+        "Flemington",
+        "Lambertville",
+        "Readington",
+        "Sergeantsville",
+        "Stockton",
+        "West Amwell"
+      ]
+    },
+    {
+      "county": "Bucks County:",
+      "towns": ["New Hope", "Newtown", "Washington Crossing", "Yardley"]
+    },
+    {
+      "county": "Middlesex County:",
+      "towns": ["Kendall Park", "Plainsboro", "South Brunswick"]
+    }
+  ]
+}

@@ -91,6 +91,32 @@ export default defineType({
       },
       validation: (Rule) => Rule.required().custom(uniqueRoutedSlug),
     }),
+    defineField({
+      name: "headerImage",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+    defineField({
+      name: "section",
+      type: "string",
+      options: {
+        list: [
+          "Future Families",
+          "About Us",
+          "Current Families",
+          "Staff",
+          { title: "None", value: "none" },
+        ],
+      },
+      initialValue: "none",
+    }),
     blocksField,
     blocksArchiveField,
     meta,

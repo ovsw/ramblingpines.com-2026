@@ -52,36 +52,6 @@ test("creates a canonical permanent redirect for a page rename", () => {
   );
 });
 
-test("creates post and category redirects in their public namespaces", () => {
-  const post = planAutoRedirect({
-    event: {
-      beforeSlug: "old-post",
-      documentId: "post-id",
-      documentType: "post",
-      slug: "new-post",
-    },
-    liveRoutes: [],
-    redirects: [],
-  });
-  const category = planAutoRedirect({
-    event: {
-      beforeSlug: "old-category",
-      documentId: "category-id",
-      documentType: "category",
-      slug: "new-category",
-    },
-    liveRoutes: [],
-    redirects: [],
-  });
-
-  assert.equal(post.action, "apply");
-  assert.equal(post.source, "/blog/old-post");
-  assert.equal(post.destination, "/blog/new-post");
-  assert.equal(category.action, "apply");
-  assert.equal(category.source, "/blog/category/old-category");
-  assert.equal(category.destination, "/blog/category/new-category");
-});
-
 test("flattens incoming redirects after repeated renames", () => {
   assert.deepEqual(
     planAutoRedirect({
@@ -115,11 +85,15 @@ test("flattens incoming redirects after repeated renames", () => {
   );
 });
 
-test("rejects page renames into or out of the blog namespace", () => {
-  for (const [beforeSlug, slug] of [["about", "blog/post"], ["blog/post", "about"]]) {
+test("rejects page renames into or out of the application namespace", () => {
+  for (const [beforeSlug, slug] of [
+    ["about", "api/post"],
+    ["api/post", "about"],
+  ]) {
     const plan = planAutoRedirect({
       event: { beforeSlug, slug, documentId: "page-id", documentType: "page" },
-      liveRoutes: [], redirects: [],
+      liveRoutes: [],
+      redirects: [],
     });
     assert.equal(plan.action, "skip");
     assert.match(plan.reason, /reserved/);
@@ -320,7 +294,7 @@ test("blocks inactive-source conflicts, live routes, and redirect cycles", () =>
 test("rejects reserved, unsafe, unsupported, and first-publish events", () => {
   for (const event of [
     {
-      beforeSlug: "blog",
+      beforeSlug: "api",
       documentId: "page-id",
       documentType: "page",
       slug: "new",

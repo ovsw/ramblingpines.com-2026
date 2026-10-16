@@ -23,8 +23,7 @@ export default defineBlueprint({
       timeout: 30,
       event: {
         on: ["publish"],
-        filter:
-          '_type in ["page", "post", "category"] && delta::changedAny(slug.current)',
+        filter: '_type == "page" && delta::changedAny(slug.current)',
         projection: `{
           "documentId": after()._id,
           "documentType": after()._type,

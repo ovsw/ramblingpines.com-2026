@@ -9,7 +9,18 @@ import {
   type SectionEdgeTreatment,
 } from "@/components/blocks/section-boundaries";
 import Scaffold, { hasScaffoldContent } from "@/components/blocks/scaffold";
+import HubspotForm, { hasHubspotFormContent } from "@/components/blocks/hubspot-form";
+import Reviews, { hasReviewsContent } from "@/components/blocks/reviews";
+import Video, { hasVideoContent } from "@/components/blocks/video";
+import LocationMap, { hasLocationMapContent } from "@/components/blocks/location-map";
+import MuxVideoHero, { hasMuxVideoHeroContent } from "@/components/blocks/mux-video-hero";
+import Transportation, { hasTransportationContent } from "@/components/blocks/transportation";
+import Programs, { hasProgramsContent } from "@/components/blocks/programs";
+import Lunch, { hasLunchContent } from "@/components/blocks/lunch";
+import Testimonials, { hasTestimonialsContent } from "@/components/blocks/testimonials";
+import InteractiveMap, { hasInteractiveMapContent } from "@/components/blocks/interactive-map";
 // page-builder-generator:component-imports
+import { fetchSanitySettings } from "@/sanity/lib/fetch";
 import { dataset, projectId } from "@/sanity/lib/env";
 
 type Block =
@@ -23,6 +34,16 @@ type BlockEditingProps = {
 const serverFieldEditingBlockTypes = new Set<Block["_type"]>([
   "richTextBlock",
   "scaffold",
+  "hubspotForm",
+  "reviews",
+  "video",
+  "locationMap",
+  "muxVideoHero",
+  "transportation",
+  "programs",
+  "lunch",
+  "testimonials",
+  "interactiveMap",
   // page-builder-generator:editing-types
 ]);
 
@@ -33,27 +54,42 @@ const componentMap: Partial<{
 }> = {
   richTextBlock: RichTextBlock,
   scaffold: Scaffold,
+  hubspotForm: HubspotForm,
+  reviews: Reviews,
+  video: Video,
+  locationMap: LocationMap,
+  muxVideoHero: MuxVideoHero,
+  transportation: Transportation,
+  programs: Programs,
+  lunch: Lunch,
+  testimonials: Testimonials,
+  interactiveMap: InteractiveMap,
   // page-builder-generator:component-map
 };
 
 // Code owns irregular top edges. A section listed here overlaps the section
 // above it at a different-background join; the renderer must pass
 // `topTreatment` to `sectionSceneClassName`. The Starter registers none.
-const sectionEdgeTreatments: Partial<Record<Block["_type"], SectionEdgeTreatment>> =
-  {};
+const sectionEdgeTreatments: Partial<
+  Record<Block["_type"], SectionEdgeTreatment>
+> = {};
 
-export default function Blocks({
+export default async function Blocks({
   blocks,
   documentId,
   documentType = "page",
+  perspective,
   stega,
 }: {
   blocks: Block[];
   documentId: string;
-  documentType?: "blogIndex" | "homePage" | "page";
+  documentType?: "homePage" | "page";
   perspective: LivePerspective;
   stega: boolean;
 }) {
+  const settings = blocks.some((block) => block._type === "hubspotForm" && hasHubspotFormContent(block))
+    ? await fetchSanitySettings({ perspective, stega })
+    : null;
   const visibleSections = blocks.flatMap((block) => {
     if (!componentMap[block._type] || !isRenderableBlock(block)) return [];
     return [
@@ -118,7 +154,11 @@ export default function Blocks({
 
     return (
       <div data-sanity={dataSanity} key={block._key}>
-        <Component {...block} {...editingProps} {...boundary} />
+        {block._type === "hubspotForm" ? (
+          <HubspotForm {...block} {...editingProps} {...boundary} portalId={stegaClean(settings?.hubspotPortalId) ?? ""} />
+        ) : (
+          <Component {...block} {...editingProps} {...boundary} />
+        )}
       </div>
     );
   }
@@ -144,11 +184,21 @@ function isRenderableBlock(block: Block) {
   if (block._type === "richTextBlock") {
     return Boolean(
       stegaClean(block.eyebrow)?.trim() ||
-        stegaClean(block.title)?.trim() ||
-        block.richText?.length,
+      stegaClean(block.title)?.trim() ||
+      block.richText?.length,
     );
   }
   if (block._type === "scaffold") return hasScaffoldContent(block);
+  if (block._type === "hubspotForm") return hasHubspotFormContent(block);
+  if (block._type === "reviews") return hasReviewsContent(block);
+  if (block._type === "video") return hasVideoContent(block);
+  if (block._type === "locationMap") return hasLocationMapContent(block);
+  if (block._type === "muxVideoHero") return hasMuxVideoHeroContent(block);
+  if (block._type === "transportation") return hasTransportationContent(block);
+  if (block._type === "programs") return hasProgramsContent(block);
+  if (block._type === "lunch") return hasLunchContent(block);
+  if (block._type === "testimonials") return hasTestimonialsContent(block);
+  if (block._type === "interactiveMap") return hasInteractiveMapContent(block);
   // page-builder-generator:visible-blocks
   return true;
 }

@@ -1,8 +1,6 @@
+import mapMarker from "./schemas/documents/map-marker";
 // documents
 import page from "./schemas/documents/page";
-import post from "./schemas/documents/post";
-import author from "./schemas/documents/author";
-import category from "./schemas/documents/category";
 import faq from "./schemas/documents/faq";
 import testimonial from "./schemas/documents/testimonial";
 import navigation, {
@@ -10,8 +8,6 @@ import navigation, {
 } from "./schemas/documents/navigation";
 import settings, { settingsSchemaTypes } from "./schemas/documents/settings";
 import teamMember from "./schemas/documents/team-member";
-import blogIndex from "./schemas/documents/blog-index";
-import blogPostSettings from "./schemas/documents/blog-post-settings";
 import homePage from "./schemas/documents/home-page";
 import footer, { footerSchemaTypes } from "./schemas/documents/footer";
 import redirect from "./schemas/documents/redirect";
@@ -28,21 +24,25 @@ import button from "./schemas/blocks/shared/button";
 import buttonLink from "./schemas/blocks/shared/button-link";
 import richTextContent from "./schemas/blocks/shared/rich-text-content";
 import simpleRichText from "./schemas/blocks/shared/simple-rich-text";
-import {
-  blogPostSidebar,
-  blogPostSidebarAction,
-} from "./schemas/blocks/shared/blog-post-sidebar";
 // Schema UI objects
 import richTextBlock from "./schemas/blocks/rich-text-block";
 import scaffold from "./schemas/blocks/scaffold";
+import hubspotForm from "./schemas/blocks/hubspot-form";
+import reviews from "./schemas/blocks/reviews";
+import video from "./schemas/blocks/video";
+import locationMap from "./schemas/blocks/location-map";
+import muxVideoHero from "./schemas/blocks/mux-video-hero";
+import transportation from "./schemas/blocks/transportation";
+import programs from "./schemas/blocks/programs";
+import lunch from "./schemas/blocks/lunch";
+import testimonials from "./schemas/blocks/testimonials";
+import interactiveMap from "./schemas/blocks/interactive-map";
 // page-builder-generator:block-imports
 
 export const schemaTypes = [
   // documents
   page,
-  post,
-  author,
-  category,
+  mapMarker,
   faq,
   testimonial,
   navigation,
@@ -50,8 +50,6 @@ export const schemaTypes = [
   settings,
   ...settingsSchemaTypes,
   teamMember,
-  blogIndex,
-  blogPostSettings,
   homePage,
   footer,
   redirect,
@@ -68,10 +66,18 @@ export const schemaTypes = [
   buttonLink,
   richTextContent,
   simpleRichText,
-  blogPostSidebarAction,
-  blogPostSidebar,
   // blocks
   richTextBlock,
   scaffold,
+  hubspotForm,
+  reviews,
+  video,
+  locationMap,
+  muxVideoHero,
+  transportation,
+  programs,
+  lunch,
+  testimonials,
+  interactiveMap,
   // page-builder-generator:block-types
 ];

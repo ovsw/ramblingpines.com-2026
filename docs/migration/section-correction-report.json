@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-10-16T06:43:40.778Z",
+  "target": {
+    "project": "xl6qmxch",
+    "dataset": "production",
+    "environment": "studio/.env.local"
+  },
+  "backup": "/storage/backups/rbp/xl6qmxch-production-before-section-fix-2026-10-16.tar.gz",
+  "backupVerified": true,
+  "change": {
+    "field": "section",
+    "from": "No Section",
+    "to": "none"
+  },
+  "documents": [
+    {
+      "_id": "campExtensionForm",
+      "section": "none"
+    },
+    {
+      "_id": "drafts.seasonCancelledPage",
+      "section": "none"
+    },
+    {
+      "_id": "drafts.survey1",
+      "section": "none"
+    },
+    {
+      "_id": "drafts.survey2",
+      "section": "none"
+    },
+    {
+      "_id": "familyNightForm",
+      "section": "none"
+    },
+    {
+      "_id": "returningStaffForm",
+      "section": "none"
+    }
+  ],
+  "remainingLegacyValues": 0,
+  "notes": [
+    "Only the section field changed. Published and draft identities were preserved."
+  ]
+}

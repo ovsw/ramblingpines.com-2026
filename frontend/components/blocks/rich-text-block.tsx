@@ -1,4 +1,3 @@
-// Shadcnblocks blogpost1: centered prose body.
 import RichTextContent from "@/components/rich-text-content";
 import type { PAGE_QUERY_RESULT } from "@/sanity.types";
 import type { PortableTextProps } from "@portabletext/react";
@@ -40,39 +39,39 @@ export default function RichTextBlock({
 
   return (
     <section
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`rich-text-section ${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}`}
       data-sanity={dataAttribute?.("theme")}
       aria-labelledby={headingId}
     >
       <div className="container">
         <div className="mx-auto max-w-3xl">
-        {displayEyebrow || displayTitle ? (
-          <header className="mb-8 space-y-4">
-            {displayEyebrow ? (
-              <p
-                className="text-sm font-medium text-muted-foreground"
-                data-sanity={dataAttribute?.("eyebrow")}
-              >
-                {eyebrow}
-              </p>
-            ) : null}
-            {displayTitle ? (
-              <h2
-                className="text-3xl font-extrabold tracking-tight"
-                data-sanity={dataAttribute?.("title")}
-                id={headingId}
-              >
-                {title}
-              </h2>
-            ) : null}
-          </header>
-        ) : null}
-        {richText?.length ? (
-          <RichTextContent
-            dataSanity={dataAttribute?.("richText")}
-            value={richText as PortableTextProps["value"]}
-          />
-        ) : null}
+          {displayEyebrow || displayTitle ? (
+            <header className="mb-8 space-y-4">
+              {displayEyebrow ? (
+                <p
+                  className="text-sm font-medium text-muted-foreground"
+                  data-sanity={dataAttribute?.("eyebrow")}
+                >
+                  {eyebrow}
+                </p>
+              ) : null}
+              {displayTitle ? (
+                <h2
+                  className="text-3xl font-extrabold tracking-tight"
+                  data-sanity={dataAttribute?.("title")}
+                  id={headingId}
+                >
+                  {title}
+                </h2>
+              ) : null}
+            </header>
+          ) : null}
+          {richText?.length ? (
+            <RichTextContent
+              dataSanity={dataAttribute?.("richText")}
+              value={richText as PortableTextProps["value"]}
+            />
+          ) : null}
         </div>
       </div>
     </section>

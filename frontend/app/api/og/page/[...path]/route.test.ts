@@ -9,8 +9,8 @@ vi.mock("node:fs/promises", async (importOriginal) => ({
   ...(await importOriginal<typeof import("node:fs/promises")>()),
   readFile: vi.fn(async () => Buffer.from("asset")),
 }));
-vi.mock("@/components/post-og-image", () => ({
-  PostOgImage: vi.fn(() => null),
+vi.mock("@/components/og-image", () => ({
+  OgImage: vi.fn(() => null),
 }));
 vi.mock("next/og", () => ({
   ImageResponse: function MockImageResponse(
@@ -93,7 +93,9 @@ describe("page OG image route", () => {
 
   it("redirects render failures to the prebuilt local fallback", async () => {
     routeState.renderFails = true;
-    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleError = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     const response = await get(signedUrl());
 

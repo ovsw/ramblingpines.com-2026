@@ -36,7 +36,12 @@ const childLink = defineType({
         defineField({ name: "name", title: "Name", type: "string" }),
         // The icon's SVG markup, captured at pick time so the frontend can
         // render it without bundling the full Lucide icon set.
-        defineField({ name: "svg", title: "SVG markup", type: "string", hidden: true }),
+        defineField({
+          name: "svg",
+          title: "SVG markup",
+          type: "string",
+          hidden: true,
+        }),
       ],
       validation: (rule) =>
         rule.custom((value) => {
@@ -128,6 +133,11 @@ const navigation = defineType({
   type: "document",
   icon: Menu,
   fields: [
+    defineField({
+      name: "topLinkColumns",
+      type: "array",
+      of: [{ type: "navigationGroup" }],
+    }),
     defineField({
       name: "items",
       title: "Primary navigation",

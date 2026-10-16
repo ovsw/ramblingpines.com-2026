@@ -103,19 +103,24 @@ const meta = (title, description) => ({
 });
 
 export const STARTER_DOCUMENT_TYPES = new Map([
-  ["settings", "settings"],
+  ["siteSettings", "settings"],
   ["navigation", "navigation"],
   ["footer", "footer"],
   ["homePage", "homePage"],
-  ["blogIndex", "blogIndex"],
-  ["blogPostSettings", "blogPostSettings"],
   ["starter-page-about", "page"],
-  ["starter-author-editor", "author"],
-  ["starter-category-notes", "category"],
-  ["starter-post-field-guide", "post"],
   ["starter-faq-getting-started", "faq"],
   ["starter-team-member-editor", "teamMember"],
   ["starter-testimonial-reader", "testimonial"],
+]);
+
+// Optional samples left by the Starter before blog removal. Never seed these.
+const LEGACY_STARTER_DOCUMENT_TYPES = new Map([
+  ["settings", "settings"],
+  ["blogIndex", "blogIndex"],
+  ["blogPostSettings", "blogPostSettings"],
+  ["starter-author-editor", "author"],
+  ["starter-category-notes", "category"],
+  ["starter-post-field-guide", "post"],
 ]);
 
 const marker = {
@@ -124,7 +129,7 @@ const marker = {
 
 export const starterDocuments = [
   {
-    _id: "settings",
+    _id: "siteSettings",
     _type: "settings",
     ...marker,
     siteName: "Starter Example",
@@ -142,27 +147,6 @@ export const starterDocuments = [
         url: "https://example.com",
       },
     ],
-  },
-  {
-    _id: "starter-author-editor",
-    _type: "author",
-    ...marker,
-    name: "Example Editor",
-    slug: slug("example-editor"),
-    image: placeholder("avatar"),
-  },
-  {
-    _id: "starter-category-notes",
-    _type: "category",
-    ...marker,
-    title: "Field Notes",
-    slug: slug("field-notes"),
-    description:
-      "Short articles that test category archives and article metadata.",
-    meta: meta(
-      "Field Notes | Starter Example",
-      "Example category metadata for the Starter seed.",
-    ),
   },
   {
     _id: "starter-faq-getting-started",
@@ -210,6 +194,102 @@ export const starterDocuments = [
     description: "A neutral page used to test routed page rendering.",
     slug: slug("about"),
     blocks: [
+      {
+        _key: "example-form",
+        _type: "hubspotForm",
+        theme: "light",
+        title: "Example form",
+        formId: "00000000-0000-0000-0000-000000000000",
+      },
+      {
+        _key: "example-reviews",
+        _type: "reviews",
+        theme: "light",
+        title: "Example reviews",
+        widgetId: "example",
+      },
+      {
+        _key: "example-video",
+        _type: "video",
+        theme: "light",
+        title: "Example video",
+        url: "https://www.youtube.com/watch?v=jNQXAC9IVRw",
+      },
+      {
+        _key: "example-location",
+        _type: "locationMap",
+        theme: "light",
+        title: "Example location",
+        location: "Hopewell, New Jersey",
+        address: "Hopewell, New Jersey",
+      },
+      {
+        _key: "example-hero",
+        _type: "muxVideoHero",
+        theme: "light",
+        title: "Example hero",
+        playbackId: "example",
+        heading: "Example heading",
+        intro: "Replace this with camp content.",
+        buttons: [button("example-hero-link", "About", "starter-page-about")],
+      },
+      {
+        _key: "example-transportation",
+        _type: "transportation",
+        theme: "light",
+        title: "Example transportation",
+        body: simpleText(
+          "example-transportation-body",
+          "Replace this with transportation information.",
+        ),
+        image: imageRef,
+      },
+      {
+        _key: "example-programs",
+        _type: "programs",
+        theme: "light",
+        title: "Example programs",
+        cards: [1, 2, 3, 4].map((number) => ({
+          _key: `example-program-${number}`,
+          _type: "programCard",
+          title: `Program ${number}`,
+          ageRange: "Example age range",
+          icon: placeholder("square"),
+          link: internalUrl("starter-page-about"),
+        })),
+      },
+      {
+        _key: "example-lunch",
+        _type: "lunch",
+        theme: "light",
+        title: "Example lunch",
+        body: simpleText(
+          "example-lunch-body",
+          "Replace this with lunch information.",
+        ),
+        image: imageRef,
+      },
+      {
+        _key: "example-quotes",
+        _type: "testimonials",
+        theme: "light",
+        title: "Example testimonials",
+        quotes: [
+          {
+            _key: "example-quote",
+            _type: "quote",
+            quote: "Replace this with a camp testimonial.",
+            name: "Example name",
+          },
+        ],
+      },
+      {
+        _key: "example-map",
+        _type: "interactiveMap",
+        theme: "light",
+        title: "Example campus map",
+        campusImage: imageRef,
+      },
       {
         _key: "starter-page-rich-text",
         _type: "richTextBlock",
@@ -263,69 +343,6 @@ export const starterDocuments = [
     meta: meta(
       "About | Starter Example",
       "Example metadata for a normal seeded page.",
-    ),
-  },
-  {
-    _id: "starter-post-field-guide",
-    _type: "post",
-    ...marker,
-    title: "Starter Field Guide",
-    slug: slug("starter-field-guide"),
-    excerpt: simpleText(
-      "starter-post-excerpt",
-      "A short neutral post that tests article lists, sidebars, and structured data.",
-    ),
-    author: ref("starter-author-editor"),
-    publishedAt: "2026-01-15T12:00:00.000Z",
-    image: { ...imageRef, caption: "Neutral placeholder image." },
-    category: ref("starter-category-notes"),
-    body: [
-      block(
-        "starter-post-intro",
-        "This article proves blog post rendering, author metadata, category links, and the sidebar.",
-      ),
-      block("starter-post-heading", "What it covers", "h2"),
-      block(
-        "starter-post-body",
-        "It is intentionally short so it can be deleted once real project content exists.",
-      ),
-    ],
-    meta: meta(
-      "Starter Field Guide | Starter Example",
-      "Example metadata for a seeded blog post.",
-    ),
-  },
-  {
-    _id: "blogPostSettings",
-    _type: "blogPostSettings",
-    ...marker,
-    title: "Need a next step?",
-    description:
-      "Use this shared panel to point readers toward a relevant action.",
-    actions: [
-      {
-        _key: "starter-sidebar-action",
-        _type: "blogPostSidebarAction",
-        title: "Explore the sample page",
-        description: "Confirms internal links from the blog sidebar.",
-        button: {
-          _type: "button",
-          text: "Open About",
-          url: internalUrl("starter-page-about"),
-        },
-      },
-    ],
-  },
-  {
-    _id: "blogIndex",
-    _type: "blogIndex",
-    ...marker,
-    title: "Blog",
-    description: "Example articles for testing the Starter blog.",
-    blocks: [],
-    meta: meta(
-      "Blog | Starter Example",
-      "Example metadata for the seeded Blog index.",
     ),
   },
   {
@@ -410,47 +427,16 @@ export const starterDocuments = [
           openInNewTab: false,
         },
       },
-      {
-        _key: "starter-nav-resources",
-        _type: "navigationGroup",
-        label: "Resources",
-        links: [
-          {
-            _key: "starter-nav-blog",
-            _type: "navigationChildLink",
-            label: "Blog",
-            description: "Article index",
-            destination: {
-              _type: "navigationDestination",
-              kind: "internal",
-              internal: ref("blogIndex"),
-              openInNewTab: false,
-            },
-          },
-          {
-            _key: "starter-nav-category",
-            _type: "navigationChildLink",
-            label: "Field Notes",
-            description: "Category archive",
-            destination: {
-              _type: "navigationDestination",
-              kind: "internal",
-              internal: ref("starter-category-notes"),
-              openInNewTab: false,
-            },
-          },
-        ],
-      },
     ],
     actions: [
       {
         _key: "starter-nav-action",
         _type: "navigationAction",
-        label: "Read guide",
+        label: "About",
         destination: {
           _type: "navigationDestination",
           kind: "internal",
-          internal: ref("starter-post-field-guide"),
+          internal: ref("starter-page-about"),
           openInNewTab: false,
         },
       },
@@ -475,17 +461,6 @@ export const starterDocuments = [
               _type: "footerDestination",
               kind: "internal",
               internal: ref("homePage"),
-              openInNewTab: false,
-            },
-          },
-          {
-            _key: "starter-footer-blog",
-            _type: "footerLink",
-            label: "Blog",
-            destination: {
-              _type: "footerDestination",
-              kind: "internal",
-              internal: ref("blogIndex"),
               openInNewTab: false,
             },
           },
@@ -523,7 +498,9 @@ async function assertDatasetIsEmpty(client) {
 }
 
 function assertOwnedDocument(document) {
-  const expectedType = STARTER_DOCUMENT_TYPES.get(document?._id);
+  const expectedType =
+    STARTER_DOCUMENT_TYPES.get(document?._id) ??
+    LEGACY_STARTER_DOCUMENT_TYPES.get(document?._id);
   if (!expectedType || document._type !== expectedType) return false;
   return (
     document._starterSeed?.name === STARTER_SEED.name &&
@@ -533,7 +510,10 @@ function assertOwnedDocument(document) {
 
 async function getStarterDocuments(client) {
   return client.fetch("*[_id in $ids]{_id,_type,_starterSeed}", {
-    ids: [...STARTER_DOCUMENT_TYPES.keys()],
+    ids: [
+      ...STARTER_DOCUMENT_TYPES.keys(),
+      ...LEGACY_STARTER_DOCUMENT_TYPES.keys(),
+    ],
   });
 }
 
@@ -541,7 +521,8 @@ async function assertOwnedSeedSet(client) {
   const documents = await getStarterDocuments(client);
   const foundIds = new Set(documents.map((document) => document._id));
   const missing = [...STARTER_DOCUMENT_TYPES.keys()].filter(
-    (id) => !foundIds.has(id),
+    (id) =>
+      !foundIds.has(id) && !(id === "siteSettings" && foundIds.has("settings")),
   );
   if (missing.length) {
     throw new Error(
@@ -554,6 +535,10 @@ async function assertOwnedSeedSet(client) {
       `Unseed refused: these IDs are not marked as Starter seed content: ${unsafe.map((document) => document._id).join(", ")}.`,
     );
   }
+  return [
+    ...STARTER_DOCUMENT_TYPES.keys(),
+    ...LEGACY_STARTER_DOCUMENT_TYPES.keys(),
+  ].filter((id) => foundIds.has(id));
 }
 
 export async function seed(client) {
@@ -578,15 +563,15 @@ export async function seed(client) {
 }
 
 export async function unseed(client) {
-  await assertOwnedSeedSet(client);
+  const documentIds = await assertOwnedSeedSet(client);
   // Never delete replacement images uploaded by an editor.
   const assetIds = STARTER_ASSETS.map((asset) => asset.id);
   let transaction = client.transaction();
-  for (const id of [...STARTER_DOCUMENT_TYPES.keys(), ...assetIds]) {
+  for (const id of [...documentIds, ...assetIds]) {
     transaction = transaction.delete(id);
   }
   await transaction.commit();
-  return { documents: STARTER_DOCUMENT_TYPES.size, assets: assetIds.length };
+  return { documents: documentIds.length, assets: assetIds.length };
 }
 
 async function main() {

@@ -120,7 +120,7 @@ test("unseed refuses partial starter datasets", async () => {
 
   await assert.rejects(
     unseed(client),
-    /missing Starter seed documents: settings/,
+    /missing Starter seed documents: siteSettings/,
   );
   assert.equal(client.calls.commits.length, 0);
 });
@@ -157,7 +157,10 @@ test("seed archives one Scaffold and renders another", () => {
     about.blocksArchive.map((block) => block._type),
     ["scaffold"],
   );
-  assert.equal(about.blocks.some((block) => block._type === "scaffold"), false);
+  assert.equal(
+    about.blocks.some((block) => block._type === "scaffold"),
+    false,
+  );
   const home = starterDocuments.find((document) => document._id === "homePage");
   const scaffold = home.blocks.find((block) => block._type === "scaffold");
   assert.ok(scaffold.name);
@@ -175,4 +178,38 @@ test("homepage seed demonstrates a seam and a straight edge", () => {
   }));
   assert.ok(joins.some((join) => join.match));
   assert.ok(joins.some((join) => !join.match));
+});
+
+test("unseed removes old blog samples only when their type and ownership marker match", async () => {
+  const old = {
+    _id: "starter-post-field-guide",
+    _type: "post",
+    _starterSeed: { name: "next-sanity-starter", version: 1 },
+  };
+  const owned = createFakeClient({ documents: [...starterDocuments, old] });
+  await unseed(owned);
+  assert.ok(owned.calls.commits[0].some((op) => op.id === old._id));
+  for (const changed of [
+    { ...old, _starterSeed: undefined },
+    { ...old, _type: "page" },
+  ]) {
+    const unsafe = createFakeClient({
+      documents: [...starterDocuments, changed],
+    });
+    await assert.rejects(unseed(unsafe), /not marked as Starter seed content/);
+    assert.equal(unsafe.calls.commits.length, 0);
+  }
+});
+
+test("unseed accepts the marked original settings ID after singleton ID migration", async () => {
+  const documents = starterDocuments.map((d) =>
+    d._id === "siteSettings" ? { ...d, _id: "settings" } : d,
+  );
+  const client = createFakeClient({ documents });
+  await unseed(client);
+  assert.ok(client.calls.commits[0].some((op) => op.id === "settings"));
+  assert.equal(
+    client.calls.commits[0].some((op) => op.id === "siteSettings"),
+    false,
+  );
 });

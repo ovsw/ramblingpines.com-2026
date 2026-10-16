@@ -3,6 +3,16 @@ import { defineField } from "sanity";
 export const contentPageBuilderBlockTypes = [
   "richTextBlock",
   "scaffold",
+  "hubspotForm",
+  "reviews",
+  "video",
+  "locationMap",
+  "muxVideoHero",
+  "transportation",
+  "programs",
+  "lunch",
+  "testimonials",
+  "interactiveMap",
   // page-builder-generator:content-types
 ] as const;
 
@@ -30,6 +40,16 @@ type PageBuilderBlockType =
   | (typeof homePagePageBuilderBlockTypes)[number];
 
 const previewBlockTypes = new Set<string>([
+  "hubspotForm",
+  "reviews",
+  "video",
+  "locationMap",
+  "muxVideoHero",
+  "transportation",
+  "programs",
+  "lunch",
+  "testimonials",
+  "interactiveMap",
   // page-builder-generator:preview-types
 ]);
 

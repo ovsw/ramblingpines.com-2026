@@ -48,7 +48,7 @@ describe("SiteFooter", () => {
     const footer = screen.getByRole("contentinfo");
 
     expect(
-      within(footer).getByRole("link", { name: "Northline home page" }),
+      within(footer).getByRole("link", { name: "Northline Studio home page" }),
     ).toHaveAttribute("href", "/");
     expect(
       within(footer).getByRole("heading", { name: "Company" }),

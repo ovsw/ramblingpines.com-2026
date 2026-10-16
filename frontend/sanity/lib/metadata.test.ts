@@ -1,33 +1,7 @@
-import type {
-  BLOG_INDEX_QUERY_RESULT,
-  HOME_PAGE_QUERY_RESULT,
-  PAGE_QUERY_RESULT,
-  POST_QUERY_RESULT,
-} from "@/sanity.types";
-import type { CategoryArchive } from "@/sanity/queries/category";
+import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { describe, expect, it } from "vitest";
-import { verifyPostOgImageSignature } from "@/lib/post-og-image";
-import { verifyOgImageSignature } from "@/lib/post-og-image";
-import {
-  generateBlogIndexMetadata,
-  generateCategoryMetadata,
-  generatePageMetadata,
-} from "./metadata";
-
-const post = {
-  _id: "post-1",
-  _type: "post",
-  _updatedAt: "2026-08-15T12:00:00Z",
-  publishedAt: "2026-08-10T12:00:00Z",
-  slug: { _type: "slug", current: "market-trends" },
-  title: "Why Market Trends Change",
-  meta: {
-    title: "Market trends",
-    description: "A practical method rate explanation.",
-    image: null,
-    noindex: false,
-  },
-} as unknown as NonNullable<POST_QUERY_RESULT>;
+import { verifyOgImageSignature } from "@/lib/og-image";
+import { generatePageMetadata } from "./metadata";
 
 const page = {
   _id: "page-1",
@@ -54,72 +28,7 @@ const homePage = {
   },
 } as unknown as NonNullable<HOME_PAGE_QUERY_RESULT>;
 
-const blogIndex = {
-  _id: "blogIndex",
-  _type: "blogIndex",
-  title: "Insights Blog",
-  description: "Practical method guidance.",
-  meta: {
-    title: "Method Advice | Example Company",
-    description: "Practical method guidance.",
-    image: null,
-    noindex: false,
-  },
-} as unknown as NonNullable<BLOG_INDEX_QUERY_RESULT>;
-
-const category = {
-  _id: "category-1",
-  _type: "category",
-  title: "Categories",
-  slug: { current: "categories" },
-  description: "Compare service options.",
-  publishedPostCount: 4,
-  meta: {
-    title: "Resource Guides | Example Company",
-    description: "Compare service options.",
-    image: null,
-    noindex: false,
-  },
-} satisfies CategoryArchive;
-
 describe("generatePageMetadata", () => {
-  it("uses one signed generated card for post Open Graph and Twitter metadata", () => {
-    const metadata = generatePageMetadata({ page: post, path: "/blog/market-trends" });
-    const image = metadata.openGraph.images[0];
-    const url = new URL(image.url);
-
-    expect(metadata.openGraph.type).toBe("article");
-    expect(metadata.title).toBe("Market trends");
-    expect(metadata.openGraph.title).toBe(
-      "Market trends | Example Company",
-    );
-    expect(metadata.openGraph).toHaveProperty(
-      "publishedTime",
-      post.publishedAt,
-    );
-    expect(image).toMatchObject({
-      width: 1200,
-      height: 630,
-      alt: `${post.title} | Example Company`,
-    });
-    expect(metadata.twitter).toMatchObject({
-      card: "summary_large_image",
-      title: "Market trends | Example Company",
-      images: [image],
-    });
-    expect(
-      verifyPostOgImageSignature({
-        identity: {
-          slug: "market-trends",
-          revision: url.searchParams.get("rev") || "",
-          version: url.searchParams.get("v") || "",
-        },
-        secret: process.env.OG_IMAGE_SECRET || "",
-        signature: url.searchParams.get("sig") || "",
-      }),
-    ).toBe(true);
-  });
-
   it("uses a signed generated card for ordinary page Open Graph and Twitter metadata", () => {
     const metadata = generatePageMetadata({ page, path: "/about" });
     const image = metadata.openGraph.images[0];
@@ -165,9 +74,7 @@ describe("generatePageMetadata", () => {
     });
 
     expect(metadata.title).toBe("About");
-    expect(metadata.openGraph.title).toBe(
-      "About | Example Company",
-    );
+    expect(metadata.openGraph.title).toBe("About | Example Company");
   });
 
   it("prefers an editor-selected sharing image for Open Graph and Twitter", () => {
@@ -184,7 +91,10 @@ describe("generatePageMetadata", () => {
       },
     } as unknown as NonNullable<PAGE_QUERY_RESULT>;
 
-    const metadata = generatePageMetadata({ page: pageWithImage, path: "/about" });
+    const metadata = generatePageMetadata({
+      page: pageWithImage,
+      path: "/about",
+    });
     const image = {
       url: "https://cdn.sanity.io/images/project/production/social.jpg",
       width: 1600,
@@ -211,31 +121,5 @@ describe("generatePageMetadata", () => {
     expect(metadata.openGraph.images[0].alt).toBe(
       "Example Knowledge Base | Example Company",
     );
-  });
-});
-
-describe("generateBlogIndexMetadata", () => {
-  it("derives a unique branded title for pagination", () => {
-    const metadata = generateBlogIndexMetadata({ blogIndex, page: 2 });
-    const title = "Method Advice | Example Company - Page 2";
-
-    expect(metadata.title).toEqual({ absolute: title });
-    expect(metadata.openGraph.title).toBe(title);
-    expect(metadata.openGraph.images[0].alt).toBe(title);
-    expect(metadata.twitter.title).toBe(title);
-  });
-});
-
-describe("generateCategoryMetadata", () => {
-  it.each([
-    [1, "Resource Guides | Example Company"],
-    [2, "Resource Guides | Example Company - Page 2"],
-  ])("derives the category title for page %i", (pageNumber, pageTitle) => {
-    const metadata = generateCategoryMetadata({ category, page: pageNumber });
-
-    expect(metadata.title).toEqual({ absolute: pageTitle });
-    expect(metadata.openGraph.title).toBe(pageTitle);
-    expect(metadata.openGraph.images[0].alt).toBe(pageTitle);
-    expect(metadata.twitter.title).toBe(pageTitle);
   });
 });
