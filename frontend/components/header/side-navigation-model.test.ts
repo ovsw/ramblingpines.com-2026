@@ -15,3 +15,16 @@ describe("side navigation resolution", () => {
     expect(resolveSideNavigation("Staff", navigation)).toBeNull();
   });
 });
+
+describe("side navigation sub-links", () => {
+  it("keeps sub-links nested under their parent in the group model", () => {
+    const link = { href: "/programs", label: "Programs", openInNewTab: false };
+    const nested: HeaderNavigationModel = { actions: [], items: [{ key: "ff", kind: "group", label: "Future Families", links: [
+      { key: "programs", label: "Programs", description: null, icon: null, link, children: [
+        { key: "day", label: "Day Camp", link: { href: "/programs/day-camp", label: "Day Camp", openInNewTab: false } },
+      ] },
+    ] }] };
+    const group = resolveSideNavigation("Future Families", nested);
+    expect(group?.kind === "group" && group.links[0].children.map((s) => s.label)).toEqual(["Day Camp"]);
+  });
+});

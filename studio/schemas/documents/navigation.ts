@@ -8,6 +8,23 @@ import { isNavigationIconName } from "../inputs/lucide-icon-catalog";
 
 const destination = defineDestinationType("navigationDestination");
 
+const subLink = defineType({
+  name: "navigationSubLink",
+  title: "Sub-link",
+  type: "object",
+  icon: LinkIcon,
+  description: "A page that belongs under this link. The side navigation shows it indented under its parent.",
+  fields: [
+    defineField({
+      name: "label",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({ name: "destination", type: "navigationDestination" }),
+  ],
+  preview: { select: { title: "label" } },
+});
+
 const childLink = defineType({
   name: "navigationChildLink",
   title: "Rich navigation link",
@@ -57,6 +74,15 @@ const childLink = defineType({
         }),
     }),
     defineField({ name: "destination", type: "navigationDestination" }),
+    defineField({
+      name: "children",
+      title: "Sub-links",
+      type: "array",
+      description:
+        "Optional pages that sit under this link. The side navigation nests them with bullets; the header menu lists them after their parent.",
+      of: [defineArrayMember({ type: "navigationSubLink" })],
+      validation: (rule) => rule.unique(),
+    }),
   ],
   preview: {
     select: { icon: "icon.name", title: "label", subtitle: "description" },
@@ -162,6 +188,7 @@ const navigation = defineType({
 
 export const navigationSchemaTypes = [
   destination,
+  subLink,
   childLink,
   directLink,
   group,

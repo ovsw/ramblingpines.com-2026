@@ -35,7 +35,8 @@ export const NAVIGATION_QUERY = defineQuery(`
             defined(icon.name) => icon{ name, svg },
             defined(icon) => { "name": icon, "svg": null }
           ),
-          destination${destinationProjection}
+          destination${destinationProjection},
+          children[]{_key, label, destination${destinationProjection}}
         }
       }
     },

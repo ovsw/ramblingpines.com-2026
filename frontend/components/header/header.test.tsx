@@ -32,6 +32,7 @@ const model: HeaderModel = {
               label: "Strategy",
               openInNewTab: false,
             },
+            children: [],
           },
         ],
       },

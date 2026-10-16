@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   createHeaderBrandModel,
   createHeaderNavigationModel,
+  flattenGroupLinks,
 } from "./model";
 import { siteName } from "@/lib/site-name";
 
@@ -30,6 +31,10 @@ describe("createHeaderNavigationModel", () => {
               description: "Find the clearest path through a hard problem.",
               icon: { name: "shield-check", svg: testSvg },
               destination: { href: "/strategy", openInNewTab: false },
+              children: [
+                { _key: "audit", label: "Audit", destination: { href: "/strategy/audit", openInNewTab: false } },
+                { _key: "broken", label: "Broken", destination: null },
+              ],
             },
           ],
         },
@@ -69,6 +74,9 @@ describe("createHeaderNavigationModel", () => {
                 label: "Strategy",
                 openInNewTab: false,
               },
+              children: [
+                { key: "audit", label: "Audit", link: { href: "/strategy/audit", label: "Audit", openInNewTab: false } },
+              ],
             },
           ],
         },
@@ -117,5 +125,19 @@ describe("createHeaderNavigationModel", () => {
     expect(
       createHeaderBrandModel({ siteName: null, logo: null } as never),
     ).toEqual({ dark: null, label: siteName, light: null });
+  });
+});
+
+describe("flattenGroupLinks", () => {
+  it("lists each parent followed by its sub-links, flat", () => {
+    const link = { href: "/a", label: "A", openInNewTab: false };
+    const flat = flattenGroupLinks([
+      { key: "a", label: "A", description: null, icon: null, link, children: [
+        { key: "a1", label: "A1", link: { ...link, href: "/a/1" } },
+      ] },
+      { key: "b", label: "B", description: null, icon: null, link: { ...link, href: "/b" }, children: [] },
+    ]);
+    expect(flat.map((l) => l.key)).toEqual(["a", "a1", "b"]);
+    expect(flat[1]).toMatchObject({ label: "A1", link: { href: "/a/1" }, children: [] });
   });
 });
