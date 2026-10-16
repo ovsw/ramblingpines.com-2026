@@ -13,12 +13,27 @@ type Marker = NonNullable<InteractiveMapBlock["markers"]>[number];
 type Props = Pick<InteractiveMapBlock, "campusImage" | "markers">;
 
 export default function CampusMap({ campusImage, markers }: Props) {
+  const frame = useRef<HTMLDivElement>(null);
   const container = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
   const [ready, setReady] = useState(false);
   const [selected, setSelected] = useState<Marker | null>(null);
   const [photo, setPhoto] = useState(0);
   const url = campusImage?.asset?.url;
+
+  // The full-bleed map fills the viewport below the header. The header's
+  // height varies (alert bar, breakpoint), so measure it instead of guessing.
+  useEffect(() => {
+    const header = document.querySelector<HTMLElement>(".site-header");
+    const element = frame.current;
+    if (!header || !element) return;
+    const apply = () =>
+      element.style.setProperty("--site-header-height", `${header.offsetHeight}px`);
+    apply();
+    const observer = new ResizeObserver(apply);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!url || !container.current) return;
@@ -32,18 +47,33 @@ export default function CampusMap({ campusImage, markers }: Props) {
       // The imported markers use the old map's 1920 × 961 coordinate space.
       // Image replacements must keep that space, regardless of pixel resolution.
       const bounds = L.latLngBounds([0, 0], [961, 1920]);
-      map = L.map(element, {
+      // Like the old site: wheel zoom, drag, and pinch stay at Leaflet's
+      // defaults; there is no +/- control. The minimum zoom shows the whole
+      // campus in the frame, but never below the old site's -0.5, so labels
+      // stay readable on narrow screens and the visitor pans instead. The
+      // maximum is about native image size.
+      const leaflet = L.map(element, {
         crs: L.CRS.Simple,
-        minZoom: -4,
-        maxZoom: 1,
         zoomSnap: 0.1,
-        scrollWheelZoom: false,
+        zoomControl: false,
+        attributionControl: false,
         maxBounds: bounds.pad(0.2),
       });
+      map = leaflet;
+      const fitZoomRange = () => {
+        // getBoundsZoom clamps to the current range, so widen it first.
+        leaflet.setMinZoom(-8);
+        leaflet.setMaxZoom(8);
+        const fit = Math.max(leaflet.getBoundsZoom(bounds), -0.5);
+        leaflet.setMinZoom(fit);
+        leaflet.setMaxZoom(Math.max(0, fit));
+        if (leaflet.getZoom() < fit) leaflet.fitBounds(bounds);
+      };
       L.imageOverlay(url, bounds, { alt: stegaClean(campusImage?.alt) || "Camp map" })
         .on("load", () => { if (!cancelled) setReady(true); })
-        .addTo(map);
-      map.fitBounds(bounds);
+        .addTo(leaflet);
+      fitZoomRange();
+      leaflet.fitBounds(bounds);
       for (const item of markers ?? []) {
         if (typeof item.x !== "number" || typeof item.y !== "number") continue;
         const title = stegaClean(item.title) || "Camp location";
@@ -73,7 +103,10 @@ export default function CampusMap({ campusImage, markers }: Props) {
           }
         });
       }
-      observer = new ResizeObserver(() => map?.invalidateSize());
+      observer = new ResizeObserver(() => {
+        leaflet.invalidateSize();
+        fitZoomRange();
+      });
       observer.observe(element);
     }).catch(() => {
       // Keep the static map available if the browser cannot load Leaflet.
@@ -93,7 +126,7 @@ export default function CampusMap({ campusImage, markers }: Props) {
 
   return (
     <>
-      <div className="camp-map-frame">
+      <div className="camp-map-frame" ref={frame}>
         {!ready && (
           // The unmodified image preserves the same coordinate space as the overlay.
           // eslint-disable-next-line @next/next/no-img-element
