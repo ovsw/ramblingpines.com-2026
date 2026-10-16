@@ -1,4 +1,4 @@
-import { HomeImage } from "./home-content";
+import { HomeButton, HomeImage } from "./home-content";
 import { getSafeLinkHref } from "@/lib/safe-href";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
@@ -54,6 +54,7 @@ export default function Programs({
               {description}
             </p>
           )}
+          <HomeButton text="Request Info" href="/request-info/" accent />
         </div>
         <div className="home-program-grid">
           {cards?.map((card) => {
