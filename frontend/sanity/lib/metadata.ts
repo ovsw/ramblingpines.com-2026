@@ -7,6 +7,7 @@ import {
   type PageOgImageTarget,
 } from "@/lib/page-og-image";
 import { resolveSeoTitle } from "../../../shared/seo-title";
+import { sharingCardPhotoUrl } from "./image";
 const isProduction = process.env.NEXT_PUBLIC_SITE_ENV === "production";
 
 const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -26,24 +27,9 @@ function sharingImage(
 
 function fallbackSharingImage() {
   return sharingImage(
-    `${siteOrigin}/images/og-post-fallback.png`,
+    `${siteOrigin}/api/og/default`,
     "Helpful website content",
   );
-}
-
-function configuredSharingImage(
-  page: HOME_PAGE_QUERY_RESULT | PAGE_QUERY_RESULT,
-  title: string,
-) {
-  const image = page?.meta?.image;
-  if (!image?.asset?.url) return null;
-
-  return {
-    url: image.asset.url,
-    width: image.asset.metadata?.dimensions?.width || 1200,
-    height: image.asset.metadata?.dimensions?.height || 630,
-    alt: title,
-  };
 }
 
 export function generatePageMetadata({
@@ -80,16 +66,16 @@ export function generatePageMetadata({
       ? buildPageOgImageUrl({
           origin: siteOrigin,
           target: pageTarget,
+          photoUrl: sharingCardPhotoUrl(page?.sharingPhoto),
           title: pageTitle,
         })
       : null;
   // The generated card uses the visible content title. Its alt text uses the
   // final social title, including any complete suffix supplied by the editor.
   const image =
-    configuredSharingImage(page, seoTitle.finalTitle) ||
-    (pageImage && pageTitle
+    pageImage && pageTitle
       ? sharingImage(pageImage, pageTitle, seoTitle.finalTitle)
-      : fallbackSharingImage());
+      : fallbackSharingImage();
 
   return {
     title: seoTitle.metadataTitle,

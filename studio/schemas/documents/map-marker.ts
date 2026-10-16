@@ -54,7 +54,8 @@ export default defineType({
             defineField({
               name: "alt",
               type: "string",
-              validation: (rule) => rule.required(),
+              description:
+                "Describe the image for screen readers. Leave empty if the image is decorative or repeats nearby text.",
             }),
           ],
         },

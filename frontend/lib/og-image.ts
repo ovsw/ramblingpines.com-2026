@@ -1,6 +1,7 @@
+import brand from "../public/brand/brand.json";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
-export const OG_IMAGE_VERSION = "1";
+export const OG_IMAGE_VERSION = "4";
 
 const MAX_SLUG_LENGTH = 200;
 const SIGNATURE_PATTERN = /^[A-Za-z0-9_-]{43}$/;
@@ -28,6 +29,7 @@ function signaturePayload({
 
 export function createOgImageRevision(parts: string[]) {
   return createHash("sha256")
+    .update(JSON.stringify(brand))
     .update(parts.join("\n"))
     .digest("base64url")
     .slice(0, 22);
