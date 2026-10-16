@@ -453,3 +453,50 @@
  .home-quotes { grid-auto-columns: 100%; }
  .home-quote-controls { flex-wrap: wrap; }
 }
+
+/* HubSpot raw HTML forms inherit the camp's page styles. */
+.hubspot-embed {
+  font-family: var(--font-body);
+  color: var(--foreground);
+}
+.hubspot-embed iframe {
+  width: 100%;
+  border: 0;
+}
+.hubspot-embed .hs-form-field {
+  margin-bottom: 1.25rem;
+}
+.hubspot-embed label {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.hubspot-embed input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+.hubspot-embed textarea,
+.hubspot-embed select {
+  max-width: 100%;
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--background);
+  color: var(--foreground);
+  font: inherit;
+}
+.hubspot-embed input:focus-visible,
+.hubspot-embed textarea:focus-visible,
+.hubspot-embed select:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.hubspot-embed input[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font: inherit;
+  cursor: pointer;
+}
+.hubspot-embed .hs-error-msgs,
+.hubspot-embed .hs_error_rollup {
+  color: var(--destructive);
+}

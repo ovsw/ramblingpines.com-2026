@@ -3,6 +3,8 @@ import { describe, expect, it, vi } from "vitest";
 import type { PAGE_QUERY_RESULT } from "@/sanity.types";
 import { RootContentView } from "./root-content";
 
+// Async server sections are outside this title-header test.
+vi.mock("@/components/blocks", () => ({ default: () => null }));
 vi.mock("@/components/header/side-navigation", () => ({ SideNavigation: () => null }));
 
 const page = {

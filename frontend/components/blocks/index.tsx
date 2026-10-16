@@ -20,6 +20,7 @@ import Lunch, { hasLunchContent } from "@/components/blocks/lunch";
 import Testimonials, { hasTestimonialsContent } from "@/components/blocks/testimonials";
 import InteractiveMap, { hasInteractiveMapContent } from "@/components/blocks/interactive-map";
 // page-builder-generator:component-imports
+import { fetchSanitySettings } from "@/sanity/lib/fetch";
 import { dataset, projectId } from "@/sanity/lib/env";
 
 type Block =
@@ -73,10 +74,11 @@ const sectionEdgeTreatments: Partial<
   Record<Block["_type"], SectionEdgeTreatment>
 > = {};
 
-export default function Blocks({
+export default async function Blocks({
   blocks,
   documentId,
   documentType = "page",
+  perspective,
   stega,
 }: {
   blocks: Block[];
@@ -85,6 +87,9 @@ export default function Blocks({
   perspective: LivePerspective;
   stega: boolean;
 }) {
+  const settings = blocks.some((block) => block._type === "hubspotForm" && hasHubspotFormContent(block))
+    ? await fetchSanitySettings({ perspective, stega })
+    : null;
   const visibleSections = blocks.flatMap((block) => {
     if (!componentMap[block._type] || !isRenderableBlock(block)) return [];
     return [
@@ -149,7 +154,11 @@ export default function Blocks({
 
     return (
       <div data-sanity={dataSanity} key={block._key}>
-        <Component {...block} {...editingProps} {...boundary} />
+        {block._type === "hubspotForm" ? (
+          <HubspotForm {...block} {...editingProps} {...boundary} portalId={stegaClean(settings?.hubspotPortalId) ?? ""} />
+        ) : (
+          <Component {...block} {...editingProps} {...boundary} />
+        )}
       </div>
     );
   }

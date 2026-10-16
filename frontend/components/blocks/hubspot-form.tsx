@@ -1,3 +1,4 @@
+import HubspotEmbed from "./hubspot-embed";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
 import {
@@ -13,6 +14,7 @@ type PageBlock =
 type HubspotFormBlock = Extract<PageBlock, { _type: "hubspotForm" }>;
 
 type HubspotFormProps = HubspotFormBlock & {
+  portalId?: string;
   dataAttribute?: (path: string) => string | undefined;
 } & SectionSceneProps;
 
@@ -25,6 +27,7 @@ export function hasHubspotFormContent(block: Pick<HubspotFormBlock, "formId">) {
 export default function HubspotForm({
   _key,
   formId,
+  portalId = "",
   bottom = "outer",
   dataAttribute,
   description,
@@ -38,20 +41,20 @@ export default function HubspotForm({
 
   return (
     <section
-      aria-labelledby={headingId}
+      aria-labelledby={title ? headingId : undefined}
       className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
       data-sanity={dataAttribute?.("theme")}
       id={`hubspot-form-${stegaClean(_key)}`}
     >
       <div className="container">
         <div className="mx-auto max-w-3xl">
-          <h2
+          {title ? <h2
             className="text-3xl font-extrabold tracking-tight"
             data-sanity={dataAttribute?.("title")}
             id={headingId}
           >
             {title}
-          </h2>
+          </h2> : null}
           {stegaClean(description)?.trim() ? (
             <p
               className="mt-4 text-muted-foreground"
@@ -60,6 +63,9 @@ export default function HubspotForm({
               {description}
             </p>
           ) : null}
+          <div className="mt-6" data-sanity={dataAttribute?.("formId")}>
+            <HubspotEmbed key={`${portalId}:${stegaClean(formId)}`} portalId={portalId.trim()} formId={stegaClean(formId)?.trim() ?? ""} />
+          </div>
         </div>
       </div>
     </section>
