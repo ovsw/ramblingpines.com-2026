@@ -1,0 +1,281 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #18181b;
+  --color-card: #ffffff;
+  --color-card-foreground: #18181b;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #18181b;
+  --color-primary: #18181b;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #27272a;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #18181b;
+  --color-accent-hover: #3f3f46;
+  --color-border: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+  --color-input: #d4d4d8;
+  --color-ring: #71717a;
+  --color-destructive: #b91c1c;
+  --color-destructive-foreground: #ffffff;
+  --radius-control: 0.5rem;
+  --radius-card: 0.75rem;
+}
+:root {
+  --control-height: 2.75rem;
+  --control-inline: 1.25rem;
+  --control-height-compact: 2.25rem;
+  --control-inline-compact: 0.875rem;
+  --control-height-hero: 3rem;
+  --control-inline-hero: 1.5rem;
+  --space-card: 1.5rem;
+  --space-stack: 1.5rem;
+  --space-header-gap: 3rem;
+  /* A tucked section overlaps the section above by this depth. The wave
+     crest rises this height above the section box and meets the box top
+     at both edges, so the silhouette is one rounded shape. */
+  --section-tuck-depth: 2rem;
+  --section-wave-height: 1.5rem;
+  /* Dark band surface: two soft glows, a shadow between them, and a grain
+     over everything. Tune here. */
+  --band-glow: color-mix(in oklch, #fafafa 12%, transparent);
+  --band-shade: color-mix(in oklch, #000000 45%, transparent);
+  --grain-size: 180px;
+  --grain-opacity: 0.45;
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  button,
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 3px;
+  }
+}
+@utility section-pad {
+  padding-block: clamp(3rem, 7vw, 6rem);
+}
+@utility section-pad-lg {
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+@utility section-header-gap {
+  margin-bottom: 2.5rem;
+}
+@utility gap-split {
+  gap: clamp(2rem, 5vw, 5rem);
+}
+@utility surface-cream {
+  background: #fafafa;
+}
+@utility surface-white {
+  background: white;
+}
+@utility typo-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+@utility typo-body-editorial {
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+@utility typo-body-sm {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+@utility typo-button {
+  font-size: 0.875rem;
+}
+@utility typo-button-lg {
+  font-size: 1rem;
+}
+@utility typo-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@utility typo-feature-heading {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.12;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+@utility typo-section-heading {
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+@utility typo-subsection-heading {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+@utility typo-title-minor {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+@utility typo-lead {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-muted-foreground);
+}
+@utility typo-fine-print {
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+@utility typo-meta-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* All CMS sections share the same width as the header and hero. */
+@utility container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.section-scene {
+  position: relative;
+  color: var(--color-foreground);
+  background: var(--color-background);
+  padding-block: clamp(4rem, 9vw, 8rem);
+  transition: background-color 160ms ease, color 160ms ease;
+}
+.section-scene-light {
+  --color-background: #ffffff;
+  --color-foreground: #18181b;
+  --color-card: #ffffff;
+  --color-card-foreground: #18181b;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #18181b;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #52525b;
+  --color-border: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+  --color-input: #d4d4d8;
+  --color-ring: #71717a;
+  --color-primary: #18181b;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #27272a;
+  --color-accent: #f4f4f5;
+  --color-accent-foreground: #18181b;
+}
+.section-scene-dark {
+  --color-background: #18181b;
+  --color-foreground: #fafafa;
+  --color-card: #27272a;
+  --color-card-foreground: #fafafa;
+  --color-popover: #27272a;
+  --color-popover-foreground: #fafafa;
+  --color-muted: #27272a;
+  --color-muted-foreground: #d4d4d8;
+  --color-border: #3f3f46;
+  --color-border-strong: #52525b;
+  --color-input: #52525b;
+  --color-ring: #d4d4d8;
+  --color-primary: #fafafa;
+  --color-primary-foreground: #18181b;
+  --color-secondary: #27272a;
+  --color-secondary-foreground: #fafafa;
+  --color-accent: #3f3f46;
+  --color-accent-foreground: #fafafa;
+}
+.section-scene-seam-top { padding-top: clamp(2rem, 4.5vw, 4rem); }
+.section-scene-seam-bottom { padding-bottom: clamp(2rem, 4.5vw, 4rem); }
+.section-scene-wave-top {
+  z-index: 1;
+  margin-top: calc(-1 * var(--section-tuck-depth));
+}
+/* The section above a tucked section loses the tuck depth and the wave crest
+   to the overlap. It pads its bottom by that much, so its content sits as far
+   from the crest as the tucked section's content sits from the wave's foot. */
+[data-band]:has(+ [data-band-tuck]) > :last-child > .section-scene {
+  padding-bottom: calc(
+    clamp(4rem, 9vw, 8rem) + var(--section-tuck-depth) + var(--section-wave-height)
+  );
+}
+.section-scene-wave-top::before {
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--section-wave-height));
+  right: 0;
+  left: 0;
+  height: var(--section-wave-height);
+  content: "";
+  background: inherit;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* Band surface. The Page Builder wraps each run of seam-joined sections in a
+   band (see resolveSectionBands). A dark band carries one tonal sweep and one
+   grain overlay sized to the whole run, so the texture never restarts at a
+   seam. The band paints no background: sections keep their own colour and
+   the overlays blend above them. flow-root keeps a leading wave section's
+   negative margin from collapsing through the band, so the band box starts
+   at the join and the wave overflows above it; the overlays reach up to the
+   wave crest and curve with it. z-index 1 matches the wave section, so DOM
+   order still decides which neighbour paints on top. */
+[data-band="dark"] {
+  display: flow-root;
+  position: relative;
+  z-index: 1;
+}
+[data-band="dark"]::before,
+[data-band="dark"]::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+/* Tonal sweep: two large glows, top-left and bottom-right, with a shadow in
+   the top-right corner between them. Sized to the band, so a long run gets
+   one slow sweep rather than a glow per section. */
+[data-band="dark"]::before {
+  background-image:
+    radial-gradient(170% 95% at 8% 0%, var(--band-glow), transparent 70%),
+    radial-gradient(170% 95% at 96% 100%, var(--band-glow), transparent 70%),
+    radial-gradient(120% 60% at 100% 0%, var(--band-shade), transparent 70%);
+}
+[data-band="dark"]::after {
+  background-image: var(--grain-image);
+  background-size: var(--grain-size);
+  mix-blend-mode: soft-light;
+  opacity: var(--grain-opacity);
+}
+[data-band="dark"][data-band-tuck]::before,
+[data-band="dark"][data-band-tuck]::after {
+  top: calc(-1 * (var(--section-tuck-depth) + var(--section-wave-height)));
+  border-top-left-radius: 50% var(--section-wave-height);
+  border-top-right-radius: 50% var(--section-wave-height);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

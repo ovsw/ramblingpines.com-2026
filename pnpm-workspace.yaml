@@ -1,0 +1,15 @@
+packages:
+  - "studio"
+  - "frontend"
+
+strictDepBuilds: true
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
+
+patchedDependencies:
+  sanity-plugin-media@6.3.0: patches/sanity-plugin-media@6.3.0.patch
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
