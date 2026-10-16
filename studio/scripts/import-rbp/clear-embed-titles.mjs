@@ -28,13 +28,15 @@ const client = createClient({
   perspective: "raw",
 });
 
-// Only imported pages: the home page map title comes from the seed.
+// Only imported pages: the home page map title comes from the seed. Only the
+// copied labels: a title an editor writes later stays.
 const embedTypes = ["reviews", "hubspotForm", "locationMap"];
+const legacyTitles = ["EmbedSocial Reviews", "Request Info Form", "Google Map"];
 const pages = await client.fetch(
-  `*[_type == "page" && count(blocks[_type in $types && defined(title)]) > 0]{
-    _id, _rev, "keys": blocks[_type in $types && defined(title)]{_key, _type, title}
+  `*[_type == "page" && count(blocks[_type in $types && title in $titles]) > 0]{
+    _id, _rev, "keys": blocks[_type in $types && title in $titles]{_key, _type, title}
   }`,
-  { types: embedTypes },
+  { types: embedTypes, titles: legacyTitles },
 );
 for (const page of pages)
   for (const block of page.keys)
