@@ -16,24 +16,9 @@ type LocationMapProps = LocationMapBlock & {
   dataAttribute?: (path: string) => string | undefined;
 } & SectionSceneProps;
 
-export function hasLocationMapContent(
-  block: Pick<LocationMapBlock, "location">,
-) {
-  return Boolean(stegaClean(block.location)?.trim());
-}
-export default function LocationMap({
-  _key,
-  location,
-  title,
-  description,
-  address,
-  theme,
-  top = "outer",
-  bottom = "outer",
-  dataAttribute,
-}: LocationMapProps) {
-  if (!hasLocationMapContent({ location })) return null;
-  const value = stegaClean(location)?.trim() || "";
+function mapSource(block: Pick<LocationMapBlock, "location" | "address">) {
+  if (!stegaClean(block.location)?.trim()) return null;
+  const value = stegaClean(block.location)?.trim() || "";
   let src = `https://www.google.com/maps?q=${encodeURIComponent(value)}&output=embed`;
   try {
     const url = new URL(value);
@@ -48,13 +33,32 @@ export default function LocationMap({
     if (url.pathname.startsWith("/maps/embed")) src = url.href;
     else {
       const query =
-        url.searchParams.get("q") || url.searchParams.get("query") || address;
+        url.searchParams.get("q") || url.searchParams.get("query") || block.address;
       if (!query) return null;
       src = `https://www.google.com/maps?q=${encodeURIComponent(stegaClean(query))}&output=embed`;
     }
   } catch {
     if (/^[a-z][a-z0-9+.-]*:/i.test(value) || /[<>]/.test(value)) return null;
   }
+  return src;
+}
+
+export function hasLocationMapContent(block: Pick<LocationMapBlock, "location" | "address">) {
+  return Boolean(mapSource(block));
+}
+export default function LocationMap({
+  _key,
+  location,
+  title,
+  description,
+  address,
+  theme,
+  top = "outer",
+  bottom = "outer",
+  dataAttribute,
+}: LocationMapProps) {
+  const src = mapSource({ location, address });
+  if (!src) return null;
   const headingId = `location-${stegaClean(_key)}-title`;
   return (
     <section

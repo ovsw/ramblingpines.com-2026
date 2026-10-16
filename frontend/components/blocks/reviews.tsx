@@ -1,3 +1,4 @@
+import ReviewsEmbed from "./reviews-embed";
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
 import { stegaClean } from "next-sanity";
 import {
@@ -19,7 +20,7 @@ type ReviewsProps = ReviewsBlock & {
 // The Page Builder excludes sections without content from visible adjacency.
 // Keep this rule aligned with the renderer's empty result below.
 export function hasReviewsContent(block: Pick<ReviewsBlock, "widgetId">) {
-  return Boolean(stegaClean(block.widgetId)?.trim());
+  return /^[a-zA-Z0-9_-]+$/.test(stegaClean(block.widgetId)?.trim() || "");
 }
 
 export default function Reviews({
@@ -38,20 +39,20 @@ export default function Reviews({
 
   return (
     <section
-      aria-labelledby={headingId}
+      aria-labelledby={title ? headingId : undefined}
       className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
       data-sanity={dataAttribute?.("theme")}
       id={`reviews-${stegaClean(_key)}`}
     >
       <div className="container">
         <div className="mx-auto max-w-3xl">
-          <h2
+          {title ? <h2
             className="text-3xl font-extrabold tracking-tight"
             data-sanity={dataAttribute?.("title")}
             id={headingId}
           >
             {title}
-          </h2>
+          </h2> : null}
           {stegaClean(description)?.trim() ? (
             <p
               className="mt-4 text-muted-foreground"
@@ -60,6 +61,9 @@ export default function Reviews({
               {description}
             </p>
           ) : null}
+          <div className="mt-6" data-sanity={dataAttribute?.("widgetId")}>
+            <ReviewsEmbed key={stegaClean(widgetId)} widgetId={stegaClean(widgetId)?.trim() || ""} />
+          </div>
         </div>
       </div>
     </section>
