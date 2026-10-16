@@ -80,7 +80,7 @@ export default function Transportation({
                 key={area._key}
                 data-sanity={dataAttribute?.(`areas[_key=="${area._key}"]`)}
               >
-                <h4>{area.county}</h4>
+                <h4>{area.county}:</h4>
                 {area.towns && area.towns.length > 0 && (
                   <ul>
                     {area.towns.map((town, index) => (

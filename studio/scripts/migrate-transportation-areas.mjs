@@ -20,7 +20,7 @@ function blockText(block) {
 export function parseArea(text, key) {
   const split = text.indexOf(":");
   if (split < 0) return null;
-  const county = text.slice(0, split + 1).trim();
+  const county = text.slice(0, split).trim();
   const towns = text
     .slice(split + 1)
     .split(",")
@@ -30,26 +30,45 @@ export function parseArea(text, key) {
   return { _key: key, _type: "area", county, towns };
 }
 
-/** The patch for one transportation block, or null when it has no inline areas. */
+/** Drop a trailing colon left by the first migration run. */
+export function cleanCounty(county) {
+  return typeof county === "string" ? county.replace(/:\s*$/, "").trim() : county;
+}
+
+/** The patch for one transportation block, or null when nothing needs to move. */
 export function planBlock(block, index) {
-  if (block?._type !== "transportation" || !Array.isArray(block.body)) return null;
-  const start = block.body.findIndex(
+  if (block?._type !== "transportation") return null;
+  const path = `blocks[${index}]`;
+  const set = {};
+  const body = Array.isArray(block.body) ? block.body : [];
+  const start = body.findIndex(
     (entry) => blockText(entry).trim() === AREAS_HEADING,
   );
-  if (start < 0) return null;
-  const areas = block.body
-    .slice(start + 1)
-    .map((entry, i) => parseArea(blockText(entry).trim(), `area-${i}`))
-    .filter(Boolean);
-  if (!areas.length) return null;
-  const path = `blocks[${index}]`;
-  return {
-    set: {
-      [`${path}.body`]: block.body.slice(0, start),
-      [`${path}.areasTitle`]: block.areasTitle ?? AREAS_HEADING,
-      [`${path}.areas`]: block.areas?.length ? block.areas : areas,
-    },
-  };
+  if (start >= 0) {
+    const tail = body.slice(start + 1);
+    const parsed = tail.map((entry, i) =>
+      parseArea(blockText(entry).trim(), `area-${i}`),
+    );
+    const areas = parsed.filter(Boolean);
+    // Paragraphs after the heading that are not county lines stay in the body.
+    const leftover = tail.filter((_, i) => !parsed[i]);
+    if (areas.length) {
+      set[`${path}.body`] = [...body.slice(0, start), ...leftover];
+      set[`${path}.areasTitle`] = block.areasTitle ?? AREAS_HEADING;
+      set[`${path}.areas`] = block.areas?.length ? block.areas : areas;
+    }
+  }
+  const areas = set[`${path}.areas`] ?? block.areas;
+  if (
+    Array.isArray(areas) &&
+    areas.some((area) => cleanCounty(area.county) !== area.county)
+  ) {
+    set[`${path}.areas`] = areas.map((area) => ({
+      ...area,
+      county: cleanCounty(area.county),
+    }));
+  }
+  return Object.keys(set).length ? { set } : null;
 }
 
 export function migrationPlan(documents) {

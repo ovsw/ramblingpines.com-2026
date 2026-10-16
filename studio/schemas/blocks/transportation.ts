@@ -46,6 +46,7 @@ export default defineType({
               name: "county",
               title: "County",
               type: "string",
+              description: "Without a colon; the page adds it.",
               validation: (rule) => rule.required(),
             }),
             defineField({
