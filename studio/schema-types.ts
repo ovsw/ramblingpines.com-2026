@@ -1,3 +1,4 @@
+import mapMarker from "./schemas/documents/map-marker";
 // documents
 import page from "./schemas/documents/page";
 import faq from "./schemas/documents/faq";
@@ -26,11 +27,22 @@ import simpleRichText from "./schemas/blocks/shared/simple-rich-text";
 // Schema UI objects
 import richTextBlock from "./schemas/blocks/rich-text-block";
 import scaffold from "./schemas/blocks/scaffold";
+import hubspotForm from "./schemas/blocks/hubspot-form";
+import reviews from "./schemas/blocks/reviews";
+import video from "./schemas/blocks/video";
+import locationMap from "./schemas/blocks/location-map";
+import muxVideoHero from "./schemas/blocks/mux-video-hero";
+import transportation from "./schemas/blocks/transportation";
+import programs from "./schemas/blocks/programs";
+import lunch from "./schemas/blocks/lunch";
+import testimonials from "./schemas/blocks/testimonials";
+import interactiveMap from "./schemas/blocks/interactive-map";
 // page-builder-generator:block-imports
 
 export const schemaTypes = [
   // documents
   page,
+  mapMarker,
   faq,
   testimonial,
   navigation,
@@ -57,5 +69,15 @@ export const schemaTypes = [
   // blocks
   richTextBlock,
   scaffold,
+  hubspotForm,
+  reviews,
+  video,
+  locationMap,
+  muxVideoHero,
+  transportation,
+  programs,
+  lunch,
+  testimonials,
+  interactiveMap,
   // page-builder-generator:block-types
 ];

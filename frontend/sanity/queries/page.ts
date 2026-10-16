@@ -9,6 +9,8 @@ export const PAGE_QUERY = groq`
     _type,
     title,
     description,
+    section,
+    headerImage{..., asset->{_id, url, metadata{dimensions, lqip}}},
     "slug": slug.current,
     ${pageBuilderQuery},
     ${metaQuery},

@@ -29,6 +29,7 @@ export const richTextContentQuery = groq`
       }
     }
   },
+  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},
   _type == "table" => {
     ...,
     rows[]{

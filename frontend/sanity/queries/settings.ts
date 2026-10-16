@@ -5,6 +5,11 @@ export const SETTINGS_QUERY = defineQuery(`
     _id,
     _type,
     siteName,
+    description,
+    alertBar{enabled, text[]{...}},
+    campLinks{enroll, parentLogin, staffApplication, store, tour},
+    hubspotPortalId,
+    gtmContainerId,
     logo{
       light{
         ...,

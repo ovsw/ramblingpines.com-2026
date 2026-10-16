@@ -53,6 +53,24 @@ const footer = defineType({
   type: "document",
   icon: PanelBottom,
   fields: [
+    defineField({ name: "contact", type: "contactDetails" }),
+    defineField({
+      name: "socialLinks",
+      type: "array",
+      of: [{ type: "socialLink" }],
+    }),
+    defineField({
+      name: "acaLogo",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
     defineField({
       name: "intro",
       title: "Introduction",

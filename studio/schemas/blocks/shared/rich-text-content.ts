@@ -1,3 +1,4 @@
+import { validateYouTubeUrl } from "../../validation/embed-urls";
 import { ImageIcon, MessageSquareQuoteIcon, Table2Icon } from "lucide-react";
 import { defineArrayMember, defineField, defineType } from "sanity";
 import RichTextTableInput from "../../inputs/rich-text-table-input";
@@ -7,6 +8,33 @@ export default defineType({
   title: "Rich Text Content",
   type: "array",
   of: [
+    defineArrayMember({
+      name: "fileDownload",
+      title: "File download",
+      type: "file",
+      fields: [
+        defineField({
+          name: "description",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+      ],
+      validation: (rule) => rule.required(),
+      preview: { select: { title: "description" } },
+    }),
+    defineArrayMember({
+      name: "youtube",
+      title: "YouTube video",
+      type: "object",
+      fields: [
+        defineField({
+          name: "url",
+          type: "url",
+          validation: (rule) => rule.required().custom(validateYouTubeUrl),
+        }),
+      ],
+      preview: { select: { title: "url" } },
+    }),
     defineArrayMember({
       name: "block",
       type: "block",
@@ -42,7 +70,12 @@ export default defineType({
       icon: ImageIcon,
       options: { hotspot: true },
       fields: [
-        defineField({ name: "alt", title: "Alternative Text", type: "string" }),
+        defineField({
+          name: "alt",
+          title: "Alternative Text",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
         defineField({ name: "caption", title: "Caption Text", type: "string" }),
       ],
     }),
@@ -56,6 +89,7 @@ export default defineType({
         defineField({ name: "title", title: "Table Title", type: "string" }),
         defineField({
           name: "rows",
+          validation: (rule) => rule.required().min(1),
           title: "Rows",
           type: "array",
           of: [
@@ -66,6 +100,7 @@ export default defineType({
               fields: [
                 defineField({
                   name: "cells",
+                  validation: (rule) => rule.required().min(1),
                   title: "Cells",
                   type: "array",
                   of: [defineArrayMember({ type: "string" })],

@@ -24,6 +24,7 @@ export const structure: StructureResolver = (S) =>
             .schemaType("homePage")
             .documentId("homePage"),
         ),
+      S.documentTypeListItem("mapMarker").title("Map markers"),
       S.divider(),
       S.listItem()
         .title("Pages")

@@ -21,6 +21,9 @@ export const FOOTER_QUERY = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
     intro,
+    contact{email, phone, addressLines},
+    socialLinks[]{_key, label, url},
+    acaLogo{..., asset->{_id, url, metadata{dimensions, lqip}}},
     columns[]{
       _key,
       heading,

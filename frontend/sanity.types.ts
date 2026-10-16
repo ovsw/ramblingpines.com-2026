@@ -20,13 +20,6 @@ export type Icon = {
   svg?: string;
 };
 
-export type Meta = {
-  title?: string;
-  description?: string;
-  noindex?: boolean;
-  image?: MetaImage;
-};
-
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -34,12 +27,153 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
+export type ProgramCardIcon = {
+  asset?: SanityImageAssetReference;
+  media?: unknown; // Unable to locate the referenced type "icon.media" in schema
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  alt?: string;
+  _type: "image";
+};
+
+export type Meta = {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  image?: MetaImage;
+};
+
 export type MetaImage = {
   asset?: SanityImageAssetReference;
-  media?: unknown; // Unable to locate the referenced type "image.media" in schema
+  media?: unknown; // Unable to locate the referenced type "meta.image.media" in schema
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   _type: "image";
+};
+
+export type InteractiveMap = {
+  _type: "interactiveMap";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  campusImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
+export type Testimonials = {
+  _type: "testimonials";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  quotes?: Array<{
+    quote?: string;
+    name?: string;
+    _type: "quote";
+    _key: string;
+  }>;
+};
+
+export type Lunch = {
+  _type: "lunch";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  body?: SimpleRichText;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  button?: Button;
+};
+
+export type Programs = {
+  _type: "programs";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  cards?: Array<{
+    icon?: ProgramCardIcon;
+    title?: string;
+    ageRange?: string;
+    link?: CustomUrl;
+    _type: "programCard";
+    _key: string;
+  }>;
+};
+
+export type Transportation = {
+  _type: "transportation";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  body?: SimpleRichText;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  button?: Button;
+};
+
+export type MuxVideoHero = {
+  _type: "muxVideoHero";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  playbackId?: string;
+  heading?: string;
+  intro?: string;
+  buttons?: Array<
+    {
+      _key: string;
+    } & Button
+  >;
+};
+
+export type LocationMap = {
+  _type: "locationMap";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  location?: string;
+  address?: string;
+};
+
+export type Video = {
+  _type: "video";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  url?: string;
+};
+
+export type Reviews = {
+  _type: "reviews";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  widgetId?: string;
+};
+
+export type HubspotForm = {
+  _type: "hubspotForm";
+  theme?: "light" | "dark";
+  title?: string;
+  description?: string;
+  formId?: string;
 };
 
 export type Scaffold = {
@@ -76,7 +210,26 @@ export type SimpleRichText = Array<{
   _key: string;
 }>;
 
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
 export type RichTextContent = Array<
+  | {
+      asset?: SanityFileAssetReference;
+      media?: unknown;
+      description?: string;
+      _type: "fileDownload";
+      _key: string;
+    }
+  | {
+      url?: string;
+      _type: "youtube";
+      _key: string;
+    }
   | {
       children?: Array<{
         marks?: Array<string>;
@@ -140,6 +293,11 @@ export type Button = {
   url?: CustomUrl;
 };
 
+export type CustomLink = {
+  _type: "customLink";
+  customLink?: CustomUrl;
+};
+
 export type HomePageReference = {
   _ref: string;
   _type: "reference";
@@ -161,11 +319,6 @@ export type CustomUrl = {
   type?: "internal" | "external";
   openInNewTab?: boolean;
   href?: string;
-};
-
-export type CustomLink = {
-  _type: "customLink";
-  customLink?: CustomUrl;
 };
 
 export type SectionPadding = {
@@ -291,6 +444,20 @@ export type Footer = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  contact?: ContactDetails;
+  socialLinks?: Array<
+    {
+      _key: string;
+    } & SocialLink
+  >;
+  acaLogo?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   intro?: string;
   columns?: Array<
     {
@@ -304,6 +471,13 @@ export type Footer = {
   >;
   copyrightStartYear?: number;
   copyrightOwner?: string;
+};
+
+export type ContactDetails = {
+  _type: "contactDetails";
+  email?: string;
+  phone?: string;
+  addressLines?: Array<string>;
 };
 
 export type TeamMember = {
@@ -345,13 +519,6 @@ export type TeamMember = {
   sortOrder?: number;
 };
 
-export type ContactDetails = {
-  _type: "contactDetails";
-  email?: string;
-  phone?: string;
-  addressLines?: Array<string>;
-};
-
 export type SocialLink = {
   _type: "socialLink";
   label?: string;
@@ -364,6 +531,20 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  description?: string;
+  alertBar?: {
+    enabled?: boolean;
+    text?: SimpleRichText;
+  };
+  campLinks?: {
+    enroll?: string;
+    parentLogin?: string;
+    staffApplication?: string;
+    store?: string;
+    tour?: string;
+  };
+  hubspotPortalId?: string;
+  gtmContainerId?: string;
   siteName?: string;
   logo?: {
     light?: {
@@ -442,6 +623,36 @@ export type HomePage = {
     | ({
         _key: string;
       } & Scaffold)
+    | ({
+        _key: string;
+      } & HubspotForm)
+    | ({
+        _key: string;
+      } & Reviews)
+    | ({
+        _key: string;
+      } & Video)
+    | ({
+        _key: string;
+      } & LocationMap)
+    | ({
+        _key: string;
+      } & MuxVideoHero)
+    | ({
+        _key: string;
+      } & Transportation)
+    | ({
+        _key: string;
+      } & Programs)
+    | ({
+        _key: string;
+      } & Lunch)
+    | ({
+        _key: string;
+      } & Testimonials)
+    | ({
+        _key: string;
+      } & InteractiveMap)
   >;
   blocksArchive?: Array<
     | ({
@@ -450,6 +661,36 @@ export type HomePage = {
     | ({
         _key: string;
       } & Scaffold)
+    | ({
+        _key: string;
+      } & HubspotForm)
+    | ({
+        _key: string;
+      } & Reviews)
+    | ({
+        _key: string;
+      } & Video)
+    | ({
+        _key: string;
+      } & LocationMap)
+    | ({
+        _key: string;
+      } & MuxVideoHero)
+    | ({
+        _key: string;
+      } & Transportation)
+    | ({
+        _key: string;
+      } & Programs)
+    | ({
+        _key: string;
+      } & Lunch)
+    | ({
+        _key: string;
+      } & Testimonials)
+    | ({
+        _key: string;
+      } & InteractiveMap)
   >;
   meta?: Meta;
 };
@@ -460,6 +701,11 @@ export type Navigation = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  topLinkColumns?: Array<
+    {
+      _key: string;
+    } & NavigationGroup
+  >;
   items?: Array<
     | ({
         _key: string;
@@ -505,6 +751,41 @@ export type Faq = {
   body?: SimpleRichText;
 };
 
+export type MapMarker = {
+  _id: string;
+  _type: "mapMarker";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  x?: number;
+  y?: number;
+  labelDirection?: "right" | "left" | "top" | "bottom";
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: null;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  images?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -514,6 +795,16 @@ export type Page = {
   title?: string;
   description?: string;
   slug?: Slug;
+  headerImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  section?:
+    "Future Families" | "About Us" | "Current Families" | "Staff" | "none";
   blocks?: Array<
     | ({
         _key: string;
@@ -521,6 +812,36 @@ export type Page = {
     | ({
         _key: string;
       } & Scaffold)
+    | ({
+        _key: string;
+      } & HubspotForm)
+    | ({
+        _key: string;
+      } & Reviews)
+    | ({
+        _key: string;
+      } & Video)
+    | ({
+        _key: string;
+      } & LocationMap)
+    | ({
+        _key: string;
+      } & MuxVideoHero)
+    | ({
+        _key: string;
+      } & Transportation)
+    | ({
+        _key: string;
+      } & Programs)
+    | ({
+        _key: string;
+      } & Lunch)
+    | ({
+        _key: string;
+      } & Testimonials)
+    | ({
+        _key: string;
+      } & InteractiveMap)
   >;
   blocksArchive?: Array<
     | ({
@@ -529,6 +850,36 @@ export type Page = {
     | ({
         _key: string;
       } & Scaffold)
+    | ({
+        _key: string;
+      } & HubspotForm)
+    | ({
+        _key: string;
+      } & Reviews)
+    | ({
+        _key: string;
+      } & Video)
+    | ({
+        _key: string;
+      } & LocationMap)
+    | ({
+        _key: string;
+      } & MuxVideoHero)
+    | ({
+        _key: string;
+      } & Transportation)
+    | ({
+        _key: string;
+      } & Programs)
+    | ({
+        _key: string;
+      } & Lunch)
+    | ({
+        _key: string;
+      } & Testimonials)
+    | ({
+        _key: string;
+      } & InteractiveMap)
   >;
   meta?: Meta;
 };
@@ -658,19 +1009,31 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | Icon
-  | Meta
   | SanityImageAssetReference
+  | ProgramCardIcon
+  | Meta
   | MetaImage
+  | InteractiveMap
+  | Testimonials
+  | Lunch
+  | Programs
+  | Transportation
+  | MuxVideoHero
+  | LocationMap
+  | Video
+  | Reviews
+  | HubspotForm
   | Scaffold
   | RichTextBlock
   | SimpleRichText
+  | SanityFileAssetReference
   | RichTextContent
   | ButtonLink
   | Button
+  | CustomLink
   | HomePageReference
   | PageReference
   | CustomUrl
-  | CustomLink
   | SectionPadding
   | ButtonVariant
   | ColorVariant
@@ -684,8 +1047,8 @@ export type AllSanitySchemaTypes =
   | Redirect
   | Slug
   | Footer
-  | TeamMember
   | ContactDetails
+  | TeamMember
   | SocialLink
   | Settings
   | NavigationAction
@@ -697,6 +1060,7 @@ export type AllSanitySchemaTypes =
   | Navigation
   | Testimonial
   | Faq
+  | MapMarker
   | Page
   | MediaFolderReference
   | MediaFolder
@@ -712,10 +1076,35 @@ export type AllSanitySchemaTypes =
 
 // Source: ../frontend/sanity/queries/footer.ts
 // Variable: FOOTER_QUERY
-// Query: *[_type == "footer" && _id == "footer"][0]{    _id,    intro,    columns[]{      _key,      heading,      links[]{  _key,  label,  destination{  openInNewTab,  "href": select(    kind == "internal" => select(      internal->_id == "homePage" || internal->_type == "homePage" => "/",      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")    ),    kind == "external" => external  )}}    },    "legalLinks": coalesce(legalLinks, compliance.legalLinks)[]{  _key,  label,  destination{  openInNewTab,  "href": select(    kind == "internal" => select(      internal->_id == "homePage" || internal->_type == "homePage" => "/",      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")    ),    kind == "external" => external  )}},    "copyrightStartYear": coalesce(copyrightStartYear, compliance.copyrightStartYear),    "copyrightOwner": coalesce(copyrightOwner, compliance.copyrightOwner)  }
+// Query: *[_type == "footer" && _id == "footer"][0]{    _id,    intro,    contact{email, phone, addressLines},    socialLinks[]{_key, label, url},    acaLogo{..., asset->{_id, url, metadata{dimensions, lqip}}},    columns[]{      _key,      heading,      links[]{  _key,  label,  destination{  openInNewTab,  "href": select(    kind == "internal" => select(      internal->_id == "homePage" || internal->_type == "homePage" => "/",      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")    ),    kind == "external" => external  )}}    },    "legalLinks": coalesce(legalLinks, compliance.legalLinks)[]{  _key,  label,  destination{  openInNewTab,  "href": select(    kind == "internal" => select(      internal->_id == "homePage" || internal->_type == "homePage" => "/",      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")    ),    kind == "external" => external  )}},    "copyrightStartYear": coalesce(copyrightStartYear, compliance.copyrightStartYear),    "copyrightOwner": coalesce(copyrightOwner, compliance.copyrightOwner)  }
 export type FOOTER_QUERY_RESULT = {
   _id: "footer";
   intro: string | null;
+  contact: {
+    email: string | null;
+    phone: string | null;
+    addressLines: Array<string> | null;
+  } | null;
+  socialLinks: Array<{
+    _key: string;
+    label: string | null;
+    url: string | null;
+  }> | null;
+  acaLogo: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+        lqip: string | null;
+      } | null;
+    } | null;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
   columns: Array<{
     _key: string;
     heading: string | null;
@@ -742,13 +1131,100 @@ export type FOOTER_QUERY_RESULT = {
 
 // Source: ../frontend/sanity/queries/home-page.ts
 // Variable: HOME_PAGE_QUERY
-// Query: *[_id == "homePage" && _type == "homePage"][0]{    _id,    _type,    title,    description,      blocks[]{    _key,    _type,      _type == "richTextBlock" => {    theme,    eyebrow,    title,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      _type == "scaffold" => {    name,    proposedSectionShape,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      },      meta{    title,    description,    noindex,    image{        ...,  asset->{    _id,    url,    mimeType,    metadata {      lqip,      dimensions {        width,        height      }    }  }    }  },  }
+// Query: *[_id == "homePage" && _type == "homePage"][0]{    _id,    _type,    title,    description,      blocks[]{    _key,    _type,      _type == "richTextBlock" => {    theme,    eyebrow,    title,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      _type == "scaffold" => {    name,    proposedSectionShape,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },     _type == "hubspotForm" => {..., theme, title, description},     _type == "reviews" => {..., theme, title, description},     _type == "video" => {..., theme, title, description},     _type == "locationMap" => {..., theme, title, description},     _type == "muxVideoHero" => {..., theme, title, description},     _type == "transportation" => {..., theme, title, description},     _type == "programs" => {..., theme, title, description},     _type == "lunch" => {..., theme, title, description},     _type == "testimonials" => {..., theme, title, description},     _type == "interactiveMap" => {..., theme, title, description},      },      meta{    title,    description,    noindex,    image{        ...,  asset->{    _id,    url,    mimeType,    metadata {      lqip,      dimensions {        width,        height      }    }  }    }  },  }
 export type HOME_PAGE_QUERY_RESULT = {
   _id: "homePage";
   _type: "homePage";
   title: string | null;
   description: string | null;
   blocks: Array<
+    | {
+        _key: string;
+        _type: "hubspotForm";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        formId?: string;
+      }
+    | {
+        _key: string;
+        _type: "interactiveMap";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        campusImage?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+      }
+    | {
+        _key: string;
+        _type: "locationMap";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        location?: string;
+        address?: string;
+      }
+    | {
+        _key: string;
+        _type: "lunch";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        body?: SimpleRichText;
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+        button?: Button;
+      }
+    | {
+        _key: string;
+        _type: "muxVideoHero";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        playbackId?: string;
+        heading?: string;
+        intro?: string;
+        buttons?: Array<
+          {
+            _key: string;
+          } & Button
+        >;
+      }
+    | {
+        _key: string;
+        _type: "programs";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        cards?: Array<{
+          icon?: ProgramCardIcon;
+          title?: string;
+          ageRange?: string;
+          link?: CustomUrl;
+          _type: "programCard";
+          _key: string;
+        }>;
+      }
+    | {
+        _key: string;
+        _type: "reviews";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        widgetId?: string;
+      }
     | {
         _key: string;
         _type: "richTextBlock";
@@ -812,6 +1288,17 @@ export type HOME_PAGE_QUERY_RESULT = {
               _key: string;
             }
           | {
+              asset: {
+                _id: string;
+                url: string | null;
+                originalFilename: string | null;
+              } | null;
+              media?: unknown;
+              description?: string;
+              _type: "fileDownload";
+              _key: string;
+            }
+          | {
               asset?: SanityImageAssetReference;
               media?: unknown;
               hotspot?: SanityImageHotspot;
@@ -841,6 +1328,11 @@ export type HOME_PAGE_QUERY_RESULT = {
                 _key: string;
               }> | null;
               _type: "table";
+              _key: string;
+            }
+          | {
+              url?: string;
+              _type: "youtube";
               _key: string;
             }
         > | null;
@@ -907,6 +1399,17 @@ export type HOME_PAGE_QUERY_RESULT = {
               _key: string;
             }
           | {
+              asset: {
+                _id: string;
+                url: string | null;
+                originalFilename: string | null;
+              } | null;
+              media?: unknown;
+              description?: string;
+              _type: "fileDownload";
+              _key: string;
+            }
+          | {
               asset?: SanityImageAssetReference;
               media?: unknown;
               hotspot?: SanityImageHotspot;
@@ -938,7 +1441,50 @@ export type HOME_PAGE_QUERY_RESULT = {
               _type: "table";
               _key: string;
             }
+          | {
+              url?: string;
+              _type: "youtube";
+              _key: string;
+            }
         > | null;
+      }
+    | {
+        _key: string;
+        _type: "testimonials";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        quotes?: Array<{
+          quote?: string;
+          name?: string;
+          _type: "quote";
+          _key: string;
+        }>;
+      }
+    | {
+        _key: string;
+        _type: "transportation";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        body?: SimpleRichText;
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+        button?: Button;
+      }
+    | {
+        _key: string;
+        _type: "video";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        url?: string;
       }
   > | null;
   meta: {
@@ -958,7 +1504,7 @@ export type HOME_PAGE_QUERY_RESULT = {
           } | null;
         } | null;
       } | null;
-      media?: unknown; // Unable to locate the referenced type "image.media" in schema
+      media?: unknown; // Unable to locate the referenced type "meta.image.media" in schema
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: "image";
@@ -968,9 +1514,21 @@ export type HOME_PAGE_QUERY_RESULT = {
 
 // Source: ../frontend/sanity/queries/navigation.ts
 // Variable: NAVIGATION_QUERY
-// Query: *[_type == "navigation" && _id == "navigation"][0]{    _id,    items[]{      _key,      _type == "navigationLink" => {        "kind": "link",        label,        destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}      },      _type == "navigationGroup" => {        "kind": "group",        label,        links[]{          _key,          label,          description,          // Legacy documents store the icon as a bare string name; surface it          // as {name, svg: null} so the link survives until the doc is re-saved.          "icon": select(            defined(icon.name) => icon{ name, svg },            defined(icon) => { "name": icon, "svg": null }          ),          destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}        }      }    },    actions[]{      _key,      label,      destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}    }  }
+// Query: *[_type == "navigation" && _id == "navigation"][0]{    _id,    topLinkColumns[]{_key, label, links[]{_key, label, destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}}},    items[]{      _key,      _type == "navigationLink" => {        "kind": "link",        label,        destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}      },      _type == "navigationGroup" => {        "kind": "group",        label,        links[]{          _key,          label,          description,          // Legacy documents store the icon as a bare string name; surface it          // as {name, svg: null} so the link survives until the doc is re-saved.          "icon": select(            defined(icon.name) => icon{ name, svg },            defined(icon) => { "name": icon, "svg": null }          ),          destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}        }      }    },    actions[]{      _key,      label,      destination{  openInNewTab,  "href": select(    kind == "internal" => select(      select(  internal->_id == "homePage" || internal->_type == "homePage" => "/",  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/"))    ),    kind == "external" => external  )}    }  }
 export type NAVIGATION_QUERY_RESULT = {
   _id: "navigation";
+  topLinkColumns: Array<{
+    _key: string;
+    label: string | null;
+    links: Array<{
+      _key: string;
+      label: string | null;
+      destination: {
+        openInNewTab: boolean | null;
+        href: string | null | "/";
+      } | null;
+    }> | null;
+  }> | null;
   items: Array<
     | {
         _key: string;
@@ -1033,14 +1591,123 @@ export type PAGE_OG_IMAGE_QUERY_RESULT = {
 
 // Source: ../frontend/sanity/queries/page.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current in [$slug, "/" + $slug, $slug + "/", "/" + $slug + "/"]][0]{    _id,    _type,    title,    description,    "slug": slug.current,      blocks[]{    _key,    _type,      _type == "richTextBlock" => {    theme,    eyebrow,    title,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      _type == "scaffold" => {    name,    proposedSectionShape,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      },      meta{    title,    description,    noindex,    image{        ...,  asset->{    _id,    url,    mimeType,    metadata {      lqip,      dimensions {        width,        height      }    }  }    }  },  }
+// Query: *[_type == "page" && slug.current in [$slug, "/" + $slug, $slug + "/", "/" + $slug + "/"]][0]{    _id,    _type,    title,    description,    section,    headerImage{..., asset->{_id, url, metadata{dimensions, lqip}}},    "slug": slug.current,      blocks[]{    _key,    _type,      _type == "richTextBlock" => {    theme,    eyebrow,    title,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },      _type == "scaffold" => {    name,    proposedSectionShape,    richText[]{        ...,  _type == "block" => {    ...,    children[]{...},    markDefs[]{      ...,      _type in ["customLink", "buttonLink"] => {          "href": select(    customLink.type == "internal" => select(  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")),    customLink.type == "external" => customLink.external,    customLink.href  ),  "openInNewTab": customLink.openInNewTab      }    }  },  _type == "image" => {    ...,    "resolvedAsset": asset->{      _id,      url,      mimeType,      metadata {        lqip,        dimensions {          width,          height        }      }    }  },  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},  _type == "table" => {    ...,    rows[]{      ...,      cells[]    }  },  _type == "callout" => {    ...,    title,    body  }    }  },     _type == "hubspotForm" => {..., theme, title, description},     _type == "reviews" => {..., theme, title, description},     _type == "video" => {..., theme, title, description},     _type == "locationMap" => {..., theme, title, description},     _type == "muxVideoHero" => {..., theme, title, description},     _type == "transportation" => {..., theme, title, description},     _type == "programs" => {..., theme, title, description},     _type == "lunch" => {..., theme, title, description},     _type == "testimonials" => {..., theme, title, description},     _type == "interactiveMap" => {..., theme, title, description},      },      meta{    title,    description,    noindex,    image{        ...,  asset->{    _id,    url,    mimeType,    metadata {      lqip,      dimensions {        width,        height      }    }  }    }  },  }
 export type PAGE_QUERY_RESULT = {
   _id: string;
   _type: "page";
   title: string | null;
   description: string | null;
+  section:
+    | "About Us"
+    | "Current Families"
+    | "Future Families"
+    | "none"
+    | "Staff"
+    | null;
+  headerImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: SanityImageDimensions | null;
+        lqip: string | null;
+      } | null;
+    } | null;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
   slug: string | null;
   blocks: Array<
+    | {
+        _key: string;
+        _type: "hubspotForm";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        formId?: string;
+      }
+    | {
+        _key: string;
+        _type: "interactiveMap";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        campusImage?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+      }
+    | {
+        _key: string;
+        _type: "locationMap";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        location?: string;
+        address?: string;
+      }
+    | {
+        _key: string;
+        _type: "lunch";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        body?: SimpleRichText;
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+        button?: Button;
+      }
+    | {
+        _key: string;
+        _type: "muxVideoHero";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        playbackId?: string;
+        heading?: string;
+        intro?: string;
+        buttons?: Array<
+          {
+            _key: string;
+          } & Button
+        >;
+      }
+    | {
+        _key: string;
+        _type: "programs";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        cards?: Array<{
+          icon?: ProgramCardIcon;
+          title?: string;
+          ageRange?: string;
+          link?: CustomUrl;
+          _type: "programCard";
+          _key: string;
+        }>;
+      }
+    | {
+        _key: string;
+        _type: "reviews";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        widgetId?: string;
+      }
     | {
         _key: string;
         _type: "richTextBlock";
@@ -1104,6 +1771,17 @@ export type PAGE_QUERY_RESULT = {
               _key: string;
             }
           | {
+              asset: {
+                _id: string;
+                url: string | null;
+                originalFilename: string | null;
+              } | null;
+              media?: unknown;
+              description?: string;
+              _type: "fileDownload";
+              _key: string;
+            }
+          | {
               asset?: SanityImageAssetReference;
               media?: unknown;
               hotspot?: SanityImageHotspot;
@@ -1133,6 +1811,11 @@ export type PAGE_QUERY_RESULT = {
                 _key: string;
               }> | null;
               _type: "table";
+              _key: string;
+            }
+          | {
+              url?: string;
+              _type: "youtube";
               _key: string;
             }
         > | null;
@@ -1199,6 +1882,17 @@ export type PAGE_QUERY_RESULT = {
               _key: string;
             }
           | {
+              asset: {
+                _id: string;
+                url: string | null;
+                originalFilename: string | null;
+              } | null;
+              media?: unknown;
+              description?: string;
+              _type: "fileDownload";
+              _key: string;
+            }
+          | {
               asset?: SanityImageAssetReference;
               media?: unknown;
               hotspot?: SanityImageHotspot;
@@ -1230,7 +1924,50 @@ export type PAGE_QUERY_RESULT = {
               _type: "table";
               _key: string;
             }
+          | {
+              url?: string;
+              _type: "youtube";
+              _key: string;
+            }
         > | null;
+      }
+    | {
+        _key: string;
+        _type: "testimonials";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        quotes?: Array<{
+          quote?: string;
+          name?: string;
+          _type: "quote";
+          _key: string;
+        }>;
+      }
+    | {
+        _key: string;
+        _type: "transportation";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        body?: SimpleRichText;
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+        button?: Button;
+      }
+    | {
+        _key: string;
+        _type: "video";
+        theme: "dark" | "light" | null;
+        title: string | null;
+        description: string | null;
+        url?: string;
       }
   > | null;
   meta: {
@@ -1250,7 +1987,7 @@ export type PAGE_QUERY_RESULT = {
           } | null;
         } | null;
       } | null;
-      media?: unknown; // Unable to locate the referenced type "image.media" in schema
+      media?: unknown; // Unable to locate the referenced type "meta.image.media" in schema
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: "image";
@@ -1278,11 +2015,42 @@ export type REDIRECTS_QUERY_RESULT = Array<{
 
 // Source: ../frontend/sanity/queries/settings.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_type == "settings" && _id == "settings"][0]{    _id,    _type,    siteName,    logo{      light{        ...,        asset->{          _id,          url,          mimeType,          metadata { lqip, dimensions { width, height } }        }      },      dark{        ...,        asset->{          _id,          url,          mimeType,          metadata { lqip, dimensions { width, height } }        }      }    },    contact{      email,      phone,      addressLines    },    socialLinks[]{      _key,      label,      url    }  }
+// Query: *[_type == "settings" && _id == "settings"][0]{    _id,    _type,    siteName,    description,    alertBar{enabled, text[]{...}},    campLinks{enroll, parentLogin, staffApplication, store, tour},    hubspotPortalId,    gtmContainerId,    logo{      light{        ...,        asset->{          _id,          url,          mimeType,          metadata { lqip, dimensions { width, height } }        }      },      dark{        ...,        asset->{          _id,          url,          mimeType,          metadata { lqip, dimensions { width, height } }        }      }    },    contact{      email,      phone,      addressLines    },    socialLinks[]{      _key,      label,      url    }  }
 export type SETTINGS_QUERY_RESULT = {
   _id: "settings";
   _type: "settings";
   siteName: string | null;
+  description: string | null;
+  alertBar: {
+    enabled: boolean | null;
+    text: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal";
+      listItem?: never;
+      markDefs?: Array<
+        {
+          _key: string;
+        } & CustomLink
+      >;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+  } | null;
+  campLinks: {
+    enroll: string | null;
+    parentLogin: string | null;
+    staffApplication: string | null;
+    store: string | null;
+    tour: string | null;
+  } | null;
+  hubspotPortalId: string | null;
+  gtmContainerId: string | null;
   logo: {
     light: {
       asset: {
@@ -1337,14 +2105,14 @@ export type SETTINGS_QUERY_RESULT = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "footer" && _id == "footer"][0]{\n    _id,\n    intro,\n    columns[]{\n      _key,\n      heading,\n      links[]{\n  _key,\n  label,\n  destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      internal->_id == "homePage" || internal->_type == "homePage" => "/",\n      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n    ),\n    kind == "external" => external\n  )\n}\n}\n    },\n    "legalLinks": coalesce(legalLinks, compliance.legalLinks)[]{\n  _key,\n  label,\n  destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      internal->_id == "homePage" || internal->_type == "homePage" => "/",\n      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n    ),\n    kind == "external" => external\n  )\n}\n},\n    "copyrightStartYear": coalesce(copyrightStartYear, compliance.copyrightStartYear),\n    "copyrightOwner": coalesce(copyrightOwner, compliance.copyrightOwner)\n  }\n': FOOTER_QUERY_RESULT;
-    '\n  *[_id == "homePage" && _type == "homePage"][0]{\n    _id,\n    _type,\n    title,\n    description,\n    \n  blocks[]{\n    _key,\n    _type,\n    \n  _type == "richTextBlock" => {\n    theme,\n    eyebrow,\n    title,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  _type == "scaffold" => {\n    name,\n    proposedSectionShape,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  }\n,\n    \n  meta{\n    title,\n    description,\n    noindex,\n    image{\n      \n  ...,\n  asset->{\n    _id,\n    url,\n    mimeType,\n    metadata {\n      lqip,\n      dimensions {\n        width,\n        height\n      }\n    }\n  }\n\n    }\n  }\n,\n  }\n': HOME_PAGE_QUERY_RESULT;
-    '\n  *[_type == "navigation" && _id == "navigation"][0]{\n    _id,\n    items[]{\n      _key,\n      _type == "navigationLink" => {\n        "kind": "link",\n        label,\n        destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n      },\n      _type == "navigationGroup" => {\n        "kind": "group",\n        label,\n        links[]{\n          _key,\n          label,\n          description,\n          // Legacy documents store the icon as a bare string name; surface it\n          // as {name, svg: null} so the link survives until the doc is re-saved.\n          "icon": select(\n            defined(icon.name) => icon{ name, svg },\n            defined(icon) => { "name": icon, "svg": null }\n          ),\n          destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n        }\n      }\n    },\n    actions[]{\n      _key,\n      label,\n      destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n    }\n  }\n': NAVIGATION_QUERY_RESULT;
+    '\n  *[_type == "footer" && _id == "footer"][0]{\n    _id,\n    intro,\n    contact{email, phone, addressLines},\n    socialLinks[]{_key, label, url},\n    acaLogo{..., asset->{_id, url, metadata{dimensions, lqip}}},\n    columns[]{\n      _key,\n      heading,\n      links[]{\n  _key,\n  label,\n  destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      internal->_id == "homePage" || internal->_type == "homePage" => "/",\n      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n    ),\n    kind == "external" => external\n  )\n}\n}\n    },\n    "legalLinks": coalesce(legalLinks, compliance.legalLinks)[]{\n  _key,\n  label,\n  destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      internal->_id == "homePage" || internal->_type == "homePage" => "/",\n      defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n    ),\n    kind == "external" => external\n  )\n}\n},\n    "copyrightStartYear": coalesce(copyrightStartYear, compliance.copyrightStartYear),\n    "copyrightOwner": coalesce(copyrightOwner, compliance.copyrightOwner)\n  }\n': FOOTER_QUERY_RESULT;
+    '\n  *[_id == "homePage" && _type == "homePage"][0]{\n    _id,\n    _type,\n    title,\n    description,\n    \n  blocks[]{\n    _key,\n    _type,\n    \n  _type == "richTextBlock" => {\n    theme,\n    eyebrow,\n    title,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  _type == "scaffold" => {\n    name,\n    proposedSectionShape,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n _type == "hubspotForm" => {..., theme, title, description}\n,\n    \n _type == "reviews" => {..., theme, title, description}\n,\n    \n _type == "video" => {..., theme, title, description}\n,\n    \n _type == "locationMap" => {..., theme, title, description}\n,\n    \n _type == "muxVideoHero" => {..., theme, title, description}\n,\n    \n _type == "transportation" => {..., theme, title, description}\n,\n    \n _type == "programs" => {..., theme, title, description}\n,\n    \n _type == "lunch" => {..., theme, title, description}\n,\n    \n _type == "testimonials" => {..., theme, title, description}\n,\n    \n _type == "interactiveMap" => {..., theme, title, description}\n,\n    \n  }\n,\n    \n  meta{\n    title,\n    description,\n    noindex,\n    image{\n      \n  ...,\n  asset->{\n    _id,\n    url,\n    mimeType,\n    metadata {\n      lqip,\n      dimensions {\n        width,\n        height\n      }\n    }\n  }\n\n    }\n  }\n,\n  }\n': HOME_PAGE_QUERY_RESULT;
+    '\n  *[_type == "navigation" && _id == "navigation"][0]{\n    _id,\n    topLinkColumns[]{_key, label, links[]{_key, label, destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}}},\n    items[]{\n      _key,\n      _type == "navigationLink" => {\n        "kind": "link",\n        label,\n        destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n      },\n      _type == "navigationGroup" => {\n        "kind": "group",\n        label,\n        links[]{\n          _key,\n          label,\n          description,\n          // Legacy documents store the icon as a bare string name; surface it\n          // as {name, svg: null} so the link survives until the doc is re-saved.\n          "icon": select(\n            defined(icon.name) => icon{ name, svg },\n            defined(icon) => { "name": icon, "svg": null }\n          ),\n          destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n        }\n      }\n    },\n    actions[]{\n      _key,\n      label,\n      destination{\n  openInNewTab,\n  "href": select(\n    kind == "internal" => select(\n      select(\n  internal->_id == "homePage" || internal->_type == "homePage" => "/",\n  defined(internal->slug.current) => "/" + array::join(string::split(internal->slug.current, "/")[@ != ""], "/")\n)\n    ),\n    kind == "external" => external\n  )\n}\n    }\n  }\n': NAVIGATION_QUERY_RESULT;
     '\n  *[_id == "homePage" && _type == "homePage"][0]{\n    "overrideTitle": meta.title,\n    title\n  }\n': HOME_PAGE_OG_IMAGE_QUERY_RESULT;
     '\n  *[_type == "page" && slug.current in [$slug, "/" + $slug, $slug + "/", "/" + $slug + "/"]][0]{\n    "title": coalesce(title, meta.title)\n  }\n': PAGE_OG_IMAGE_QUERY_RESULT;
-    '\n  *[_type == "page" && slug.current in [$slug, "/" + $slug, $slug + "/", "/" + $slug + "/"]][0]{\n    _id,\n    _type,\n    title,\n    description,\n    "slug": slug.current,\n    \n  blocks[]{\n    _key,\n    _type,\n    \n  _type == "richTextBlock" => {\n    theme,\n    eyebrow,\n    title,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  _type == "scaffold" => {\n    name,\n    proposedSectionShape,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  }\n,\n    \n  meta{\n    title,\n    description,\n    noindex,\n    image{\n      \n  ...,\n  asset->{\n    _id,\n    url,\n    mimeType,\n    metadata {\n      lqip,\n      dimensions {\n        width,\n        height\n      }\n    }\n  }\n\n    }\n  }\n,\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current in [$slug, "/" + $slug, $slug + "/", "/" + $slug + "/"]][0]{\n    _id,\n    _type,\n    title,\n    description,\n    section,\n    headerImage{..., asset->{_id, url, metadata{dimensions, lqip}}},\n    "slug": slug.current,\n    \n  blocks[]{\n    _key,\n    _type,\n    \n  _type == "richTextBlock" => {\n    theme,\n    eyebrow,\n    title,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n  _type == "scaffold" => {\n    name,\n    proposedSectionShape,\n    richText[]{\n      \n  ...,\n  _type == "block" => {\n    ...,\n    children[]{...},\n    markDefs[]{\n      ...,\n      _type in ["customLink", "buttonLink"] => {\n        \n  "href": select(\n    customLink.type == "internal" => select(\n  customLink.internal->_id == "homePage" || customLink.internal->_type == "homePage" => "/",\n  defined(customLink.internal->slug.current) => "/" + array::join(string::split(customLink.internal->slug.current, "/")[@ != ""], "/")\n),\n    customLink.type == "external" => customLink.external,\n    customLink.href\n  ),\n  "openInNewTab": customLink.openInNewTab\n\n      }\n    }\n  },\n  _type == "image" => {\n    ...,\n    "resolvedAsset": asset->{\n      _id,\n      url,\n      mimeType,\n      metadata {\n        lqip,\n        dimensions {\n          width,\n          height\n        }\n      }\n    }\n  },\n  _type == "fileDownload" => {..., asset->{_id, url, originalFilename}},\n  _type == "table" => {\n    ...,\n    rows[]{\n      ...,\n      cells[]\n    }\n  },\n  _type == "callout" => {\n    ...,\n    title,\n    body\n  }\n\n    }\n  }\n,\n    \n _type == "hubspotForm" => {..., theme, title, description}\n,\n    \n _type == "reviews" => {..., theme, title, description}\n,\n    \n _type == "video" => {..., theme, title, description}\n,\n    \n _type == "locationMap" => {..., theme, title, description}\n,\n    \n _type == "muxVideoHero" => {..., theme, title, description}\n,\n    \n _type == "transportation" => {..., theme, title, description}\n,\n    \n _type == "programs" => {..., theme, title, description}\n,\n    \n _type == "lunch" => {..., theme, title, description}\n,\n    \n _type == "testimonials" => {..., theme, title, description}\n,\n    \n _type == "interactiveMap" => {..., theme, title, description}\n,\n    \n  }\n,\n    \n  meta{\n    title,\n    description,\n    noindex,\n    image{\n      \n  ...,\n  asset->{\n    _id,\n    url,\n    mimeType,\n    metadata {\n      lqip,\n      dimensions {\n        width,\n        height\n      }\n    }\n  }\n\n    }\n  }\n,\n  }\n': PAGE_QUERY_RESULT;
     '*[_type == "page" && defined(slug)]{slug}': PAGES_SLUGS_QUERY_RESULT;
     '\n  *[\n    _type == "redirect" &&\n    !(_id in path("drafts.**")) &&\n    status == "active" &&\n    defined(source.current) &&\n    (defined(destinationReference._ref) || defined(destination.current))\n  ] | order(source.current asc) {\n    _id,\n    status,\n    source,\n    "destination": select(\n      defined(destinationReference._ref) => select(\n  destinationReference->_id == "homePage" || destinationReference->_type == "homePage" => "/",\n  destinationReference->_type == "page" && defined(destinationReference->slug.current) => "/" + array::join(string::split(destinationReference->slug.current, "/")[@ != ""], "/")\n),\n      destination.current\n    ),\n    permanent\n  }\n': REDIRECTS_QUERY_RESULT;
-    '\n  *[_type == "settings" && _id == "settings"][0]{\n    _id,\n    _type,\n    siteName,\n    logo{\n      light{\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata { lqip, dimensions { width, height } }\n        }\n      },\n      dark{\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata { lqip, dimensions { width, height } }\n        }\n      }\n    },\n    contact{\n      email,\n      phone,\n      addressLines\n    },\n    socialLinks[]{\n      _key,\n      label,\n      url\n    }\n  }\n': SETTINGS_QUERY_RESULT;
+    '\n  *[_type == "settings" && _id == "settings"][0]{\n    _id,\n    _type,\n    siteName,\n    description,\n    alertBar{enabled, text[]{...}},\n    campLinks{enroll, parentLogin, staffApplication, store, tour},\n    hubspotPortalId,\n    gtmContainerId,\n    logo{\n      light{\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata { lqip, dimensions { width, height } }\n        }\n      },\n      dark{\n        ...,\n        asset->{\n          _id,\n          url,\n          mimeType,\n          metadata { lqip, dimensions { width, height } }\n        }\n      }\n    },\n    contact{\n      email,\n      phone,\n      addressLines\n    },\n    socialLinks[]{\n      _key,\n      label,\n      url\n    }\n  }\n': SETTINGS_QUERY_RESULT;
   }
 }
