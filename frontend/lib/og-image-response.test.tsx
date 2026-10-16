@@ -9,7 +9,6 @@ describe("sharing card PNG output", () => {
   ])("renders brand assets with photo %s", async (photoUrl) => {
     const response = await createOgImageResponse({
       title: "A useful title",
-      eyebrow: "Your site",
       photoUrl,
     });
     const bytes = new Uint8Array(await response.arrayBuffer());

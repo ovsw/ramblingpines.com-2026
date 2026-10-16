@@ -124,10 +124,7 @@ export async function GET(
     return notFound();
 
   try {
-    return await createOgImageResponse({
-      eyebrow: siteName.toUpperCase(),
-      ...card,
-    });
+    return await createOgImageResponse(card);
   } catch (error) {
     return ogImageFallbackResponse(error, "Page");
   }

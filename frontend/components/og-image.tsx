@@ -3,13 +3,11 @@ import { fitOgTitle } from "@/lib/og-image";
 import brand from "@/public/brand/brand.json";
 
 export function OgImage({
-  eyebrow,
   title,
   photoUrl,
   logo,
   mark,
 }: {
-  eyebrow: string;
   title: string;
   photoUrl?: string;
   logo: string;
@@ -69,27 +67,6 @@ export function OgImage({
         height={147}
         style={{ position: "absolute", top: 44, left: 64, objectFit: "contain" }}
       />
-      {eyebrow ? (
-        // A solid brand tag keeps the name legible on any photo colour.
-        <div
-          style={{
-            display: "flex",
-            position: "absolute",
-            top: 56,
-            right: 64,
-            padding: "12px 24px",
-            borderRadius: 999,
-            border: "2px solid rgba(255,255,255,0.85)",
-            backgroundColor: brand.color,
-            fontFamily: "Brand",
-            fontSize: 24,
-            fontWeight: 600,
-            letterSpacing: "0.06em",
-          }}
-        >
-          {eyebrow}
-        </div>
-      ) : null}
       <div
         style={{
           display: "flex",

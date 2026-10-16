@@ -20,11 +20,9 @@ const CACHE_HEADERS = {
 };
 
 export async function createOgImageResponse({
-  eyebrow,
   title,
   photoUrl,
 }: {
-  eyebrow: string;
   title: string;
   photoUrl?: string;
 }) {
@@ -32,7 +30,6 @@ export async function createOgImageResponse({
 
   const image = new ImageResponse(
     <OgImage
-      eyebrow={eyebrow}
       title={title}
       photoUrl={photoUrl}
       logo={`data:image/svg+xml;base64,${logo.toString("base64")}`}

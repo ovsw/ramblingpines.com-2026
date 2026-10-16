@@ -1,7 +1,7 @@
 import brand from "../public/brand/brand.json";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 
-export const OG_IMAGE_VERSION = "3";
+export const OG_IMAGE_VERSION = "4";
 
 const MAX_SLUG_LENGTH = 200;
 const SIGNATURE_PATTERN = /^[A-Za-z0-9_-]{43}$/;
