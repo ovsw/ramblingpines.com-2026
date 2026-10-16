@@ -15,6 +15,25 @@ function scan(value) {
 }
 scan(source);
 const run = () => transform(source, assets);
+test("maps legacy section names and preserves supported navigation groups", () => {
+  for (const [section, expected] of [
+    ["No Section", "none"],
+    ["About us", "About Us"],
+    [undefined, "none"],
+    ["", "none"],
+    ["none", "none"],
+    ["Future Families", "Future Families"],
+    ["About Us", "About Us"],
+    ["Current Families", "Current Families"],
+    ["Staff", "Staff"],
+  ]) {
+    const { documents } = transform(
+      [{ _id: "section-fixture", _type: "page", section }],
+      {},
+    );
+    assert.equal(documents[0].section, expected);
+  }
+});
 test("preserves document IDs and remaps image and file references across inline content and markers", () => {
   const { documents } = run();
   const page = documents.find((d) => d._id === "inline-fixture");

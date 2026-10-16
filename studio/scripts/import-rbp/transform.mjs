@@ -154,7 +154,11 @@ export function transform(source, assets, seedDocuments = []) {
         title: old.title,
         slug: old.slug,
         section:
-          old.section === "About us" ? "About Us" : old.section || "none",
+          old.section === "About us"
+            ? "About Us"
+            : old.section === "No Section"
+              ? "none"
+              : old.section || "none",
         blocks: convertBody(old, assets, report),
         meta: {
           title: old.seoTitle || old.title,

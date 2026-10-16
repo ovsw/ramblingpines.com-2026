@@ -22,6 +22,8 @@ All content records are committed in one transaction after asset uploads. If an 
 
 The apply report is saved to `docs/migration/import-report.json`. It records the backup path, target, counts, skipped types and each dropped embed. The raw export and backup stay outside git. Fixtures contain only public old-site content needed by the tests.
 
+Legacy section names map to the current choices: `About us` becomes `About Us`, and `No Section` becomes `none`. Missing or empty sections also become `none`. The six records imported before the `No Section` correction received a field-only patch after a verified raw backup. `docs/migration/section-correction-report.json` records that correction, including the three preserved drafts.
+
 The source corrections from issue #9 apply: 41 old page records include 36 published records and five drafts, and 21 redirects survive the two self-redirect exclusions. The importer also creates `homePage` and the hard-coded interactive-map page. Site settings retain the old `siteSettings` ID; the Website query and Studio editor use that ID.
 
 The seed JSON was extracted from `docs/migration/hard-coded-content.md`. Images and the four SVG icons came from the same old source revision. JSX-only icon attributes were removed. The approved program card schema has no description field, so each original card description is retained in `ageRange`. Transportation areas are retained as paragraphs in its simple rich text body. The second lunch link is retained in its body. These field limits need attention when the home page renderer is built.
