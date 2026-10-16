@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 export default function Custom404() {
   return (
-    <div className="min-h-[80vh]">
+    <div className="shell-not-found">
       <PageHeading
         title="Page not found"
         description="This page may have moved, or the address may be incorrect."

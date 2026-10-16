@@ -1,3 +1,4 @@
+import { getSafeLinkHref } from "@/lib/safe-href";
 import { createHeaderBrandModel, createHeaderNavigationModel } from "./model";
 import { Header, HeaderNavigation } from "./site-header";
 import type { HeaderNavigationModel } from "./model";
@@ -31,6 +32,16 @@ export async function CachedHeader({ perspective, stega }: DynamicFetchOptions) 
   const model = {
     brand,
     navigation,
+    contact: settings?.contact,
+    alertBar: settings?.alertBar,
+    topLinkColumns: (rawNavigation?.topLinkColumns ?? []).map((column) => ({
+      key: column._key,
+      label: column.label ?? "Quick links",
+      links: (column.links ?? []).flatMap((item) => {
+        const href = getSafeLinkHref(item.destination?.href);
+        return href && item.label ? [{ href, label: item.label, openInNewTab: Boolean(item.destination?.openInNewTab) }] : [];
+      }),
+    })),
   };
 
   return <Header model={model} />;

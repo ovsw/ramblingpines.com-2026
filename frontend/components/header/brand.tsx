@@ -4,7 +4,7 @@ import type { HeaderBrandModel, HeaderLogoModel } from "./model";
 function Logo({ alt, logo }: { alt: string; logo: HeaderLogoModel }) {
   return (
     <Image
-      className="h-8 w-auto max-w-48 object-contain"
+      className="shell-brand-image"
       alt={alt}
       height={logo.height}
       priority

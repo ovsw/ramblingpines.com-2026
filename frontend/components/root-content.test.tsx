@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { PAGE_QUERY_RESULT } from "@/sanity.types";
 import { RootContentView } from "./root-content";
+
+vi.mock("@/components/header/side-navigation", () => ({ SideNavigation: () => null }));
 
 const page = {
   _id: "page-1",

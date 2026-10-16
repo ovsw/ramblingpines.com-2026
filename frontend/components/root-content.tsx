@@ -1,3 +1,4 @@
+import { SideNavigation } from "@/components/header/side-navigation";
 import { PageHeading } from "@/components/shadcnblocks/page-heading";
 import { createDataAttribute, stegaClean } from "next-sanity";
 import Blocks from "@/components/blocks";
@@ -42,6 +43,9 @@ function PageContent({
         siteUrl={siteUrl}
       />
       <VideoJsonLd content={blocks} />
+      <div className={page.section && page.section !== "none" ? "shell-page-with-sidebar container" : undefined}>
+      {page.section && page.section !== "none" && <SideNavigation section={page.section} perspective={perspective} stega={stega} />}
+      <div className="min-w-0">
       {needsTitleHeader ? (
         <PageHeading
           title={page.title}
@@ -58,6 +62,8 @@ function PageContent({
         perspective={perspective}
         stega={stega}
       />
+      </div>
+      </div>
     </>
   );
 }
