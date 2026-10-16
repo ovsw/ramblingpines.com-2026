@@ -311,6 +311,9 @@
 .shell-brand-image { width: 120px; height: 95px; object-fit: contain; }
 .shell-menu-items > li:nth-child(2) { margin-right: 10rem; }
 .shell-menu-items > li > button, .shell-menu-items > li > a { font-family: var(--font-dosis); font-weight: 700; font-size: 1.25rem; text-transform: uppercase; color: var(--color-primary-dark); background: transparent; }
+.shell-dropdown { top: 100%; left: 50%; translate: -50% 0; margin-top: .375rem; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-control); box-shadow: 0 3px 10px #0003; }
+.shell-menu-items > li:first-child > .shell-dropdown { left: 0; translate: none; }
+.shell-menu-items > li:last-child > .shell-dropdown { left: auto; right: 0; translate: none; }
 .shell-mega-menu { background: var(--color-background) url('/images/shell/menu-bg.png') repeat; }
 .shell-mega-menu a { color: var(--color-primary-dark); }
 .shell-mobile-header { display: none; }
