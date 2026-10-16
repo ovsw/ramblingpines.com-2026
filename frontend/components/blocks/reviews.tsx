@@ -36,11 +36,12 @@ export default function Reviews({
   if (!hasReviewsContent({ widgetId })) return null;
 
   const headingId = `reviews-${stegaClean(_key)}-title`;
+  const hasIntro = Boolean(title || stegaClean(description)?.trim());
 
   return (
     <section
       aria-labelledby={title ? headingId : undefined}
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`embed-section ${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}`}
       data-sanity={dataAttribute?.("theme")}
       id={`reviews-${stegaClean(_key)}`}
     >
@@ -61,7 +62,10 @@ export default function Reviews({
               {description}
             </p>
           ) : null}
-          <div className="mt-6" data-sanity={dataAttribute?.("widgetId")}>
+          <div
+            className={hasIntro ? "mt-6" : undefined}
+            data-sanity={dataAttribute?.("widgetId")}
+          >
             <ReviewsEmbed key={stegaClean(widgetId)} widgetId={stegaClean(widgetId)?.trim() || ""} />
           </div>
         </div>

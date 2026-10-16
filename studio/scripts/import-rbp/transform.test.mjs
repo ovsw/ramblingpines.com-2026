@@ -54,7 +54,7 @@ test("preserves document IDs and remaps image and file references across inline 
   assert.equal(marker.images[0].asset._ref, assets[old.images[0].asset._ref]);
   assert.deepEqual(marker.description, old.description);
 });
-test("splits text before and after HubSpot, keeps the form ID and title", () => {
+test("splits text before and after HubSpot, keeps the form ID, drops the editor label", () => {
   const form = source
     .flatMap((d) => d.body || [])
     .find((b) => b._type === "hubSpotFormEmbed");
@@ -70,6 +70,7 @@ test("splits text before and after HubSpot, keeps the form ID and title", () => 
     ["richTextBlock", "hubspotForm", "richTextBlock"],
   );
   assert.equal(sections[1].formId, "39da88d2-691e-4998-8544-d4d3c42fd692");
+  assert.equal(sections[1].title, undefined);
   assert.deepEqual(sections[0].richText, sections[2].richText);
 });
 test("drops Cognito and keeps surrounding text, counts and skipped types", () => {
@@ -142,7 +143,8 @@ test("recognizes the unflagged directions map and reports unknown blocks", () =>
     page.blocks.some(
       (b) =>
         b._type === "locationMap" &&
-        b.location.startsWith("https://www.google.com/maps/embed"),
+        b.location.startsWith("https://www.google.com/maps/embed") &&
+        b.title === undefined,
     ),
   );
   const { report } = transform(

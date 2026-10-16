@@ -38,11 +38,12 @@ export default function HubspotForm({
   if (!hasHubspotFormContent({ formId })) return null;
 
   const headingId = `hubspot-form-${stegaClean(_key)}-title`;
+  const hasIntro = Boolean(title || stegaClean(description)?.trim());
 
   return (
     <section
       aria-labelledby={title ? headingId : undefined}
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`embed-section ${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}`}
       data-sanity={dataAttribute?.("theme")}
       id={`hubspot-form-${stegaClean(_key)}`}
     >
@@ -63,7 +64,10 @@ export default function HubspotForm({
               {description}
             </p>
           ) : null}
-          <div className="mt-6" data-sanity={dataAttribute?.("formId")}>
+          <div
+            className={hasIntro ? "mt-6" : undefined}
+            data-sanity={dataAttribute?.("formId")}
+          >
             <HubspotEmbed key={`${portalId}:${stegaClean(formId)}`} portalId={portalId.trim()} formId={stegaClean(formId)?.trim() ?? ""} />
           </div>
         </div>

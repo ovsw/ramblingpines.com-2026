@@ -95,7 +95,6 @@ export function convertBody(page, assets, report) {
         add({
           _key: b._key,
           _type: "hubspotForm",
-          title: b.title,
           formId: b.formId,
         });
         break;
@@ -110,12 +109,11 @@ export function convertBody(page, assets, report) {
         } else if (b.embedSocial) {
           const widgetId = b.code.match(/data-ref=["']([^"']+)["']/)?.[1];
           if (!widgetId) throw new Error(`Missing widget ID on ${page._id}`);
-          add({ _key: b._key, _type: "reviews", title: b.title, widgetId });
+          add({ _key: b._key, _type: "reviews", widgetId });
         } else if (/google\.com\/maps\/embed/.test(b.code)) {
           add({
             _key: b._key,
             _type: "locationMap",
-            title: b.title,
             location: b.code
               .match(/src=["']([^"']+)["']/)[1]
               .replaceAll("&amp;", "&"),
