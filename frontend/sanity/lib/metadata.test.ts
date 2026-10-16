@@ -77,33 +77,24 @@ describe("generatePageMetadata", () => {
     expect(metadata.openGraph.title).toBe("About | Example Company");
   });
 
-  it("prefers an editor-selected sharing image for Open Graph and Twitter", () => {
-    const pageWithImage = {
-      ...page,
-      meta: {
-        ...page.meta,
-        image: {
-          asset: {
-            url: "https://cdn.sanity.io/images/project/production/social.jpg",
-            metadata: { dimensions: { width: 1600, height: 900 } },
-          },
-        },
-      },
-    } as unknown as NonNullable<PAGE_QUERY_RESULT>;
-
-    const metadata = generatePageMetadata({
-      page: pageWithImage,
+  it("puts the sharing photo inside a signed generated card", () => {
+    const sharingPhoto = {
+      asset: { _type: "reference" as const, _ref: "image-abc123-1200x630-jpg" },
+      crop: null,
+      hotspot: null,
+    };
+    const withPhoto = generatePageMetadata({
+      page: { ...page, sharingPhoto },
       path: "/about",
     });
-    const image = {
-      url: "https://cdn.sanity.io/images/project/production/social.jpg",
-      width: 1600,
-      height: 900,
-      alt: "About | About Example Company",
-    };
-
-    expect(metadata.openGraph.images).toEqual([image]);
-    expect(metadata.twitter.images).toEqual([image]);
+    const withoutPhoto = generatePageMetadata({ page, path: "/about" });
+    expect(new URL(withPhoto.openGraph.images[0].url).pathname).toBe(
+      "/api/og/page/page/about",
+    );
+    expect(withPhoto.openGraph.images[0].url).not.toBe(
+      withoutPhoto.openGraph.images[0].url,
+    );
+    expect(withPhoto.twitter.images).toEqual(withPhoto.openGraph.images);
   });
 
   it("uses one absolute, branded homepage title", () => {

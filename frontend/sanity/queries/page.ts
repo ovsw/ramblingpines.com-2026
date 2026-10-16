@@ -1,3 +1,4 @@
+import { pageSharingPhotoQuery } from "./shared/sharing-photo";
 import { groq } from "next-sanity";
 import { ROOT_SLUG_FILTER } from "../../../shared/root-slug-filter";
 import { metaQuery } from "./shared/meta";
@@ -13,6 +14,7 @@ export const PAGE_QUERY = groq`
     headerImage{..., asset->{_id, url, metadata{dimensions, lqip}}},
     "slug": slug.current,
     ${pageBuilderQuery},
+    ${pageSharingPhotoQuery},
     ${metaQuery},
   }
 `;

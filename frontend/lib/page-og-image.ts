@@ -28,8 +28,13 @@ export function parsePageOgImageTarget(
   return kind === "page" && isValidOgSlug(slug) ? { kind, slug } : null;
 }
 
-export function createPageOgImageRevision(title: string) {
-  return createOgImageRevision([title.trim()]);
+// The photo URL carries the asset, crop and hotspot, so changing any of them
+// gives the card a new URL and shared links pick up the new photo.
+export function createPageOgImageRevision(
+  title: string,
+  photoUrl?: string | null,
+) {
+  return createOgImageRevision([title.trim(), photoUrl || ""]);
 }
 
 export function getPageOgImageTitle(title: string) {
@@ -38,11 +43,13 @@ export function getPageOgImageTitle(title: string) {
 
 export function buildPageOgImageUrl({
   origin,
+  photoUrl,
   target,
   title,
   secret = getOgImageSecret(),
 }: {
   origin: string;
+  photoUrl?: string | null;
   target: PageOgImageTarget;
   title: string;
   secret?: string;
@@ -51,7 +58,7 @@ export function buildPageOgImageUrl({
     throw new Error("Cannot build an OG image URL for an invalid page target");
   }
 
-  const revision = createPageOgImageRevision(title);
+  const revision = createPageOgImageRevision(title, photoUrl);
   const key = getPageOgImageKey(target);
   const url = new URL(`/api/og/page/${getPageOgImagePath(target)}`, origin);
   url.searchParams.set("v", OG_IMAGE_VERSION);
