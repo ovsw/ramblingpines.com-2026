@@ -27,7 +27,13 @@ const page = {
 const mapPage = {
   ...page,
   _id: "page-map",
-  blocks: [{ _key: "map", _type: "interactiveMap" }],
+  blocks: [
+    {
+      _key: "map",
+      _type: "interactiveMap",
+      campusImage: { asset: { url: "https://cdn.sanity.io/map.jpg" } },
+    },
+  ],
   slug: "interactive-map",
   title: "Interactive Map",
 } as unknown as NonNullable<PAGE_QUERY_RESULT>;
@@ -68,5 +74,23 @@ describe("RootContentView", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: "Interactive Map" }),
     ).toHaveClass("sr-only");
+  });
+
+  it("keeps the ordinary layout when the only map section has no image", async () => {
+    const { container } = render(
+      await RootContentView({
+        content: {
+          ...mapPage,
+          blocks: [{ _key: "map", _type: "interactiveMap" }],
+        } as unknown as NonNullable<PAGE_QUERY_RESULT>,
+        perspective: "published",
+        stega: false,
+      }),
+    );
+
+    expect(container.querySelector(".generic-page-full-bleed")).toBeNull();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Interactive Map" }),
+    ).not.toHaveClass("sr-only");
   });
 });

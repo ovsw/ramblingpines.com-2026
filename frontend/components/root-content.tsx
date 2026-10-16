@@ -7,6 +7,7 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { createDataAttribute, stegaClean } from "next-sanity";
 import Blocks from "@/components/blocks";
+import { hasInteractiveMapContent } from "@/components/blocks/interactive-map";
 import BreadcrumbJsonLd from "@/components/breadcrumb-json-ld";
 import { siteUrl } from "@/lib/site-url";
 import VideoJsonLd from "@/components/video-json-ld";
@@ -24,7 +25,12 @@ type PageBlocks = NonNullable<NonNullable<PAGE_QUERY_RESULT>["blocks"]>;
  * is needed.
  */
 export function isFullBleedPage(blocks: PageBlocks) {
-  return blocks.length === 1 && blocks[0]._type === "interactiveMap";
+  const [only] = blocks;
+  return (
+    blocks.length === 1 &&
+    only._type === "interactiveMap" &&
+    hasInteractiveMapContent(only)
+  );
 }
 
 function PageContent({
