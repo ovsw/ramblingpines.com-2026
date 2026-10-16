@@ -722,6 +722,60 @@
             "name": "button"
           },
           "optional": true
+        },
+        "areasTitle": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "areas": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "array",
+            "of": {
+              "type": "object",
+              "attributes": {
+                "county": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  },
+                  "optional": true
+                },
+                "towns": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "array",
+                    "of": {
+                      "type": "string"
+                    }
+                  },
+                  "optional": true
+                },
+                "_type": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string",
+                    "value": "area"
+                  }
+                }
+              },
+              "rest": {
+                "type": "object",
+                "attributes": {
+                  "_key": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "optional": true
         }
       }
     }
@@ -1741,31 +1795,6 @@
             "value": "buttonLink"
           }
         },
-        "variant": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "default"
-              },
-              {
-                "type": "string",
-                "value": "secondary"
-              },
-              {
-                "type": "string",
-                "value": "outline"
-              },
-              {
-                "type": "string",
-                "value": "link"
-              }
-            ]
-          },
-          "optional": true
-        },
         "customLink": {
           "type": "objectAttribute",
           "value": {
@@ -1789,31 +1818,6 @@
             "type": "string",
             "value": "button"
           }
-        },
-        "variant": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "default"
-              },
-              {
-                "type": "string",
-                "value": "secondary"
-              },
-              {
-                "type": "string",
-                "value": "outline"
-              },
-              {
-                "type": "string",
-                "value": "link"
-              }
-            ]
-          },
-          "optional": true
         },
         "text": {
           "type": "objectAttribute",
@@ -2019,39 +2023,6 @@
     }
   },
   {
-    "name": "button-variant",
-    "type": "type",
-    "value": {
-      "type": "union",
-      "of": [
-        {
-          "type": "string",
-          "value": "default"
-        },
-        {
-          "type": "string",
-          "value": "destructive"
-        },
-        {
-          "type": "string",
-          "value": "outline"
-        },
-        {
-          "type": "string",
-          "value": "secondary"
-        },
-        {
-          "type": "string",
-          "value": "ghost"
-        },
-        {
-          "type": "string",
-          "value": "link"
-        }
-      ]
-    }
-  },
-  {
     "name": "color-variant",
     "type": "type",
     "value": {
@@ -2143,14 +2114,6 @@
           "type": "objectAttribute",
           "value": {
             "type": "boolean"
-          },
-          "optional": true
-        },
-        "buttonVariant": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "inline",
-            "name": "button-variant"
           },
           "optional": true
         }

@@ -442,6 +442,7 @@
 .home-quote figcaption { color: var(--color-accent); margin-top: 1rem; font-family: var(--font-dosis); }
 .home-quote-controls { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
 .home-quote-controls button { background: var(--color-primary); color: white; border-radius: 3px; padding: .4rem .7rem; }
+.home-quote-controls button:disabled { opacity: .4; cursor: not-allowed; }
 @media (max-width: 1023px) { .home-quotes { grid-auto-columns: calc((100% - 1rem) / 2); } }
 @media (max-width: 768px) {
  .home-hero { min-height: 580px; }

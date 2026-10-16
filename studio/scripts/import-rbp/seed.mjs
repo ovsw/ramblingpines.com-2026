@@ -29,7 +29,6 @@ export function seedDocuments(source, assets, playbackId) {
     _type: "button",
     text: label,
     url: url(href),
-    variant: "default",
   });
   const paragraphs = (values) =>
     values.map((s, i) => text(s, `paragraph-${i}`));
@@ -119,11 +118,14 @@ export function seedDocuments(source, assets, playbackId) {
         "Parents wish for a quality summer day camp near them. With door to door busing, it is.",
         "Transportation is provided using air-conditioned, 24 passenger mini-buses.",
         "All buses are professionally driven and have seatbelts. There is a bus aid on each bus. Transportation is included in the camp tuition.",
-        "Transportation Areas",
-        ...seed.transportationAreas.map(
-          (a) => `${a.county} ${a.towns.join(", ")}`,
-        ),
       ]),
+      areasTitle: "Transportation Areas",
+      areas: seed.transportationAreas.map((a, index) => ({
+        _key: `area-${index}`,
+        _type: "area",
+        county: a.county,
+        towns: a.towns,
+      })),
       image: img(
         "transportation-illustration.png",
         "Transportation illustration",

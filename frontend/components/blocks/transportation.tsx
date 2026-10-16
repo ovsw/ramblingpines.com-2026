@@ -30,24 +30,14 @@ export default function Transportation({
   body,
   image,
   button,
+  areasTitle,
+  areas,
   theme,
   top = "outer",
   bottom = "outer",
   dataAttribute,
 }: TransportationProps) {
   if (!hasTransportationContent({ title })) return null;
-  const areaStart =
-    body?.findIndex(
-      (block) =>
-        block._type === "block" &&
-        block.children?.some(
-          (child) =>
-            child._type === "span" &&
-            stegaClean(child.text)?.trim() === "Transportation Areas",
-        ),
-    ) ?? -1;
-  const introBody = areaStart >= 0 ? body?.slice(0, areaStart) : body;
-  const areas = areaStart >= 0 ? body?.slice(areaStart + 1) : [];
   const headingId = `transportation-${stegaClean(_key)}-title`;
   return (
     <section
@@ -64,7 +54,7 @@ export default function Transportation({
             <p data-sanity={dataAttribute?.("description")}>{description}</p>
           )}
           <div data-sanity={dataAttribute?.("body")}>
-            {introBody && <PortableTextRenderer value={introBody} />}
+            {body && <PortableTextRenderer value={body} />}
           </div>
           {button && (
             <div data-sanity={dataAttribute?.("button")}>
@@ -76,43 +66,30 @@ export default function Transportation({
           <HomeImage image={image} />
         </div>
       </div>
-      {areaStart >= 0 && (
+      {areas && areas.length > 0 && (
         <div
           className="container home-areas"
-          data-sanity={dataAttribute?.("body")}
+          data-sanity={dataAttribute?.("areas")}
         >
-          <h3>Transportation Areas</h3>
+          {areasTitle && (
+            <h3 data-sanity={dataAttribute?.("areasTitle")}>{areasTitle}</h3>
+          )}
           <div>
-            {areas?.map((area) => {
-              const text =
-                area._type === "block"
-                  ? area.children
-                      ?.map((child) =>
-                        child._type === "span" ? child.text : "",
-                      )
-                      .join("") || ""
-                  : "";
-              const split = text.indexOf(":");
-              return (
-                <div key={area._key}>
-                  {split >= 0 ? (
-                    <>
-                      <h4>{text.slice(0, split + 1)}</h4>
-                      <ul>
-                        {text
-                          .slice(split + 1)
-                          .split(",")
-                          .map((town, i) => (
-                            <li key={i}>{town.trim()}</li>
-                          ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <p>{text}</p>
-                  )}
-                </div>
-              );
-            })}
+            {areas.map((area) => (
+              <div
+                key={area._key}
+                data-sanity={dataAttribute?.(`areas[_key=="${area._key}"]`)}
+              >
+                <h4>{area.county}</h4>
+                {area.towns && area.towns.length > 0 && (
+                  <ul>
+                    {area.towns.map((town, index) => (
+                      <li key={`${area._key}-${index}`}>{town}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       )}
