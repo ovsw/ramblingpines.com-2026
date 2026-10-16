@@ -39,7 +39,7 @@ export function HeaderNavigation({
 }) {
   return (
     <nav aria-label="Main navigation" className="shell-main-menu flex items-center gap-6">
-      <NavigationMenu>
+      <NavigationMenu viewport={false}>
         <NavigationMenuList className="shell-menu-items">
           {navigation.items.map((item) => (
             <NavigationMenuItem key={item.key}>
@@ -53,7 +53,7 @@ export function HeaderNavigation({
               ) : (
                 <>
                   <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
+                  <NavigationMenuContent className="shell-dropdown">
                     <ul className="shell-mega-menu grid w-[36rem] grid-cols-2 gap-1 p-6">
                       {item.links.map((child) => (
                         <li key={child.key}>
