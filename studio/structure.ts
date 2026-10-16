@@ -95,7 +95,7 @@ export const structure: StructureResolver = (S) =>
                   S.editor()
                     .id("settings")
                     .schemaType("settings")
-                    .documentId("settings"),
+                    .documentId("siteSettings"),
                 ),
             ]),
         ),

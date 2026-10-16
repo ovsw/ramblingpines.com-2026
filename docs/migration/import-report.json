@@ -1,0 +1,111 @@
+{
+  "mode": "apply",
+  "timestamp": "2026-10-16T06:36:20.689Z",
+  "source": "/storage/backups/rbp/slbjn4i1-production-raw-2026-10-16T07-14-16.tar.gz",
+  "target": {
+    "project": "xl6qmxch",
+    "dataset": "production",
+    "environment": "studio/.env.local"
+  },
+  "backup": "/storage/backups/rbp/xl6qmxch-production-before-import-2026-10-16T06-33-27.219Z.tar.gz",
+  "backupVerified": true,
+  "assets": {
+    "source": 175,
+    "local": 9,
+    "uploaded": 175,
+    "reused": 0
+  },
+  "sourceCounts": {
+    "page": 41,
+    "sanity.imageAsset": 173,
+    "siteSettings": 1,
+    "mapMarker": 44,
+    "post": 5,
+    "author": 1,
+    "category": 2,
+    "sanity.fileAsset": 2
+  },
+  "counts": {
+    "page": 42,
+    "settings": 1,
+    "mapMarker": 44,
+    "homePage": 1,
+    "navigation": 1,
+    "footer": 1,
+    "redirect": 21
+  },
+  "draftIds": [
+    "drafts.currentOpenings",
+    "drafts.earlyEnrollMent",
+    "drafts.seasonCancelledPage",
+    "drafts.survey1",
+    "drafts.survey2"
+  ],
+  "droppedCognito": [
+    {
+      "id": "drafts.currentOpenings",
+      "path": "/staff/current-openings/",
+      "key": "f6227bd8a768",
+      "title": "Staff Interest Form"
+    },
+    {
+      "id": "drafts.survey1",
+      "path": "/survey-1/",
+      "key": "828799e06df4",
+      "title": "Commitment Survey"
+    },
+    {
+      "id": "workingAtRBP",
+      "path": "/staff/working-at-rambling-pines/",
+      "key": "8e7c7c05309b",
+      "title": "Staff Interest Form"
+    },
+    {
+      "id": "currentOpenings",
+      "path": "/staff/current-openings/",
+      "key": "f6227bd8a768",
+      "title": "Staff Interest Form"
+    },
+    {
+      "id": "returningStaffForm",
+      "path": "/returning-staff-form/",
+      "key": "e383b3d1f958",
+      "title": "Staff Return"
+    }
+  ],
+  "unhandled": [],
+  "skipped": {
+    "post": 5,
+    "author": 1,
+    "category": 2
+  },
+  "notes": [
+    "41 source page records include 36 published pages and 5 drafts. Draft IDs and state are preserved.",
+    "The home page and interactive-map page come from the hard-coded site, not the old dataset.",
+    "Cognito forms are omitted. Their surrounding text is preserved. See issue #20.",
+    "Program card descriptions are kept in ageRange because the approved card schema has no separate description field.",
+    "The incomplete Kenneth Kim quote is preserved as recorded in the old source."
+  ],
+  "verification": {
+    "storedCounts": {
+      "page": 42,
+      "mapMarker": 44,
+      "sanity.fileAsset": 2,
+      "footer": 1,
+      "homePage": 1,
+      "sanity.imageAsset": 181,
+      "redirect": 21,
+      "navigation": 1,
+      "settings": 1
+    },
+    "storedDrafts": 5,
+    "preUnseedBackup": "/storage/backups/rbp/xl6qmxch-production-before-unseed-2026-10-16T06-34.tar.gz",
+    "preUnseedBackupVerified": true,
+    "projectGate": "pnpm verify passed, including 2 headless Chrome smoke tests",
+    "documentValidation": "sanity documents validate --yes --level error passed with no errors",
+    "remainingRendererWarnings": [
+      "youtube and fileDownload inline renderers belong to issue #14"
+    ],
+    "visualInspection": "Not performed. Ovi checks appearance after the build."
+  }
+}

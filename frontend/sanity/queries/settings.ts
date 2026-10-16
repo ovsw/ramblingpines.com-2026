@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const SETTINGS_QUERY = defineQuery(`
-  *[_type == "settings" && _id == "settings"][0]{
+  *[_type == "settings" && _id == "siteSettings"][0]{
     _id,
     _type,
     siteName,

@@ -103,7 +103,7 @@ const meta = (title, description) => ({
 });
 
 export const STARTER_DOCUMENT_TYPES = new Map([
-  ["settings", "settings"],
+  ["siteSettings", "settings"],
   ["navigation", "navigation"],
   ["footer", "footer"],
   ["homePage", "homePage"],
@@ -113,13 +113,23 @@ export const STARTER_DOCUMENT_TYPES = new Map([
   ["starter-testimonial-reader", "testimonial"],
 ]);
 
+// Optional samples left by the Starter before blog removal. Never seed these.
+const LEGACY_STARTER_DOCUMENT_TYPES = new Map([
+  ["settings", "settings"],
+  ["blogIndex", "blogIndex"],
+  ["blogPostSettings", "blogPostSettings"],
+  ["starter-author-editor", "author"],
+  ["starter-category-notes", "category"],
+  ["starter-post-field-guide", "post"],
+]);
+
 const marker = {
   _starterSeed: STARTER_SEED,
 };
 
 export const starterDocuments = [
   {
-    _id: "settings",
+    _id: "siteSettings",
     _type: "settings",
     ...marker,
     siteName: "Starter Example",
@@ -488,7 +498,9 @@ async function assertDatasetIsEmpty(client) {
 }
 
 function assertOwnedDocument(document) {
-  const expectedType = STARTER_DOCUMENT_TYPES.get(document?._id);
+  const expectedType =
+    STARTER_DOCUMENT_TYPES.get(document?._id) ??
+    LEGACY_STARTER_DOCUMENT_TYPES.get(document?._id);
   if (!expectedType || document._type !== expectedType) return false;
   return (
     document._starterSeed?.name === STARTER_SEED.name &&
@@ -498,7 +510,10 @@ function assertOwnedDocument(document) {
 
 async function getStarterDocuments(client) {
   return client.fetch("*[_id in $ids]{_id,_type,_starterSeed}", {
-    ids: [...STARTER_DOCUMENT_TYPES.keys()],
+    ids: [
+      ...STARTER_DOCUMENT_TYPES.keys(),
+      ...LEGACY_STARTER_DOCUMENT_TYPES.keys(),
+    ],
   });
 }
 
@@ -506,7 +521,8 @@ async function assertOwnedSeedSet(client) {
   const documents = await getStarterDocuments(client);
   const foundIds = new Set(documents.map((document) => document._id));
   const missing = [...STARTER_DOCUMENT_TYPES.keys()].filter(
-    (id) => !foundIds.has(id),
+    (id) =>
+      !foundIds.has(id) && !(id === "siteSettings" && foundIds.has("settings")),
   );
   if (missing.length) {
     throw new Error(
@@ -519,6 +535,10 @@ async function assertOwnedSeedSet(client) {
       `Unseed refused: these IDs are not marked as Starter seed content: ${unsafe.map((document) => document._id).join(", ")}.`,
     );
   }
+  return [
+    ...STARTER_DOCUMENT_TYPES.keys(),
+    ...LEGACY_STARTER_DOCUMENT_TYPES.keys(),
+  ].filter((id) => foundIds.has(id));
 }
 
 export async function seed(client) {
@@ -543,15 +563,15 @@ export async function seed(client) {
 }
 
 export async function unseed(client) {
-  await assertOwnedSeedSet(client);
+  const documentIds = await assertOwnedSeedSet(client);
   // Never delete replacement images uploaded by an editor.
   const assetIds = STARTER_ASSETS.map((asset) => asset.id);
   let transaction = client.transaction();
-  for (const id of [...STARTER_DOCUMENT_TYPES.keys(), ...assetIds]) {
+  for (const id of [...documentIds, ...assetIds]) {
     transaction = transaction.delete(id);
   }
   await transaction.commit();
-  return { documents: STARTER_DOCUMENT_TYPES.size, assets: assetIds.length };
+  return { documents: documentIds.length, assets: assetIds.length };
 }
 
 async function main() {
