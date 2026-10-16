@@ -367,3 +367,20 @@
   .shell-footer-contact { text-align: center; border: 0; padding: 0 0 2rem; }
   .site-footer { padding-top: 5rem; }
 }
+
+/* Generic pages follow the old banner proportions and continuous paper body. */
+.generic-page-banner { position: relative; aspect-ratio: 16 / 12; }
+.generic-page-body { background: white; }
+.generic-page-content { padding-block: 3rem; }
+.generic-page-main .rich-text-section.section-scene-light { background: transparent; }
+.generic-page-main .rich-text-section { padding-block: 1.5rem; }
+.generic-page-main .rich-text-section:first-child { padding-top: 0; }
+.generic-page-main .rich-text-section > .container { padding-inline: 0; }
+.generic-page-main .rich-text-section > .container > .max-w-3xl { max-width: none; }
+@media (min-width: 640px) { .generic-page-banner { aspect-ratio: 16 / 10; } }
+@media (min-width: 769px) {
+  .generic-page-banner { aspect-ratio: 16 / 8; }
+  .generic-page-content { padding-block: 5rem; }
+}
+@media (min-width: 1280px) { .generic-page-banner { aspect-ratio: 16 / 7; } }
+@media (min-width: 1440px) { .generic-page-banner { aspect-ratio: 16 / 6; } }

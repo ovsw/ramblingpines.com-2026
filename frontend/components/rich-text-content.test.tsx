@@ -15,6 +15,48 @@ function callout(title: string | null, body: string | null) {
 }
 
 describe("RichTextContent", () => {
+  it.each([
+    "https://youtu.be/YNCpQNkOUuI",
+    "https://www.youtube.com/watch?v=YNCpQNkOUuI",
+    "https://www.youtube.com/embed/YNCpQNkOUuI",
+  ])("embeds a YouTube video from %s", (url) => {
+    render(
+      <RichTextContent value={[{ _type: "youtube", _key: "video", url }]} />,
+    );
+    expect(screen.getByTitle("YouTube video")).toHaveAttribute(
+      "src",
+      "https://www.youtube-nocookie.com/embed/YNCpQNkOUuI",
+    );
+  });
+
+  it.each([
+    "https://youtube.com.evil.example/watch?v=YNCpQNkOUuI",
+    "javascript:alert(1)",
+    "http://www.youtube.com/watch?v=YNCpQNkOUuI",
+    "https://www.youtube.com/watch?v=invalid",
+  ])("does not embed an unsafe or invalid video URL: %s", (url) => {
+    const { container } = render(
+      <RichTextContent value={[{ _type: "youtube", _key: "video", url }]} />,
+    );
+    expect(container.querySelector("iframe")).toBeNull();
+  });
+
+  it("does not create a download link for a script URL", () => {
+    render(
+      <RichTextContent
+        value={[
+          {
+            _type: "fileDownload",
+            _key: "file",
+            description: "File",
+            asset: { url: "javascript:alert(1)" },
+          },
+        ]}
+      />,
+    );
+    expect(screen.queryByRole("link")).toBeNull();
+  });
+
   it("renders quote blocks as semantic blockquotes", () => {
     render(
       <RichTextContent

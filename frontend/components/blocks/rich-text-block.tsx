@@ -39,7 +39,7 @@ export default function RichTextBlock({
 
   return (
     <section
-      className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
+      className={`rich-text-section ${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}`}
       data-sanity={dataAttribute?.("theme")}
       aria-labelledby={headingId}
     >
