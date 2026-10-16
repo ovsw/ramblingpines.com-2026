@@ -1,4 +1,5 @@
 import type { HOME_PAGE_QUERY_RESULT, PAGE_QUERY_RESULT } from "@/sanity.types";
+import CampusMap from "./interactive-map/campus-map";
 import { stegaClean } from "next-sanity";
 import {
   resolveSectionTheme,
@@ -10,7 +11,7 @@ type PageBlock =
   | NonNullable<NonNullable<HOME_PAGE_QUERY_RESULT>["blocks"]>[number]
   | NonNullable<NonNullable<PAGE_QUERY_RESULT>["blocks"]>[number];
 
-type InteractiveMapBlock = Extract<PageBlock, { _type: "interactiveMap" }>;
+export type InteractiveMapBlock = Extract<PageBlock, { _type: "interactiveMap" }>;
 
 type InteractiveMapProps = InteractiveMapBlock & {
   dataAttribute?: (path: string) => string | undefined;
@@ -21,12 +22,13 @@ type InteractiveMapProps = InteractiveMapBlock & {
 export function hasInteractiveMapContent(
   block: Pick<InteractiveMapBlock, "campusImage">,
 ) {
-  return Boolean(block.campusImage?.asset);
+  return Boolean(block.campusImage?.asset?.url);
 }
 
 export default function InteractiveMap({
   _key,
   campusImage,
+  markers,
   bottom = "outer",
   dataAttribute,
   description,
@@ -40,13 +42,14 @@ export default function InteractiveMap({
 
   return (
     <section
-      aria-labelledby={headingId}
+      aria-labelledby={title ? headingId : undefined}
       className={sectionSceneClassName(resolveSectionTheme(theme), top, bottom)}
       data-sanity={dataAttribute?.("theme")}
       id={`interactive-map-${stegaClean(_key)}`}
     >
       <div className="container">
         <div className="mx-auto max-w-3xl">
+          {title ? (
           <h2
             className="text-3xl font-extrabold tracking-tight"
             data-sanity={dataAttribute?.("title")}
@@ -54,6 +57,7 @@ export default function InteractiveMap({
           >
             {title}
           </h2>
+          ) : null}
           {stegaClean(description)?.trim() ? (
             <p
               className="mt-4 text-muted-foreground"
@@ -62,6 +66,9 @@ export default function InteractiveMap({
               {description}
             </p>
           ) : null}
+        </div>
+        <div data-sanity={dataAttribute?.("campusImage")} className="mt-6">
+          <CampusMap campusImage={campusImage} markers={markers} />
         </div>
       </div>
     </section>
