@@ -24,6 +24,8 @@ The apply report is saved to `docs/migration/import-report.json`. It records the
 
 Legacy section names map to the current choices: `About us` becomes `About Us`, and `No Section` becomes `none`. Missing or empty sections also become `none`. The six records imported before the `No Section` correction received a field-only patch after a verified raw backup. `docs/migration/section-correction-report.json` records that correction, including the three preserved drafts.
 
+Embed sections made from old `iframeEmbed` and `hubSpotFormEmbed` blocks get no title: the old editor labels were never shown on the site. The first import copied them. Issue #23 cleared them on the live pages with `node studio/scripts/import-rbp/clear-embed-titles.mjs --apply` after a verified raw backup. A run without `--apply` lists any copied titles that remain.
+
 The source corrections from issue #9 apply: 41 old page records include 36 published records and five drafts, and 21 redirects survive the two self-redirect exclusions. The importer also creates `homePage` and the hard-coded interactive-map page. Site settings retain the old `siteSettings` ID; the Website query and Studio editor use that ID.
 
 The seed JSON was extracted from `docs/migration/hard-coded-content.md`. Images and the four SVG icons came from the same old source revision. JSX-only icon attributes were removed. The approved program card schema has no description field, so each original card description is retained in `ageRange`. Transportation areas are retained as paragraphs in its simple rich text body. The second lunch link is retained in its body. These field limits need attention when the home page renderer is built.

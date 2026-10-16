@@ -62,7 +62,7 @@ export default function LocationMap({
   const headingId = `location-${stegaClean(_key)}-title`;
   return (
     <section
-      className={`${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)} home-location`}
+      className={`embed-section ${sectionSceneClassName(resolveSectionTheme(theme), top, bottom)} home-location`}
       aria-labelledby={title ? headingId : undefined}
       data-sanity={dataAttribute?.("theme")}
     >
