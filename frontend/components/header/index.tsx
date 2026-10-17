@@ -37,7 +37,8 @@ export async function CachedHeader({ perspective, stega }: DynamicFetchOptions) 
     topLinkColumns: (rawNavigation?.topLinkColumns ?? []).map((column) => ({
       key: column._key,
       label: column.label ?? "Quick links",
-      links: (column.links ?? []).flatMap((item) => {
+      // Top-link columns have no nesting, so sub-links follow their parent.
+      links: (column.links ?? []).flatMap((link) => [link, ...(link.children ?? [])]).flatMap((item) => {
         const href = getSafeLinkHref(item.destination?.href);
         return href && item.label ? [{ href, label: item.label, openInNewTab: Boolean(item.destination?.openInNewTab) }] : [];
       }),

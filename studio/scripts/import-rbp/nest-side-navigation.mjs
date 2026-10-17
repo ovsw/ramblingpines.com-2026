@@ -52,6 +52,11 @@ if (alreadyNested) {
 for (const label of [...Object.keys(nesting), ...childLabels]) {
   if (!byLabel.has(label)) throw new Error(`Link not found at top level: ${label}`);
 }
+// Stop rather than overwrite sub-links an editor added by hand.
+for (const label of Object.keys(nesting)) {
+  if (byLabel.get(label).children?.length)
+    throw new Error(`${label} already has sub-links; nest the rest by hand.`);
+}
 
 const links = group.links
   .filter((link) => !childLabels.has(link.label))
