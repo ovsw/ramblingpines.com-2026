@@ -14,7 +14,7 @@ const destinationProjection = `{
 export const NAVIGATION_QUERY = defineQuery(`
   *[_type == "navigation" && _id == "navigation"][0]{
     _id,
-    topLinkColumns[]{_key, label, links[]{_key, label, destination${destinationProjection}}},
+    topLinkColumns[]{_key, label, links[]{_key, label, destination${destinationProjection}, children[]{_key, label, destination${destinationProjection}}}},
     items[]{
       _key,
       _type == "navigationLink" => {
@@ -35,7 +35,8 @@ export const NAVIGATION_QUERY = defineQuery(`
             defined(icon.name) => icon{ name, svg },
             defined(icon) => { "name": icon, "svg": null }
           ),
-          destination${destinationProjection}
+          destination${destinationProjection},
+          children[]{_key, label, destination${destinationProjection}}
         }
       }
     },

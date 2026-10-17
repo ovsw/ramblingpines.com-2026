@@ -87,16 +87,26 @@ export function seedDocuments(source, assets, playbackId) {
       type === "footerLink" ? "footerDestination" : "navigationDestination",
     ),
   });
-  const flatten = (children) =>
-    children.flatMap((c) => [
-      ...(c.slug ? [c] : []),
-      ...flatten(c.children || []),
-    ]);
+  // The old menu had columns (no slug) holding links, and links holding
+  // sub-pages. Columns flatten away; sub-pages stay nested under their parent
+  // so the side navigation can indent them like the old site.
+  const topLevel = (children) =>
+    children.flatMap((c) => (c.slug ? [c] : topLevel(c.children || [])));
+  const nested = (l, i) => ({
+    ...link(l.title, l.slug, i),
+    ...((l.children || []).length
+      ? {
+          children: l.children.map((c, j) => ({
+            ...link(c.title, c.slug, `${i}-${j}`, "navigationSubLink"),
+          })),
+        }
+      : {}),
+  });
   const items = seed.navigation.map((g, i) => ({
     _key: `group-${i}`,
     _type: "navigationGroup",
     label: g.title === "About us" ? "About Us" : g.title,
-    links: flatten(g.children).map((l, i) => link(l.title, l.slug, i)),
+    links: topLevel(g.children).map(nested),
   }));
   const sections = [
     {

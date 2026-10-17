@@ -322,7 +322,12 @@
 .shell-sidebar h2 { font-family: var(--font-lato); font-size: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #6c6b73; }
 .shell-sidebar li { border-bottom: 1px solid var(--color-border); }
 .shell-sidebar a { display: block; padding: .5rem; font-size: 1rem; }
-.shell-sidebar a:hover, .shell-sidebar a[aria-current] { color: var(--color-primary); font-weight: 700; }
+.shell-sidebar a:hover, .shell-sidebar a[aria-current], .shell-sidebar a[data-branch-current] { color: var(--color-primary); font-weight: 700; }
+.shell-sidebar li > ul li { border-bottom: 0; border-top: 1px solid var(--color-border); }
+.shell-sidebar-children { padding-left: 1.5rem; }
+.shell-sidebar-children li { list-style: disc; margin-left: 1rem; }
+.shell-sidebar-children li::marker { color: var(--color-primary-light, var(--color-primary)); }
+.shell-sidebar-children a { font-size: .9375rem; }
 .shell-sidebar-mobile { display: none; }
 .site-footer { position: relative; padding-top: 7rem; color: #a6c4bd; background: #005354 url('/images/shell/footer-bg-2.jpg') center center / cover; }
 .site-footer::before { content: ''; position: absolute; inset: -1px 0 auto; height: 28px; background: url('/images/shell/torn-bg-white-b.png') repeat-x top center; pointer-events: none; }

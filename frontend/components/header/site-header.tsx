@@ -29,7 +29,7 @@ import {
 } from "@/components/ui/accordion";
 import { HeaderBrand } from "./brand";
 import { HeaderLink } from "./header-link";
-import type { HeaderModel, HeaderNavigationModel } from "./model";
+import { flattenGroupLinks, type HeaderModel, type HeaderNavigationModel } from "./model";
 import { NavigationIcon } from "./navigation-icon";
 
 export function HeaderNavigation({
@@ -55,7 +55,7 @@ export function HeaderNavigation({
                   <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
                   <NavigationMenuContent className="shell-dropdown">
                     <ul className="shell-mega-menu grid w-[36rem] grid-cols-2 gap-1 p-6">
-                      {item.links.map((child) => (
+                      {flattenGroupLinks(item.links).map((child) => (
                         <li key={child.key}>
                           <NavigationMenuLink asChild>
                             <HeaderLink
@@ -170,7 +170,7 @@ export function Header({ model }: { model: HeaderModel }) {
                         <AccordionTrigger>{item.label}</AccordionTrigger>
                         <AccordionContent>
                           <div className="space-y-4">
-                            {item.links.map((child) => (
+                            {flattenGroupLinks(item.links).map((child) => (
                               <HeaderLink
                                 className="block"
                                 key={child.key}

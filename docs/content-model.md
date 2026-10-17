@@ -41,7 +41,10 @@ Sanity owns authored content. The repository owns schemas, queries, rendering, r
 Pages add `headerImage` with required alt text and `section`. The section is
 `Future Families`, `About Us`, `Current Families`, `Staff`, or `none`.
 Navigation group `label` values match these section names. `none` means no
-side navigation. The Starter `homePage` singleton continues to own `/`.
+side navigation. A grouped navigation link can hold `children` (sub-links:
+label and destination). The side navigation indents them under their parent
+with bullets, like the old site; the header menu lists them flat after the
+parent. The Starter `homePage` singleton continues to own `/`.
 
 A page whose only section is the interactive map renders full-bleed: no side
 navigation, no page container, no visible title, and the map fills the first

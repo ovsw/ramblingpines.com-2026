@@ -10,7 +10,7 @@ vi.mock("@/components/header/side-navigation", () => ({
     kind: "group",
     key: "about",
     label: "About Us",
-    links: [{ key: "map", link: { href: "/interactive-map/", label: "Map" } }],
+    links: [{ key: "map", link: { href: "/interactive-map/", label: "Map" }, children: [] }],
   }),
 }));
 

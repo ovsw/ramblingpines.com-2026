@@ -10,12 +10,20 @@ export type HeaderLinkModel = {
   openInNewTab: boolean;
 };
 
+export type HeaderSubLinkModel = {
+  key: string;
+  label: string;
+  link: HeaderLinkModel;
+};
+
 export type HeaderChildLinkModel = {
   key: string;
   label: string;
   description: string | null;
   icon: NavigationIconModel | null;
   link: HeaderLinkModel;
+  /** Pages nested under this link, shown indented in the side navigation. */
+  children: HeaderSubLinkModel[];
 };
 
 export type HeaderNavigationItem =
@@ -58,12 +66,18 @@ export type HeaderModel = {
 };
 
 type RawDestination = { href?: string | null; openInNewTab?: boolean | null };
+type RawSubLink = {
+  _key?: string | null;
+  label?: string | null;
+  destination?: RawDestination | null;
+};
 type RawChildLink = {
   _key?: string | null;
   label?: string | null;
   description?: string | null;
   icon?: { name?: unknown; svg?: string | null } | null;
   destination?: RawDestination | null;
+  children?: RawSubLink[] | null;
 };
 type RawItem = {
   _key?: string | null;
@@ -170,6 +184,14 @@ export function createHeaderNavigationModel(
         const name =
           typeof rawName === "string" ? stegaClean(rawName)?.trim() : null;
         const svg = stegaClean(child.icon?.svg)?.trim() || null;
+        const children = (child.children ?? []).flatMap((sub) => {
+          const subKey = sub._key?.trim();
+          const subLabel = sub.label?.trim();
+          const subLink = normalizeLink(subLabel, sub.destination);
+          return subKey && subLabel && subLink
+            ? [{ key: subKey, label: subLabel, link: subLink }]
+            : [];
+        });
         return [
           {
             key: childKey,
@@ -177,6 +199,7 @@ export function createHeaderNavigationModel(
             description: child.description?.trim() || null,
             icon: name && svg ? { name, svg } : null,
             link,
+            children,
           },
         ];
       });
@@ -191,4 +214,24 @@ export function createHeaderNavigationModel(
   });
 
   return { items, actions };
+}
+
+/**
+ * The header menus list a group's links flat: each parent, then its
+ * sub-links in order. Only the side navigation shows the nesting.
+ */
+export function flattenGroupLinks(
+  links: HeaderChildLinkModel[],
+): HeaderChildLinkModel[] {
+  return links.flatMap((link) => [
+    link,
+    ...link.children.map((sub) => ({
+      key: sub.key,
+      label: sub.label,
+      description: null,
+      icon: null,
+      link: sub.link,
+      children: [],
+    })),
+  ]);
 }
